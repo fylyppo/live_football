@@ -1,0 +1,16 @@
+    {
+        "fixture": {
+            "id": 1,
+            "referee": "Piputkin",
+            "timezone": "UTC",
+            "date": "2020-02-06T14:00:00+00:00",
+            "timestamp": 1580997600,
+            "periods": {},
+            "venue": {},
+            "status": {}
+        },
+        "league": {},
+        "teams": {},
+        "goals": {},
+        "score": {}
+    }

@@ -18,7 +18,7 @@ void main() {
     
   });
 
-  const String tlive= 'live?=true';
+  const String tleague= 'live?=true';
   const tId = 1;
   const tLiveMatches = LiveMatches(matches: [Match(fixture: Fixture(id: tId, referee: 'referee'))]);
   
@@ -27,10 +27,10 @@ void main() {
     //arrange
     when(() => mockLiveMatchesRepository!.getLiveMatches(any())).thenAnswer((_) async => const Right(tLiveMatches));
     //act
-    final result = await usecase(const Params(live: tlive));
+    final result = await usecase(const Params(league: tleague));
     //assert
     expect(result, const Right(tLiveMatches));
-    verify(() => mockLiveMatchesRepository!.getLiveMatches(tlive));
+    verify(() => mockLiveMatchesRepository!.getLiveMatches(tleague));
     verifyNoMoreInteractions(mockLiveMatchesRepository);
   });
 }

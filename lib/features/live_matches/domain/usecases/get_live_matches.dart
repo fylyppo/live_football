@@ -12,17 +12,17 @@ class GetLiveMatches implements UseCase<LiveMatches, Params>{
 
   @override
   Future<Either<Failure, LiveMatches>> call(Params params) async {
-    return await repository.getLiveMatches(params.live);
+    return await repository.getLiveMatches(params.league);
   }
 }
 
 class Params extends Equatable {
-  final String live;
+  final String league;
 
-  const Params({required this.live});
+  const Params({required this.league});
 
   @override
-  List<Object?> get props => [live];
+  List<Object?> get props => [league];
 
   
 }
