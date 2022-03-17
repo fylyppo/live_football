@@ -20,16 +20,16 @@ void main() {
 
   const String tlive= 'live?=true';
   const tId = 1;
-  final tLiveMatches = LiveMatches(matches: [Match(fixture: Fixture(id: tId, referee: 'referee'))]);
+  const tLiveMatches = LiveMatches(matches: [Match(fixture: Fixture(id: tId, referee: 'referee'))]);
   
   test('should get live matches from the repository', () async {
     usecase = GetLiveMatches(mockLiveMatchesRepository!);
     //arrange
-    when(() => mockLiveMatchesRepository!.getLiveMatches(any())).thenAnswer((_) async => Right(tLiveMatches));
+    when(() => mockLiveMatchesRepository!.getLiveMatches(any())).thenAnswer((_) async => const Right(tLiveMatches));
     //act
-    final result = await usecase(live: tlive);
+    final result = await usecase(const Params(live: tlive));
     //assert
-    expect(result, Right(tLiveMatches));
+    expect(result, const Right(tLiveMatches));
     verify(() => mockLiveMatchesRepository!.getLiveMatches(tlive));
     verifyNoMoreInteractions(mockLiveMatchesRepository);
   });
