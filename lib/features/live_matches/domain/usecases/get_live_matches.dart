@@ -8,7 +8,7 @@ class GetLiveMatches {
 
   GetLiveMatches(this.repository);
 
-  Future<Either<Failure, LiveMatches>> execute({required String live}) async {
+  Future<Either<Failure, LiveMatches>> call({required String live}) async {
     return await repository.getLiveMatches(live);
   }
 }
