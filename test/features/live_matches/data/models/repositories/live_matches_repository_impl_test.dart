@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:live_football/core/error/exceptions.dart';
+import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/platform/network_info.dart';
 import 'package:live_football/features/live_matches/data/datasources/live_matches_local_data_source.dart';
 import 'package:live_football/features/live_matches/data/datasources/live_matches_remote_data_source.dart';
@@ -36,7 +38,7 @@ void main() {
       networkInfo: mockNetworkInfo,
     );
   });
-
+  
   group('getConcreteLiveMatches', () {
     const tleague = 'Premier League';
     const tLiveMatchesModel = LiveMatchesModel(matches: [Match(fixture: Fixture(id: 1, referee: 'Piputkin'))]);
@@ -75,11 +77,43 @@ void main() {
         verify(() => mockRemoteDataSource.getLiveMatches(tleague));
         verify(() => mockLocalDataSource.cacheLiveMatches(tLiveMatchesModel),);
       });
+
+            test('should return server failure when the call to remote data source is unsuccessful', () async {
+        //arrange
+        when(() => mockRemoteDataSource.getLiveMatches(any())).thenThrow(ServerException());
+        //act
+        final result = await repository.getLiveMatches(tleague);
+        //assert
+        verify(() => mockRemoteDataSource.getLiveMatches(tleague));
+        verifyZeroInteractions(mockLocalDataSource);
+        expect(result, equals(Left(ServerFailure())));
+      });
     });
 
         group('device is offline', () {
       setUp(() {
         when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+      test('should return last locally cached data when the cached data is present', () async {
+        //arrange
+        when(() => mockLocalDataSource.getLastLiveMatch()).thenAnswer((_) async => tLiveMatchesModel);
+        //act
+        final result = await repository.getLiveMatches(tleague);
+        //assert
+        verifyZeroInteractions(mockRemoteDataSource);
+        verify(() => mockLocalDataSource.getLastLiveMatch());
+        expect(result, equals(const Right(tLiveMatches)));
+      });
+
+      test('should return CacheFailure when there is no cached data present', () async {
+        //arrange
+        when(() => mockLocalDataSource.getLastLiveMatch()).thenThrow(CacheException());
+        //act
+        final result = await repository.getLiveMatches(tleague);
+        //assert
+        verifyZeroInteractions(mockRemoteDataSource);
+        verify(() => mockLocalDataSource.getLastLiveMatch());
+        expect(result, equals(Left(CacheFailure())));
       });
     });
   });
