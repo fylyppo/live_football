@@ -10,12 +10,12 @@ class MockLiveMatchesRepository extends Mock implements LiveMatchesRepository{
 }
 
 void main() {
-  GetLiveMatches usecase;
+  late GetLiveMatches usecase;
   MockLiveMatchesRepository? mockLiveMatchesRepository;
 
   setUp(() {
     mockLiveMatchesRepository = MockLiveMatchesRepository();
-    
+    usecase = GetLiveMatches(mockLiveMatchesRepository!);
   });
 
   const String tleague= 'live?=true';
@@ -23,7 +23,7 @@ void main() {
   const tLiveMatches = LiveMatches(matches: [Match(fixture: Fixture(id: tId, referee: 'referee'))]);
   
   test('should get live matches from the repository', () async {
-    usecase = GetLiveMatches(mockLiveMatchesRepository!);
+    
     //arrange
     when(() => mockLiveMatchesRepository!.getLiveMatches(any())).thenAnswer((_) async => const Right(tLiveMatches));
     //act

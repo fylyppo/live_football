@@ -1,5 +1,6 @@
 import '../../domain/entities/live_matches.dart';
+import '../models/live_matches_model.dart';
 
 abstract class LiveMatchesRemoteDataSource {
-  Future<LiveMatches> getLiveMatches(String? league);
+  Future<LiveMatchesModel>? getLiveMatches(String? league);
 }

@@ -15,8 +15,10 @@ class LiveMatchesRepositoryImpl implements LiveMatchesRepository {
   LiveMatchesRepositoryImpl({required this.remoteDataSource, required this.localDataSource, required this.networkInfo});
   
   @override
-  Future<Either<Failure, LiveMatches>> getLiveMatches(String? league) {
-    throw UnimplementedError();
+  Future<Either<Failure, LiveMatches?>> getLiveMatches(String? league) async {
+    networkInfo.isConnected;
+    final remoteLiveMatches = await remoteDataSource.getLiveMatches(league);
+    localDataSource.cacheLiveMatches(remoteLiveMatches);
+    return Right(remoteLiveMatches);
   }
-  
 }

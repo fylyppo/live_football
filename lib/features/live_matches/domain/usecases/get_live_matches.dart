@@ -11,7 +11,7 @@ class GetLiveMatches implements UseCase<LiveMatches, Params>{
   GetLiveMatches(this.repository);
 
   @override
-  Future<Either<Failure, LiveMatches>> call(Params params) async {
+  Future<Either<Failure, LiveMatches?>> call(Params params) async {
     return await repository.getLiveMatches(params.league);
   }
 }
