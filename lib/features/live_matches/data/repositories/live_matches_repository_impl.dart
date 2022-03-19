@@ -30,7 +30,7 @@ class LiveMatchesRepositoryImpl implements LiveMatchesRepository {
       }
     } else {
       try{
-        final localMatch = await localDataSource.getLastLiveMatch();
+        final localMatch = await localDataSource.getLastLiveMatches();
       return Right(localMatch);
       } on CacheException {
         return Left(CacheFailure());

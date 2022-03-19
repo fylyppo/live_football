@@ -96,23 +96,23 @@ void main() {
       });
       test('should return last locally cached data when the cached data is present', () async {
         //arrange
-        when(() => mockLocalDataSource.getLastLiveMatch()).thenAnswer((_) async => tLiveMatchesModel);
+        when(() => mockLocalDataSource.getLastLiveMatches()).thenAnswer((_) async => tLiveMatchesModel);
         //act
         final result = await repository.getLiveMatches(tleague);
         //assert
         verifyZeroInteractions(mockRemoteDataSource);
-        verify(() => mockLocalDataSource.getLastLiveMatch());
+        verify(() => mockLocalDataSource.getLastLiveMatches());
         expect(result, equals(const Right(tLiveMatches)));
       });
 
       test('should return CacheFailure when there is no cached data present', () async {
         //arrange
-        when(() => mockLocalDataSource.getLastLiveMatch()).thenThrow(CacheException());
+        when(() => mockLocalDataSource.getLastLiveMatches()).thenThrow(CacheException());
         //act
         final result = await repository.getLiveMatches(tleague);
         //assert
         verifyZeroInteractions(mockRemoteDataSource);
-        verify(() => mockLocalDataSource.getLastLiveMatch());
+        verify(() => mockLocalDataSource.getLastLiveMatches());
         expect(result, equals(Left(CacheFailure())));
       });
     });
