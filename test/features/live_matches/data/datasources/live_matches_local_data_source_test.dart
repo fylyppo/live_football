@@ -12,16 +12,12 @@ class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 void main() {
   late LiveMatchesLocalDataSourceImpl dataSource;
-  //late SharedPreferences sharedPreferences;
   late MockSharedPreferences mockSharedPreferences;
 
   setUp(() async {
-    //sharedPreferences = await SharedPreferences.getInstance();
     mockSharedPreferences = MockSharedPreferences();
     dataSource = LiveMatchesLocalDataSourceImpl(sharedPrefs: mockSharedPreferences);
-    
-    //dataSource = LiveMatchesLocalDataSourceImpl(
-        //sharedPrefs: Future.value(mockSharedPreferences));
+
   });
 
   group('getLastLiveMatches', () {
@@ -47,7 +43,6 @@ void main() {
       final call = dataSource.getLastLiveMatches;
       //assert
       expect(() => call(), throwsA(isA<CacheException>()));
-      //expect(() => call(), throwsA(isInstanceOf<CacheException>()));
     });
   });
 
