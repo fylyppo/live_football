@@ -20,7 +20,7 @@ class Match extends Equatable {
 
 class Fixture extends Equatable{
   final int id;
-  final String referee;
+  final String? referee;
 
   const Fixture({required this.id, required this.referee});
 

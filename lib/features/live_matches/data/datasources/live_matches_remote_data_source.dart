@@ -10,18 +10,24 @@ abstract class LiveMatchesRemoteDataSource {
 class LiveMatchesRemoteDataSourceImpl implements LiveMatchesRemoteDataSource{
   final http.Client client;
 
+  static const apiKey = "******************";
+  static const headers = {
+    //'x-rapidapi-host': "v3.football.api-sports.io",
+    'x-apisports-key': apiKey
+  };
+  
   LiveMatchesRemoteDataSourceImpl({required this.client});
   
   @override
-  Future<LiveMatchesModel>? getLiveMatches(String? league) => _getLiveMatchesFromUrl('http://fakeapi.com/$league');
+  Future<LiveMatchesModel>? getLiveMatches(String? league) => _getLiveMatchesFromUrl('https://v3.football.api-sports.io/fixtures?live=all');
 
   Future<LiveMatchesModel> _getLiveMatchesFromUrl(String url) async {
     final response = await client.get(Uri.parse(url), 
-      headers: {
-    'Content-Type': 'application/json',
-    });
+      headers: headers);
     if(response.statusCode == 200){
-      return LiveMatchesModel.fromJson(json.decode(response.body));
+      var body = jsonDecode(response.body);
+      var firstMatch = body['response'][0];
+      return LiveMatchesModel.fromJson(firstMatch);
     } else {
       throw ServerException();
     }
