@@ -16,12 +16,13 @@ void main() {
 
   setUp(() async {
     mockSharedPreferences = MockSharedPreferences();
-    dataSource = LiveMatchesLocalDataSourceImpl(sharedPrefs: mockSharedPreferences);
-
+    dataSource =
+        LiveMatchesLocalDataSourceImpl(sharedPrefs: mockSharedPreferences);
   });
 
   group('getLastLiveMatches', () {
-    final tLiveMatchesModel = LiveMatchesModel.fromJson(json.decode(fixture('live_matches_cached.json')));
+    final tLiveMatchesModel = LiveMatchesModel.fromJson(
+        json.decode(fixture('live_matches_cached.json')));
     test(
         'should return Live Matches from SharedPreferences when there is one in the cache',
         () async {
@@ -47,16 +48,31 @@ void main() {
   });
 
   group('cacheLiveMatches', () {
-    const tLiveMatchesModel = LiveMatchesModel(matches: [Match(fixture: Fixture(id: 1, referee: 'Piputkin'))]);
+    const tLiveMatchesModel = LiveMatchesModel(matches: [
+      Match(
+          league: League(
+              id: 1,
+              name: 'Premier League',
+              logo: 'logo',
+              flag: 'flag',
+              round: 'Round 1'),
+          teams: Teams(
+              home: Team(id: 1, name: 'Arsenal', logo: 'logo'),
+              away: Team(id: 2, name: 'Chelsea', logo: 'logo')),
+          goals: Goals(home: 1, away: 2),
+          fixture: Fixture(id: 1, date: 'Date', status: Status(elapsed: 1)))
+    ]);
     test('should call SharedPreferences to cache the data', () async {
       //act
       final call = await dataSource.cacheLiveMatches(tLiveMatchesModel);
-      
+
       //assert
       final expectedJsonString = json.encode(tLiveMatchesModel.toJson());
       print(expectedJsonString);
-      verify(() => mockSharedPreferences.setString(CACHED_LIVE_MATCHES, expectedJsonString),);
-      
+      verify(
+        () => mockSharedPreferences.setString(
+            CACHED_LIVE_MATCHES, expectedJsonString),
+      );
     });
   });
 }

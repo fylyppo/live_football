@@ -7,7 +7,18 @@ import 'package:live_football/features/live_matches/domain/entities/live_matches
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
-  final tLiveMatchesModel = LiveMatchesModel(matches: [Match(fixture: Fixture(id: 1, referee: 'Piputkin'))]);
+  const tLiveMatchesModel = LiveMatchesModel(matches: [Match(
+          league: League(
+              id: 850,
+              name: 'UEFA U21 Championship - Qualification',
+              logo: 'https://media.api-sports.io/football/leagues/850.png',
+              flag: null,
+              round: 'Ranking of second-placed teams - 17'),
+          teams: Teams(
+              home: Team(id: 8200, name: 'Israel U21', logo: 'https://media.api-sports.io/football/teams/8200.png'),
+              away: Team(id: 8215, name: 'Poland U21', logo: 'https://media.api-sports.io/football/teams/8215.png')),
+          goals: Goals(home: 0, away: 1),
+          fixture: Fixture(id: 1, referee: 'Piputkin', date: '2020-02-06T14:00:00+00:00', status: Status(elapsed: 23)))]);
 
   test('should be a subclass of LiveMatches entity',
    () async {

@@ -41,7 +41,18 @@ void main() {
   
   group('getConcreteLiveMatches', () {
     const tleague = 'Premier League';
-    const tLiveMatchesModel = LiveMatchesModel(matches: [Match(fixture: Fixture(id: 1, referee: 'Piputkin'))]);
+    const tLiveMatchesModel = LiveMatchesModel(matches: [Match(
+          league: League(
+              id: 1,
+              name: 'Premier League',
+              logo: 'logo',
+              flag: 'flag',
+              round: 'Round 1'),
+          teams: Teams(
+              home: Team(id: 1, name: 'Arsenal', logo: 'logo'),
+              away: Team(id: 2, name: 'Chelsea', logo: 'logo')),
+          goals: Goals(home: 1, away: 2),
+          fixture: Fixture(id: 1, date: 'Date', status: Status(elapsed: 1)))]);
     const LiveMatches tLiveMatches = tLiveMatchesModel;
     
     test('check if the device is online', () async {

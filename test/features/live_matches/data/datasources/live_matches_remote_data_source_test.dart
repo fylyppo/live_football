@@ -44,8 +44,8 @@ void main() {
       dataSource.getLiveMatches(tLeague);
       //assert
       verify(() => mockHttpClient
-              .get(Uri.parse('http://fakeapi.com/$tLeague'), headers: {
-            'Content-Type': 'application/json',
+              .get(Uri.parse('https://v3.football.api-sports.io/fixtures?live=all'), headers: {
+            'x-apisports-key': '****',
           }));
     });
 
