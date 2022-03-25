@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/features/live_matches/data/models/live_matches_model.dart';
 import 'package:live_football/features/live_matches/domain/entities/live_matches.dart';
+import 'package:live_football/features/live_matches/domain/entities/team.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 

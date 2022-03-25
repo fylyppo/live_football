@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'team.dart';
+
 class LiveMatches extends Equatable {
   final List<Match> matches;
 
@@ -69,17 +71,6 @@ class Teams extends Equatable {
   @override
   List<Object?> get props => [home, away];
 
-}
-
-class Team extends Equatable {
-  final int id;
-  final String name;
-  final String logo;
-
-  const Team({required this.id, required this.name, required this.logo});
-
-  @override
-  List<Object?> get props => [id, name, logo];
 }
 
 class Goals extends Equatable {

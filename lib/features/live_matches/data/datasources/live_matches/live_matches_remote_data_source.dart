@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:live_football/core/error/exceptions.dart';
-import '../models/live_matches_model.dart';
+import '../../models/live_matches_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class LiveMatchesRemoteDataSource {
@@ -27,6 +27,7 @@ class LiveMatchesRemoteDataSourceImpl implements LiveMatchesRemoteDataSource{
     if(response.statusCode == 200){
       var body = jsonDecode(response.body);
       var firstMatch = body['response'][0];
+      
       return LiveMatchesModel.fromJson(firstMatch);
     } else {
       throw ServerException();

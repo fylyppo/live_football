@@ -3,11 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/network/network_info.dart';
-import 'package:live_football/features/live_matches/data/datasources/live_matches_local_data_source.dart';
-import 'package:live_football/features/live_matches/data/datasources/live_matches_remote_data_source.dart';
+import 'package:live_football/features/live_matches/data/datasources/live_matches/live_matches_local_data_source.dart';
+import 'package:live_football/features/live_matches/data/datasources/live_matches/live_matches_remote_data_source.dart';
 import 'package:live_football/features/live_matches/data/models/live_matches_model.dart';
 import 'package:live_football/features/live_matches/data/repositories/live_matches_repository_impl.dart';
 import 'package:live_football/features/live_matches/domain/entities/live_matches.dart';
+import 'package:live_football/features/live_matches/domain/entities/team.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockRemoteDataSource extends Mock implements LiveMatchesRemoteDataSource {

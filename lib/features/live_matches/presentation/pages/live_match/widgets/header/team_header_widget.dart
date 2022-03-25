@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:live_football/features/live_matches/presentation/widgets/text_opacity.dart';
 import '../../../../../domain/entities/live_matches.dart';
+import '../../../../../domain/entities/team.dart';
 
 
 class TeamHeaderWidget extends StatelessWidget {

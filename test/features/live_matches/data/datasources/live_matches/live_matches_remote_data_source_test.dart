@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
-import 'package:live_football/features/live_matches/data/datasources/live_matches_remote_data_source.dart';
+import 'package:live_football/features/live_matches/data/datasources/live_matches/live_matches_remote_data_source.dart';
 import 'package:live_football/features/live_matches/data/models/live_matches_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
-import '../../../../fixtures/fixture_reader.dart';
+import '../../../../../fixtures/fixture_reader.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
 
@@ -32,9 +32,11 @@ void main() {
   }
   group('getLiveMatches', () {
     const tLeague = 'Premier League';
-    final tLiveMatchesModel =
-        LiveMatchesModel.fromJson(json.decode(fixture('live_matches.json')));
-
+    
+    final Map<String, dynamic> decoded = json.decode(fixture('live_matches.json'));
+    final List<dynamic> mapList = decoded['response'];
+    final Map<String, dynamic> map = mapList[0];
+    final tLiveMatchesModel = LiveMatchesModel.fromJson(map);
     test(
         'should perform a GET on a URL with league endpoint and with application/json header',
         () async {
@@ -45,7 +47,7 @@ void main() {
       //assert
       verify(() => mockHttpClient
               .get(Uri.parse('https://v3.football.api-sports.io/fixtures?live=all'), headers: {
-            'x-apisports-key': '****',
+            'x-apisports-key': '******************',
           }));
     });
 

@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:live_football/core/network/network_info.dart';
-import 'package:live_football/features/live_matches/data/datasources/live_matches_remote_data_source.dart';
+import 'package:live_football/features/live_matches/data/datasources/live_matches/live_matches_remote_data_source.dart';
 import 'package:live_football/features/live_matches/data/repositories/live_matches_repository_impl.dart';
 import 'package:live_football/features/live_matches/domain/repositories/live_matches_repository.dart';
 import 'package:live_football/features/live_matches/domain/usecases/get_live_matches.dart';
@@ -9,7 +9,7 @@ import 'package:live_football/features/live_matches/presentation/bloc/live_match
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'core/util/input_converter.dart';
-import 'features/live_matches/data/datasources/live_matches_local_data_source.dart';
+import 'features/live_matches/data/datasources/live_matches/live_matches_local_data_source.dart';
 
 final serviceLocator = GetIt.instance;
 

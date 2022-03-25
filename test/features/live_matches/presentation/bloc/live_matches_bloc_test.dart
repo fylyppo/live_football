@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/util/input_converter.dart';
 import 'package:live_football/features/live_matches/domain/entities/live_matches.dart';
+import 'package:live_football/features/live_matches/domain/entities/team.dart';
 import 'package:live_football/features/live_matches/domain/usecases/get_live_matches.dart';
 import 'package:live_football/features/live_matches/presentation/bloc/live_matches_bloc.dart';
 import 'package:mocktail/mocktail.dart';

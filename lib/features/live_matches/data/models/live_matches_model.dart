@@ -1,5 +1,7 @@
 import 'package:live_football/features/live_matches/domain/entities/live_matches.dart';
 
+import '../../domain/entities/team.dart';
+
 class LiveMatchesModel extends LiveMatches {
   const LiveMatchesModel({required List<Match> matches})
       : super(matches: matches);
