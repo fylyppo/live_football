@@ -3,11 +3,11 @@ import 'package:live_football/core/error/exceptions.dart';
 import '../../models/lineups_model.dart';
 import 'package:http/http.dart' as http;
 
-abstract class FixturesLineupsRemoteDataSource {
-  Future<LineupsModel>? getFixtureLineups(String fixtureId);
+abstract class FixtureLineupsRemoteDataSource {
+  Future<LineupsModel>? getFixtureLineups(int fixtureId);
 }
 
-class FixturesLineupsRemoteDataSourceImpl implements FixturesLineupsRemoteDataSource{
+class FixtureLineupsRemoteDataSourceImpl implements FixtureLineupsRemoteDataSource{
   final http.Client client;
 
   static const apiKey = "******************";
@@ -16,10 +16,10 @@ class FixturesLineupsRemoteDataSourceImpl implements FixturesLineupsRemoteDataSo
     'x-apisports-key': apiKey
   };
   
-  FixturesLineupsRemoteDataSourceImpl({required this.client});
+  FixtureLineupsRemoteDataSourceImpl({required this.client});
   
   @override
-  Future<LineupsModel>? getFixtureLineups(String fixtureId) => _getFixtureLineupsFromUrl('https://v3.football.api-sports.io/fixtures/lineups/id?=$fixtureId');
+  Future<LineupsModel>? getFixtureLineups(int fixtureId) => _getFixtureLineupsFromUrl('https://v3.football.api-sports.io/fixtures/lineups/id?=$fixtureId');
 
   Future<LineupsModel> _getFixtureLineupsFromUrl(String url) async {
     final response = await client.get(Uri.parse(url), 
@@ -31,5 +31,5 @@ class FixturesLineupsRemoteDataSourceImpl implements FixturesLineupsRemoteDataSo
     } else {
       throw ServerException();
     }
-  } 
+  }
 }

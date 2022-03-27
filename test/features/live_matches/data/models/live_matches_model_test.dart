@@ -32,8 +32,10 @@ void main() {
      test('should return a valid model', () async {
        //arrange
        final Map<String, dynamic> jsonMap = json.decode(fixture('live_matches.json'));
+       final List<dynamic> matchesList = jsonMap['response'];
+       final  Map<String, dynamic> match = matchesList[0];
        //act
-       final result = LiveMatchesModel.fromJson(jsonMap);
+       final result = LiveMatchesModel.fromJson(match);
        //expect
        expect(result, tLiveMatchesModel);
      });

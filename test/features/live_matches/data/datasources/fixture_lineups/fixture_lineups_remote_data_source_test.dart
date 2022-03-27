@@ -11,12 +11,12 @@ import '../../../../../fixtures/fixture_reader.dart';
 class MockHttpClient extends Mock implements http.Client {}
 
 void main() {
-  late FixturesLineupsRemoteDataSourceImpl dataSource;
+  late FixtureLineupsRemoteDataSourceImpl dataSource;
   late MockHttpClient mockHttpClient;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
-    dataSource = FixturesLineupsRemoteDataSourceImpl(client: mockHttpClient);
+    dataSource = FixtureLineupsRemoteDataSourceImpl(client: mockHttpClient);
     registerFallbackValue(Uri.parse(''));
   });
 
@@ -32,7 +32,7 @@ void main() {
               (_) async => http.Response('Something went wrong', 404));
   }
   group('getFixtureLineups', () {
-    const tFixtureId = '592872';
+    const tFixtureId = 592872;
     final Map<String, dynamic> decoded = json.decode(fixture('fixture_lineups.json'));
     final List<dynamic> map = decoded['response'];
     final tLineupsModel = LineupsModel.fromJson(map);

@@ -24,7 +24,7 @@ class LiveMatchesBloc extends Bloc<LiveMatchesEvent, LiveMatchesState> {
       if (event is GetLiveMatchesForLeague) {
         emit(Loading());
         final failureOrMatches =
-            await getLiveMatches(Params(league: event.leagueString));
+            await getLiveMatches(FixtureParams(league: event.leagueString));
         emit(failureOrMatches.fold(
             (failure) => Error(
                 message: _mapFailureToMessage(failure)),

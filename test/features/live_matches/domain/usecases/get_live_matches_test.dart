@@ -39,7 +39,7 @@ void main() {
     //arrange
     when(() => mockLiveMatchesRepository!.getLiveMatches(any())).thenAnswer((_) async => const Right(tLiveMatches));
     //act
-    final result = await usecase(const Params(league: tleague));
+    final result = await usecase(const FixtureParams(league: tleague));
     //assert
     expect(result, const Right(tLiveMatches));
     verify(() => mockLiveMatchesRepository!.getLiveMatches(tleague));

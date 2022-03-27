@@ -18,8 +18,8 @@ class Lineups extends Equatable {
 class Lineup extends Equatable {
   final Team team;
   final String formation;
-  final StartXI startXI;
-  final StartXI substitutes;
+  final Players startXI;
+  final Players substitutes;
   final Coach coach;
   
   const Lineup({
@@ -31,23 +31,23 @@ class Lineup extends Equatable {
   });
 
   factory Lineup.fromJson(Map<String, dynamic> json) {
-    return Lineup(team: Team.fromJson(json['team']), formation: json['formation'], startXI: StartXI.fromJson(json['startXI']), substitutes: StartXI.fromJson(json['substitutes']), coach: Coach.fromJson(json['coach']));
+    return Lineup(team: Team.fromJson(json['team']), formation: json['formation'], startXI: Players.fromJson(json['startXI']), substitutes: Players.fromJson(json['substitutes']), coach: Coach.fromJson(json['coach']));
   }
 
   @override
-  List<Object?> get props => [team, formation, startXI, substitutes, coach];
+  List<Object?> get props => [team, formation, Players, substitutes, coach];
 }
 
-class StartXI extends Equatable {
+class Players extends Equatable {
   final List<Player> playersList;
   
-  const StartXI({
+  const Players({
     required this.playersList,
   });
 
-  factory StartXI.fromJson(List<dynamic> json) {
+  factory Players.fromJson(List<dynamic> json) {
     List<Player> playersList = json.map((e) => Player.fromJson(e['player']),).toList();
-    return StartXI(playersList: playersList);
+    return Players(playersList: playersList);
   }
   
   @override
