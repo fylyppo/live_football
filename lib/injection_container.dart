@@ -9,7 +9,7 @@ import 'features/specific_fixture/data/datasources/fixture/fixture_remote_data_s
 import 'features/specific_fixture/data/repositories/fixture_repository_impl.dart';
 import 'features/specific_fixture/domain/repositories/fixture_repository.dart';
 import 'features/specific_fixture/domain/usecases/get_fixture.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_bloc.dart';
+import 'features/specific_fixture/presentation/bloc/fixture_bloc/fixture_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 

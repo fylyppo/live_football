@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../bloc/fixture_bloc.dart';
+import '../../../../bloc/fixture_bloc/fixture_bloc.dart';
 import 'match_page_header_widget.dart';
 
 class MatchPageHeaderDelegate implements SliverPersistentHeaderDelegate {

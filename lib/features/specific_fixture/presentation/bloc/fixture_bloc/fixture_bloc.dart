@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:live_football/core/util/input_converter.dart';
 
-import '../../../../core/error/failures.dart';
-import '../../domain/entities/fixture.dart';
-import '../../domain/usecases/get_fixture.dart';
+import '../../../../../core/error/failures.dart';
+import '../../../domain/entities/fixture.dart';
+import '../../../domain/usecases/get_fixture.dart';
 
 part 'fixture_event.dart';
 part 'fixture_state.dart';
@@ -23,9 +23,9 @@ class FixtureBloc extends Bloc<FixtureEvent, FixtureState> {
     on<FixtureEvent>((event, emit) async {
       if (event is GetFixtureForId) {
         emit(Loading());
-        final failureOrMatches =
+        final failureOrFixture =
             await getFixture(FixtureParams(id: event.fixtureId));
-        emit(failureOrMatches.fold(
+        emit(failureOrFixture.fold(
             (failure) => Error(
                 message: _mapFailureToMessage(failure)),
             (fixture) => Loaded(fixture: fixture!)));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_bloc.dart';
+import 'features/specific_fixture/presentation/bloc/fixture_bloc/fixture_bloc.dart';
 import 'features/specific_fixture/presentation/pages/live_match/live_matches_page.dart';
 import 'injection_container.dart' as di;
 import 'injection_container.dart';

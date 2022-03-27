@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:live_football/features/specific_fixture/presentation/bloc/fixture_bloc.dart';
+import 'package:live_football/features/specific_fixture/presentation/bloc/fixture_bloc/fixture_bloc.dart';
 import 'package:live_football/features/specific_fixture/presentation/pages/live_match/widgets/header/match_page_header_delegate.dart';
 
 class LiveMatchesPage extends StatelessWidget {
