@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:live_football/features/live_matches/presentation/pages/live_match/live_matches_page.dart';
-import 'features/live_matches/presentation/bloc/live_matches_bloc.dart';
+import 'features/specific_fixture/presentation/bloc/fixture_bloc.dart';
+import 'features/specific_fixture/presentation/pages/live_match/live_matches_page.dart';
 import 'injection_container.dart' as di;
 import 'injection_container.dart';
 
@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
         title: 'LiveMatches',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(brightness: Brightness.dark),
-          appBarTheme: AppBarTheme(backgroundColor: Colors.green)
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.green)
         ),
         home: BlocProvider(
-          create: (context) => serviceLocator<LiveMatchesBloc>(),
-          child: LiveMatchesPage(),
+          create: (context) => serviceLocator<FixtureBloc>(),
+          child: const LiveMatchesPage(),
         ));
   }
 }
