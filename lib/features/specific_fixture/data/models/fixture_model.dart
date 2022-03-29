@@ -6,7 +6,8 @@ class FixtureModel extends Fixture {
   const FixtureModel({required FixtureData fixtureData, required Goals goals, required League league, required Teams teams})
       : super(fixtureData: fixtureData, goals: goals, league: league, teams: teams);
 
-  factory FixtureModel.fromJson(Map<String, dynamic> json) {
+  factory FixtureModel.fromJson(List<dynamic> jsonList) {
+    Map<String, dynamic> json = jsonList[0];
     return FixtureModel(
         fixtureData: FixtureData(
           id: json['fixture']['id'],

@@ -19,7 +19,7 @@ class FixtureLineupsRemoteDataSourceImpl implements FixtureLineupsRemoteDataSour
   FixtureLineupsRemoteDataSourceImpl({required this.client});
   
   @override
-  Future<LineupsModel>? getFixtureLineups(int fixtureId) => _getFixtureLineupsFromUrl('https://v3.football.api-sports.io/fixtures/lineups/id?=$fixtureId');
+  Future<LineupsModel>? getFixtureLineups(int fixtureId) => _getFixtureLineupsFromUrl('https://v3.football.api-sports.io/fixtures/lineups?fixture=$fixtureId');
 
   Future<LineupsModel> _getFixtureLineupsFromUrl(String url) async {
     final response = await client.get(Uri.parse(url), 

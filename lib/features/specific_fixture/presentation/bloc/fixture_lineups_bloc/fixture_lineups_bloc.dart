@@ -4,7 +4,6 @@ import 'package:live_football/features/specific_fixture/domain/entities/lineups.
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
 
 import '../../../../../core/error/failures.dart';
-import '../fixture_bloc/fixture_bloc.dart';
 
 part 'fixture_lineups_event.dart';
 part 'fixture_lineups_state.dart';

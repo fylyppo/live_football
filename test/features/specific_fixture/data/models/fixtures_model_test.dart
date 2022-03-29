@@ -32,7 +32,7 @@ void main() {
      test('should return a valid model', () async {
        //arrange
        final Map<String, dynamic> jsonMap = json.decode(fixture('fixture.json'));
-       final Map<String, dynamic> match = jsonMap['response'];
+       final List<dynamic> match = jsonMap['response'];
        //act
        final result = FixtureModel.fromJson(match);
        //expect
