@@ -36,7 +36,7 @@ class _ElapsedTimeWidgetState extends State<ElapsedTimeWidget>
   @override
   void initState() {
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
     setState(() {
       bottomColor = colorList[index % colorList.length];

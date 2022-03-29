@@ -27,16 +27,9 @@ class ScoreHeaderWidget extends StatelessWidget {
         children: [
           Text(
             goals.home.toString() + ' : ' + goals.away.toString(),
-            style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
           ),
           ElapsedTimeWidget(status: status, shrinkOffset: shrinkOffset),
-          // shrinkOffset < 80
-          //     ? Text(status.elapsed.toString() + "'",
-          //         style: TextStyle(
-          //             fontWeight: FontWeight.bold,
-          //             color:
-          //                 Colors.green.withOpacity(TextOpacity.titleOpacity(shrinkOffset))))
-          //     : Container()
         ],
       )),
     );
