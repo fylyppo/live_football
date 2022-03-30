@@ -46,7 +46,7 @@ void main() {
       dataSource.getFixtureLineups(tFixtureId);
       //assert
       verify(() => mockHttpClient
-              .get(Uri.parse('https://v3.football.api-sports.io/fixtures/lineups/id?=$tFixtureId'), headers: {
+              .get(Uri.parse('https://v3.football.api-sports.io/fixtures/lineups?fixture=$tFixtureId'), headers: {
             'x-apisports-key': '******************',
           }));
     });
