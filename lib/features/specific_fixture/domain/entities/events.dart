@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 

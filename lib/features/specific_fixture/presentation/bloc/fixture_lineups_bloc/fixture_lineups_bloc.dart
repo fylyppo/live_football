@@ -2,16 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
-
 import '../../../../../core/error/failures.dart';
+import '../../../../../core/error/messages/messages.dart';
 
 part 'fixture_lineups_event.dart';
 part 'fixture_lineups_state.dart';
-
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = ' Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE =
-    'Invalid Input The number must be a positive integer or zero.';
 
 class FixtureLineupsBloc extends Bloc<FixtureLineupsEvent, FixtureLineupsState> {
   final GetFixtureLineups getFixtureLineups;
