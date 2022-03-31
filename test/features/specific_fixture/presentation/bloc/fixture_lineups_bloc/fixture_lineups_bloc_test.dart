@@ -22,7 +22,7 @@ void main() {
     expect(bloc.state, equals(Empty()));
   });
 
-  group('GetFixture', () {
+  group('GetFixtureLineups', () {
     const tFixtureId = 850;
     const tFixtureLineups = Lineups(homeLineup: Lineup(
           team: Team(

@@ -19,7 +19,6 @@ void main() {
     usecase = GetFixture(mockFixtureRepository!);
   });
 
-  const String tleague= 'live?=true';
   const tFixtureId = 1;
   const tFixture = Fixture(
           league: League(

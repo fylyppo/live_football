@@ -1,8 +1,5 @@
-
-
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/fixture_usecase.dart';
 import '../../../specific_fixture/domain/entities/fixture.dart';
