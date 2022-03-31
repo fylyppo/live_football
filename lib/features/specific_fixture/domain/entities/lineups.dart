@@ -11,6 +11,10 @@ class Lineups extends Equatable {
     required this.awayLineup,
   });
 
+  factory Lineups.fromJson(List<dynamic> json) {
+    return Lineups(homeLineup: Lineup.fromJson(json[0]), awayLineup: Lineup.fromJson(json[1]));
+  }
+  
   @override
   List<Object?> get props => [homeLineup, awayLineup];
 }

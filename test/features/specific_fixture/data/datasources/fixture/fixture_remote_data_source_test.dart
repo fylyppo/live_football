@@ -34,7 +34,7 @@ void main() {
     const tFixtureId = 850;
     
     final Map<String, dynamic> decoded = json.decode(fixture('fixture.json'));
-    final List<dynamic> map = decoded['response'][0];
+    final List<dynamic> map = decoded['response'];
     final tLiveMatchesModel = FixtureModel.fromJson(map);
     test(
         'should perform a GET on a URL with league endpoint and with application/json header',
