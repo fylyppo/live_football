@@ -14,6 +14,7 @@ class FixtureModel extends Fixture {
           referee: json['fixture']['referee'],
           date: json['fixture']['date'],
           status: Status(elapsed: json['fixture']['status']['elapsed']),
+          venue: Venue(id: json['fixture']['venue']['id'], name: json['fixture']['venue']['name'], city: json['fixture']['venue']['city'])
         ),
         goals: Goals(home: json['goals']['home'], away: json['goals']['away']),
         league: League(

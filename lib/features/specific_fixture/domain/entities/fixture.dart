@@ -19,16 +19,33 @@ class FixtureData extends Equatable {
   final String? referee;
   final String date;
   final Status status;
+  final Venue venue;
 
   const FixtureData({
     required this.id,
     this.referee,
     required this.date,
     required this.status,
+    required this.venue,
   });
 
   @override
   List<Object?> get props => [id, referee];
+}
+
+class Venue extends Equatable {
+  final int? id;
+  final String name;
+  final String city;
+  
+  const Venue({
+    required this.id,
+    required this.name,
+    required this.city,
+  });
+
+  @override
+  List<Object?> get props => [id, name, city];
 }
 
 class Status extends Equatable {

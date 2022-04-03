@@ -7,23 +7,23 @@ abstract class FixtureEventsState extends Equatable {
   List<Object> get props => [];
 }
 
-class Empty extends FixtureEventsState {}
+class EventsEmpty extends FixtureEventsState {}
 
-class Loading extends FixtureEventsState {}
+class EventsLoading extends FixtureEventsState {}
 
-class Loaded extends FixtureEventsState {
+class EventsLoaded extends FixtureEventsState {
   final Events events;
 
-  const Loaded({required this.events});
+  const EventsLoaded({required this.events});
 
   @override
   List<Object> get props => super.props..addAll([events]);
 }
 
-class Error extends FixtureEventsState {
+class EventsError extends FixtureEventsState {
   final String message;
 
-  const Error({required this.message});
+  const EventsError({required this.message});
 
   @override
   List<Object> get props => super.props..addAll([message]);

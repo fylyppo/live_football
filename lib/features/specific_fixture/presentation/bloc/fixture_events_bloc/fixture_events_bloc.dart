@@ -11,12 +11,12 @@ part 'fixture_events_state.dart';
 class FixtureEventsBloc extends Bloc<FixtureEventsEvent, FixtureEventsState> {
   final GetFixtureEvents getFixtureEvents;
   
-  FixtureEventsBloc({ required this.getFixtureEvents}) : super(Empty()) {
+  FixtureEventsBloc({ required this.getFixtureEvents}) : super(EventsEmpty()) {
     on<FixtureEventsEvent>((event, emit) async {
       if(event is GetFixtureEventsForId) {
-        emit(Loading());
+        emit(EventsLoading());
         final failureOrEvents = await getFixtureEvents(FixtureParams(id: event.fixtureId));
-        emit(failureOrEvents.fold((failure) => Error(message: _mapFailureToMessage(failure)), (events) => Loaded(events: events)));
+        emit(failureOrEvents.fold((failure) => EventsError(message: _mapFailureToMessage(failure)), (events) => EventsLoaded(events: events)));
       }
     });
   }

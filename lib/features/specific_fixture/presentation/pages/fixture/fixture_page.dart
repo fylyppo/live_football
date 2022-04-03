@@ -5,6 +5,7 @@ import 'package:live_football/features/specific_fixture/presentation/bloc/fixtur
 import 'package:live_football/features/specific_fixture/presentation/pages/fixture/widgets/lineups_tab/lineups_tab.dart';
 
 import '../fixture/widgets/header/match_page_header_delegate.dart';
+import 'widgets/details_tab/details_tab.dart';
 
 class LiveMatchesPage extends StatefulWidget {
   const LiveMatchesPage({Key? key}) : super(key: key);
@@ -21,34 +22,23 @@ class _LiveMatchesPageState extends State<LiveMatchesPage>
   void initState() {
     super.initState();
     controller = TabController(length: 3, vsync: this);
+    context.read<FixtureBloc>().add(const GetFixtureForId(850));
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: 
-        NestedScrollView(
+        body: NestedScrollView(
           physics: ClampingScrollPhysics(),
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
-              
               SliverAppBar(
                 forceElevated: true,
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () => exit(0),
                 ),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.download),
-                    onPressed: () {
-                      context
-                          .read<FixtureBloc>()
-                          .add(const GetFixtureForId(850));
-                    },
-                  ),
-                ],
                 title: BlocBuilder<FixtureBloc, FixtureState>(
                   builder: (context, state) {
                     if (state is Empty) {
@@ -77,15 +67,14 @@ class _LiveMatchesPageState extends State<LiveMatchesPage>
                   },
                 ),
               ),
-              
               SliverPersistentHeader(
-                  delegate: MatchPageHeaderDelegate(),
-                  pinned: true,
-                ),
+                delegate: MatchPageHeaderDelegate(),
+                pinned: true,
+              ),
               SliverOverlapAbsorber(
-                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              sliver:
-              SliverAppBar(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverAppBar(
                   toolbarHeight: 0,
                   pinned: true,
                   bottom: TabBar(
@@ -98,35 +87,22 @@ class _LiveMatchesPageState extends State<LiveMatchesPage>
                   ),
                 ),
               )
-              
-              
             ];
           },
-          body: Builder(
-            builder: (context) {
-              return CustomScrollView(
-                shrinkWrap: true,
-                slivers: [
-                  SliverFillRemaining(
-                    child: TabBarView(
-                        controller: controller,
-                        children: [
-                          Container(
-                              
-                              height: 100,
-                              child: Center(child: Text("Tab 1"))),
-                          LineupsTab(),
-                          Container(
-                              
-                              height: 100,
-                              child: Center(child: Text("Tab 1"))),
-                        ],
-                      ),
-                  ),
-                ]
-              );
-            }
-          ),
+          body: Builder(builder: (context) {
+            return CustomScrollView(shrinkWrap: true, slivers: [
+              SliverFillRemaining(
+                child: TabBarView(
+                  controller: controller,
+                  children: [
+                    DetailsTab(),
+                    LineupsTab(),
+                    Container(height: 100, child: Center(child: Text("Tab 1"))),
+                  ],
+                ),
+              ),
+            ]);
+          }),
         ),
 
         // CustomScrollView(
