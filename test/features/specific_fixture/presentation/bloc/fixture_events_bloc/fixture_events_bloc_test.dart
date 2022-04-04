@@ -24,7 +24,7 @@ void main() {
   });
 
   test('initial state should be Empty', () {
-    expect(bloc.state, equals(Empty()));
+    expect(bloc.state, equals(EventsEmpty()));
   });
 
   group('GetFixtureEvents', () {
@@ -48,8 +48,8 @@ void main() {
       when(() => mockGetFixtureEvents(any())).thenAnswer((_) async => Right(tFixtureEvents));
       //assert later
       final expected = [
-        Loading(),
-        Loaded(events: tFixtureEvents)
+        EventsLoading(),
+        EventsLoaded(events: tFixtureEvents)
       ];
       expectLater(bloc.stream, emitsInOrder(expected));
       //act
@@ -61,8 +61,8 @@ void main() {
       when(() => mockGetFixtureEvents(any())).thenAnswer((_) async => Left(ServerFailure()));
       //assert later
       final expected = [
-        Loading(),
-        const Error(message: SERVER_FAILURE_MESSAGE)
+        EventsLoading(),
+        const EventsError(message: SERVER_FAILURE_MESSAGE)
       ];
       expectLater(bloc.stream, emitsInOrder(expected));
       //act
@@ -74,8 +74,8 @@ void main() {
       when(() => mockGetFixtureEvents(any())).thenAnswer((_) async => Left(CacheFailure()));
       //assert later
       final expected = [
-        Loading(),
-        const Error(message: CACHE_FAILURE_MESSAGE)
+        EventsLoading(),
+        const EventsError(message: CACHE_FAILURE_MESSAGE)
       ];
       expectLater(bloc.stream, emitsInOrder(expected));
       //act

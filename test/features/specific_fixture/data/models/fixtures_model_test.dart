@@ -19,7 +19,7 @@ void main() {
               home: Team(id: 8200, name: 'Israel U21', logo: 'https://media.api-sports.io/football/teams/8200.png'),
               away: Team(id: 8215, name: 'Poland U21', logo: 'https://media.api-sports.io/football/teams/8215.png')),
           goals: Goals(home: 0, away: 1),
-          fixtureData: FixtureData(id: 1, referee: 'Piputkin', date: '2020-02-06T14:00:00+00:00', status: Status(elapsed: 23)));
+          fixtureData: FixtureData(id: 1, referee: 'Piputkin', date: '2020-02-06T14:00:00+00:00', status: Status(elapsed: 23), venue: Venue(id: 1, name: 'name', city: 'city')));
 
   test('should be a subclass of Fixture entity',
    () async {

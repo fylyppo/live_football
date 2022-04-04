@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
@@ -37,7 +38,7 @@ void main() {
         player: Player(id: 1, name: 'Lukaku', number: 9, pos: 'A', grid: '1:1'),
         assist: Assist(id: 2, name: 'Mount'),
         type: 'Goal',
-        detail: 'Normal Goal')
+        detail: 'Normal Goal', icon: EventIcon(detail: 'detail', icon: Icon(Icons.event)))
   ]);
 
   test('check if the device is online', () {

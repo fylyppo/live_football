@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/events.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
@@ -28,7 +30,7 @@ void main() {
         player: Player(id: 1, name: 'Lukaku', number: 9, pos: 'A', grid: '1:1'),
         assist: Assist(id: 2, name: 'Mount'),
         type: 'Goal',
-        detail: 'Normal Goal')
+        detail: 'Normal Goal', icon: EventIcon(detail: 'detail', icon: Icon(Icons.event)))
   ]);
 
   test('should get fixture events from the repository', () async {

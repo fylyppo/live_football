@@ -60,7 +60,7 @@ void main() {
               home: Team(id: 1, name: 'Arsenal', logo: 'logo'),
               away: Team(id: 2, name: 'Chelsea', logo: 'logo')),
           goals: Goals(home: 1, away: 2),
-          fixtureData: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1)));
+          fixtureData: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city')));
     test('should call SharedPreferences to cache the data', () async {
       //act
       final call = await dataSource.cacheFixture(tFixtureModel);
