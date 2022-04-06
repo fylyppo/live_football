@@ -6,9 +6,7 @@ import 'package:live_football/features/specific_fixture/domain/repositories/fixt
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFixtureRepository extends Mock implements FixtureRepository{
-
-}
+class MockFixtureRepository extends Mock implements FixtureRepository{}
 
 void main() {
   late GetFixture usecase;

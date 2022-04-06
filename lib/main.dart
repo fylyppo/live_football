@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_bloc/fixture_bloc.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_events_bloc/fixture_events_bloc.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_lineups_bloc/fixture_lineups_bloc.dart';
+import 'features/specific_fixture/presentation/blocs/fixture_bloc/fixture_bloc.dart';
+import 'features/specific_fixture/presentation/blocs/fixture_events_bloc/fixture_events_bloc.dart';
 import 'features/specific_fixture/presentation/pages/fixture/fixture_page.dart';
 import 'injection_container.dart' as di;
 import 'injection_container.dart';

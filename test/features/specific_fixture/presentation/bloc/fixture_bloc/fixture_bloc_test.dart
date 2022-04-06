@@ -6,7 +6,7 @@ import 'package:live_football/core/util/input_converter.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/fixture.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
-import 'package:live_football/features/specific_fixture/presentation/bloc/fixture_bloc/fixture_bloc.dart';
+import 'package:live_football/features/specific_fixture/presentation/blocs/fixture_bloc/fixture_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockGetFixture extends Mock implements GetFixture {}

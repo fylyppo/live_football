@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../bloc/fixture_lineups_bloc/fixture_lineups_bloc.dart';
+import '../../../../../blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart';
 
 class PlayersTile extends StatelessWidget {
   final Loaded state;

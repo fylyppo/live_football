@@ -6,7 +6,7 @@ import 'package:live_football/core/error/messages/messages.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/events.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_events.dart';
-import 'package:live_football/features/specific_fixture/presentation/bloc/fixture_events_bloc/fixture_events_bloc.dart';
+import 'package:live_football/features/specific_fixture/presentation/blocs/fixture_events_bloc/fixture_events_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../../../fixtures/fixture_reader.dart';
 

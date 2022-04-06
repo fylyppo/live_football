@@ -10,16 +10,21 @@ import 'features/specific_fixture/data/datasources/fixture/fixture_local_data_so
 import 'features/specific_fixture/data/datasources/fixture/fixture_remote_data_source.dart';
 import 'features/specific_fixture/data/datasources/fixture_events/fixture_events_remote_data_source.dart';
 import 'features/specific_fixture/data/datasources/fixture_lineups/fixture_lineups_remote_data_source.dart';
+import 'features/specific_fixture/data/datasources/fixture_stats/fixture_stats_remote_data_source.dart';
 import 'features/specific_fixture/data/repositories/fixture_events_repository_impl.dart';
 import 'features/specific_fixture/data/repositories/fixture_lineups_repository_impl.dart';
 import 'features/specific_fixture/data/repositories/fixture_repository_impl.dart';
+import 'features/specific_fixture/data/repositories/fixture_stats_repository_impl.dart';
 import 'features/specific_fixture/domain/repositories/fixture_events_repository.dart';
 import 'features/specific_fixture/domain/repositories/fixture_repository.dart';
+import 'features/specific_fixture/domain/repositories/fixture_stats_repository.dart';
 import 'features/specific_fixture/domain/repositories/fixtures_lineups_repository.dart';
 import 'features/specific_fixture/domain/usecases/get_fixture.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_bloc/fixture_bloc.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_events_bloc/fixture_events_bloc.dart';
-import 'features/specific_fixture/presentation/bloc/fixture_lineups_bloc/fixture_lineups_bloc.dart';
+import 'features/specific_fixture/domain/usecases/get_fixture_stats.dart';
+import 'features/specific_fixture/presentation/blocs/fixture_bloc/fixture_bloc.dart';
+import 'features/specific_fixture/presentation/blocs/fixture_events_bloc/fixture_events_bloc.dart';
+import 'features/specific_fixture/presentation/blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart';
+import 'features/specific_fixture/presentation/blocs/fixture_stats_bloc/fixture_stats_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -33,16 +38,19 @@ Future<void> init() async {
       getFixtureLineups: serviceLocator()));
   serviceLocator.registerFactory(() => FixtureEventsBloc(
       getFixtureEvents: serviceLocator()));
+  serviceLocator.registerFactory(() => FixtureStatsBloc(getFixtureStats: serviceLocator()));
 
   // Use cases
   serviceLocator.registerLazySingleton(() => GetFixture(serviceLocator()));
   serviceLocator.registerLazySingleton(() => GetFixtureLineups(serviceLocator()));
   serviceLocator.registerLazySingleton(() => GetFixtureEvents(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => GetFixtureStats(serviceLocator()));
 
   // Repositories
   serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureRepositoryImpl(remoteDataSource: serviceLocator(), localDataSource: serviceLocator(), networkInfo: serviceLocator()));
   serviceLocator.registerLazySingleton<FixtureLineupsRepository>(() => FixtureLineupsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
   serviceLocator.registerLazySingleton<FixtureEventsRepository>(() => FixtureEventsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+   serviceLocator.registerLazySingleton<FixtureStatsRepository>(() => FixtureStatsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
 
   // Data sources
   serviceLocator.registerLazySingleton<FixtureRemoteDataSource>(() => FixtureRemoteDataSourceImpl(client: serviceLocator()));
@@ -52,6 +60,8 @@ Future<void> init() async {
   //serviceLocator.registerLazySingleton<FixtureLineupsLocalDataSource>(() => FixtureLineupsLocalDataSourceImpl(sharedPrefs: serviceLocator()));
   
   serviceLocator.registerLazySingleton<FixtureEventsRemoteDataSource>(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator()));
+
+  serviceLocator.registerLazySingleton<FixtureStatsRemoteDataSource>(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator()));
 
   // Core
   serviceLocator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(serviceLocator()));

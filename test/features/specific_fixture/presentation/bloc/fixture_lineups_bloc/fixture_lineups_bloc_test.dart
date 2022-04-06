@@ -5,9 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/error/messages/messages.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
-import 'package:live_football/features/specific_fixture/presentation/bloc/fixture_lineups_bloc/fixture_lineups_bloc.dart';
+import 'package:live_football/features/specific_fixture/presentation/blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../../fixtures/fixture_reader.dart';
@@ -34,7 +33,7 @@ void main() {
     final List<dynamic> map = decoded['response'];
     final tFixtureLineups = Lineups.fromJson(map);
 
-    test('should get data from the concrete usecase.', () async {
+    test('should get data from the concrete usecase', () async {
       //arrange
       when(()=> mockGetFixtureLineups(any())).thenAnswer((_) async => Right(tFixtureLineups));
       //act

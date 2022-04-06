@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../bloc/fixture_bloc/fixture_bloc.dart';
-import '../../../../bloc/fixture_events_bloc/fixture_events_bloc.dart';
+import '../../../../blocs/fixture_bloc/fixture_bloc.dart';
+import '../../../../blocs/fixture_events_bloc/fixture_events_bloc.dart';
 import '../lineups_tab/lineups_tab.dart';
 
 class DetailsTab extends StatelessWidget {

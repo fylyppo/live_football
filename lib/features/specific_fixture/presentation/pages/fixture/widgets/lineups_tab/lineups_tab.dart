@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../injection_container.dart';
-import '../../../../bloc/fixture_lineups_bloc/fixture_lineups_bloc.dart';
+import '../../../../blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart';
 import 'widgets/players_tile_widget.dart';
 
 class LineupsTab extends StatelessWidget {
