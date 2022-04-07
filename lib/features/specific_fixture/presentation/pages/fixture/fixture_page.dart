@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football/features/specific_fixture/presentation/blocs/fixture_bloc/fixture_bloc.dart';
 import 'package:live_football/features/specific_fixture/presentation/pages/fixture/widgets/lineups_tab/lineups_tab.dart';
+import 'package:live_football/features/specific_fixture/presentation/pages/fixture/widgets/stats_tab/stats_tab.dart';
 
 import '../fixture/widgets/header/match_page_header_delegate.dart';
 import 'widgets/details_tab/details_tab.dart';
@@ -97,7 +98,7 @@ class _LiveMatchesPageState extends State<LiveMatchesPage>
                   children: [
                     DetailsTab(),
                     LineupsTab(),
-                    Container(height: 100, child: Center(child: Text("Tab 1"))),
+                    StatsTab()
                   ],
                 ),
               ),

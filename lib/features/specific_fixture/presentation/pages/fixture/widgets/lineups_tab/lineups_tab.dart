@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../../../injection_container.dart';
 import '../../../../blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart';
 import 'widgets/players_tile_widget.dart';
 
@@ -10,61 +8,58 @@ class LineupsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => serviceLocator<FixtureLineupsBloc>(),
-      child: BlocBuilder<FixtureLineupsBloc, FixtureLineupsState>(
-        builder: (context, state) {
-          if (state is Empty) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("It's nothing here."),
-                IconButton(
-                  icon: const Icon(Icons.download),
-                  onPressed: () {
-                    context
-                        .read<FixtureLineupsBloc>()
-                        .add(const GetFixtureLineupsForId(850));
-                  },
-                ),
-              ],
-            );
-          } else if (state is Error) {
-            return Text(state.message);
-          } else if (state is Loading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is Loaded) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 50,),
-                    const TitleTabWidget(title: 'Starting XI',),
-                    PlayersTile(state: state, isStarting: true,),
-                    const TitleTabWidget(title: 'Substitutes',),
-                    PlayersTile(state: state, isStarting: false),
-                    const TitleTabWidget(title: 'Coaches',),
-                    CoachesTileWidget(state: state,),
-                    const SizedBox(
-                      height: 90,
-                      width: double.infinity,
-                      child: Center(
-                          child: Text(
-                            'LIVE FOOTBALL',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          )),
-                    ),
-                  ],
-                ),
+    return BlocBuilder<FixtureLineupsBloc, FixtureLineupsState>(
+      builder: (context, state) {
+        if (state is Empty) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("It's nothing here."),
+              IconButton(
+                icon: const Icon(Icons.download),
+                onPressed: () {
+                  context
+                      .read<FixtureLineupsBloc>()
+                      .add(const GetFixtureLineupsForId(850));
+                },
               ),
-            );
-          }
-          return Container();
-        },
-      ),
+            ],
+          );
+        } else if (state is Error) {
+          return Text(state.message);
+        } else if (state is Loading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is Loaded) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column(
+                children: [
+                  const SizedBox(height: 50,),
+                  const TitleTabWidget(title: 'Starting XI',),
+                  PlayersTile(state: state, isStarting: true,),
+                  const TitleTabWidget(title: 'Substitutes',),
+                  PlayersTile(state: state, isStarting: false),
+                  const TitleTabWidget(title: 'Coaches',),
+                  CoachesTileWidget(state: state,),
+                  const SizedBox(
+                    height: 90,
+                    width: double.infinity,
+                    child: Center(
+                        child: Text(
+                          'LIVE FOOTBALL',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return Container();
+      },
     );
   }
 }

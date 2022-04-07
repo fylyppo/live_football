@@ -36,7 +36,7 @@ void main() {
     //arrange
     when(() => mockGetFixtureStats(any()),).thenAnswer((_) async => Right(tFixtureStats));
     //act
-    bloc.add(const GetFixtureStatsForId(id: tFixtureId));
+    bloc.add(const GetFixtureStatsForId(tFixtureId));
     await untilCalled(() => mockGetFixtureStats(any()),);
     //assert
     verify(() => mockGetFixtureStats(const FixtureParams(id: tFixtureId)),);
@@ -51,7 +51,7 @@ void main() {
       ];
     expectLater(bloc.stream, emitsInOrder(expected));
     //act
-    bloc.add(const GetFixtureStatsForId(id: tFixtureId));
+    bloc.add(const GetFixtureStatsForId(tFixtureId));
   });
 
   test('should emit [Loading, LError] when data fails', () {
@@ -63,6 +63,6 @@ void main() {
       ];
     expectLater(bloc.stream, emitsInOrder(expected));
     //act
-    bloc.add(const GetFixtureStatsForId(id: tFixtureId));
+    bloc.add(const GetFixtureStatsForId(tFixtureId));
   });
 }

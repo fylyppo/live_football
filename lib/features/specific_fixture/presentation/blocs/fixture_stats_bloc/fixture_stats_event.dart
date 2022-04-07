@@ -10,7 +10,5 @@ abstract class FixtureStatsEvent extends Equatable {
 class GetFixtureStatsForId extends FixtureStatsEvent {
   final int id;
   
-  const GetFixtureStatsForId({
-    required this.id,
-  });
+  const GetFixtureStatsForId(this.id,);
 }

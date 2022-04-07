@@ -21,7 +21,7 @@ class Stats extends Equatable {
 
 class StatsData extends Equatable {
   final Team team;
-  final List stats;
+  final List<Stat> stats;
   
   const StatsData({
     required this.team,
@@ -29,7 +29,8 @@ class StatsData extends Equatable {
   });
 
   factory StatsData.fromJson(Map<String, dynamic> json) {
-    List statistics = json['statistics'].map((e) => Stat.fromJson(e),).toList();
+    List<dynamic> stats = json['statistics'];
+    List<Stat> statistics = stats.map((e) => Stat.fromJson(e),).toList();
     return StatsData(team: Team.fromJson(json['team']), stats: statistics);
   }
   
@@ -39,7 +40,7 @@ class StatsData extends Equatable {
 
 class Stat extends Equatable {
   final String type;
-  final dynamic value;
+  final String value;
   
   const Stat({
     required this.type,
@@ -47,7 +48,10 @@ class Stat extends Equatable {
   });
 
   factory Stat.fromJson(Map<String, dynamic> json) {
-    return Stat(type: json['type'], value: json['value']);
+    if (json['value'] == null) {
+      json['value'] = 0;
+    }
+    return Stat(type: json['type'], value: json['value'].toString());
   }
   
   @override
