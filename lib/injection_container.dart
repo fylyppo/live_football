@@ -1,11 +1,16 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:live_football/core/network/network_info.dart';
+import 'package:live_football/features/fixtures/domain/usecases/get_fixtures.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_events.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'core/util/input_converter.dart';
+import 'features/fixtures/data/datasources/fixtures/fixtures_remote_data_source.dart';
+import 'features/fixtures/data/repositories/fixtures_repository_impl.dart';
+import 'features/fixtures/domain/repositories/fixtures_repository.dart';
+import 'features/fixtures/presentation/blocs/bloc/fixtures_bloc.dart';
 import 'features/specific_fixture/data/datasources/fixture/fixture_local_data_source.dart';
 import 'features/specific_fixture/data/datasources/fixture/fixture_remote_data_source.dart';
 import 'features/specific_fixture/data/datasources/fixture_events/fixture_events_remote_data_source.dart';
@@ -29,7 +34,7 @@ import 'features/specific_fixture/presentation/blocs/fixture_stats_bloc/fixture_
 final serviceLocator = GetIt.instance;
 
 Future<void> init() async {
-  // Features - Specific Fixture
+  // Feature - Specific Fixture
   
   // Blocs
   serviceLocator.registerFactory(() => FixtureBloc(
@@ -62,6 +67,21 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton<FixtureEventsRemoteDataSource>(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator()));
 
   serviceLocator.registerLazySingleton<FixtureStatsRemoteDataSource>(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator()));
+
+  
+  // Feature - Fixtures
+  
+  // Blocs
+  serviceLocator.registerFactory(() => FixturesBloc(getFixtures: serviceLocator()));
+
+  // Use cases
+  serviceLocator.registerLazySingleton(() => GetFixtures(serviceLocator()));
+
+  // Repositories
+  serviceLocator.registerLazySingleton<FixturesRepository>(() => FixturesRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+
+  // Data sources
+  serviceLocator.registerLazySingleton<FixturesRemoteDataSource>(() => FixturesRemoteDataSourceImpl(client: serviceLocator()));
 
   // Core
   serviceLocator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(serviceLocator()));
