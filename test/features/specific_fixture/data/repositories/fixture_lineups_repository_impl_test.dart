@@ -10,17 +10,13 @@ import 'package:live_football/features/specific_fixture/domain/entities/lineups.
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockRemoteDataSource extends Mock implements FixtureLineupsRemoteDataSource {
-
-}
+class MockRemoteDataSource extends Mock implements FixtureLineupsRemoteDataSource {}
 
 // class MockLocalDataSource extends Mock implements LiveMatchesLocalDataSource {
   
 // }
 
-class MockNetworkInfo extends Mock implements NetworkInfo {
-
-}
+class MockNetworkInfo extends Mock implements NetworkInfo {}
 
 void main() {
   late FixtureLineupsRepositoryImpl repository;
@@ -41,18 +37,18 @@ void main() {
   
   group('getConcreteFixtureLineups', () {
     const tFixtureId = 1;
-    const tFixtureLineupsModel = LineupsModel(homeLineup: Lineup(
+    var tFixtureLineupsModel = LineupsModel(homeLineup: Lineup(
           team: Team(
               id: 50,
               name: 'Manchester City',
               logo: 'https://media.api-sports.io/football/teams/50.png'),
           formation: "4-3-3",
-          startXI: Players(playersList: [
+          startXI: const Players(playersList: [
             Player(id: 617, name: "Ederson", number: 31, pos: "G", grid: "1:1"),
             Player(
                 id: 627, name: "Kyle Walker", number: 2, pos: "D", grid: "2:4")
           ]),
-          substitutes: Players(playersList: [
+          substitutes: const Players(playersList: [
             Player(
                 id: 50828,
                 name: "Zack Steffen",
@@ -66,7 +62,7 @@ void main() {
                 pos: "D",
                 grid: null)
           ]),
-          coach: Coach(
+          coach: const Coach(
               id: 4,
               name: "Guardiola",
               photo: "https://media.api-sports.io/football/coachs/4.png")), awayLineup: Lineup(
@@ -75,7 +71,7 @@ void main() {
               name: "Everton",
               logo: "https://media.api-sports.io/football/teams/45.png"),
           formation: "4-3-1-2",
-          startXI: Players(playersList: [
+          startXI: const Players(playersList: [
             Player(
                 id: 2932,
                 name: "Jordan Pickford",
@@ -89,7 +85,7 @@ void main() {
                 pos: "D",
                 grid: "2:4")
           ]),
-          substitutes: Players(playersList: [
+          substitutes: const Players(playersList: [
             Player(
                 id: 18755,
                 name: "João Virgínia",
@@ -97,7 +93,7 @@ void main() {
                 pos: "G",
                 grid: null)
           ]),
-          coach: Coach(
+          coach: const Coach(
               id: 2407,
               name: "C. Ancelotti",
               photo: "https://media.api-sports.io/football/coachs/2407.png")));
@@ -123,7 +119,7 @@ void main() {
         final result = await repository.getFixtureLineups(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixtureLineups(tFixtureId));
-        expect(result, equals(const Right(tFixtureLineupsModel)));
+        expect(result, equals(Right(tFixtureLineupsModel)));
       });
 
       //       test('should cache the data locally when the call to remote data source is successful', () async {

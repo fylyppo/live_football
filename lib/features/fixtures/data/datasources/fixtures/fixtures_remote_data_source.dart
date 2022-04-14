@@ -1,6 +1,5 @@
-import 'package:http/http.dart' as http;
-import 'package:live_football/core/error/exceptions.dart';
 import 'package:dio/dio.dart';
+import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/features/specific_fixture/data/models/fixture_model.dart';
 import '../../../../../core/datasources/remote/api_football_client.dart';
 
@@ -20,9 +19,11 @@ abstract class FixturesRemoteDataSource {
 }
 
 class FixturesRemoteDataSourceImpl implements FixturesRemoteDataSource {
-  final http.Client client;
+  final Dio dio;
+  final ApiFootballClient client;
 
   FixturesRemoteDataSourceImpl({
+    required this.dio,
     required this.client,
   });
 
@@ -39,8 +40,8 @@ class FixturesRemoteDataSourceImpl implements FixturesRemoteDataSource {
       String? to,
       String? round,
       String? status}) async {
-    final dio = Dio();
-    final client = ApiFootballClient(dio);
+    //final dio = Dio();
+    //final client = ApiFootballClient(dio);
     final httpResponse = await client.getFixtureModelsList({
       if(live != null) 'live': live,
       if(date != null) 'date': date,

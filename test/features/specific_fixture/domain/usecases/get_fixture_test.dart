@@ -18,7 +18,7 @@ void main() {
   });
 
   const tFixtureId = 1;
-  const tFixture = Fixture(
+  var tFixture = Fixture(
           league: League(
               id: 1,
               name: 'Premier League',
@@ -29,16 +29,16 @@ void main() {
               home: Team(id: 1, name: 'Arsenal', logo: 'logo'),
               away: Team(id: 2, name: 'Chelsea', logo: 'logo')),
           goals: Goals(home: 1, away: 2),
-          fixtureData: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city')));
+          fixture: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city'), referee: ''));
   
   test('should get live matches from the repository', () async {
     
     //arrange
-    when(() => mockFixtureRepository!.getFixture(any())).thenAnswer((_) async => const Right(tFixture));
+    when(() => mockFixtureRepository!.getFixture(any())).thenAnswer((_) async => Right(tFixture));
     //act
     final result = await usecase(const FixtureParams(id: tFixtureId));
     //assert
-    expect(result, const Right(tFixture));
+    expect(result, Right(tFixture));
     verify(() => mockFixtureRepository!.getFixture(tFixtureId));
     verifyNoMoreInteractions(mockFixtureRepository);
   });

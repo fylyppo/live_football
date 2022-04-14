@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:live_football/core/datasources/remote/api_football_client.dart';
 import 'package:live_football/core/network/network_info.dart';
 import 'package:live_football/features/fixtures/domain/usecases/get_fixtures.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_events.dart';
@@ -30,6 +31,7 @@ import 'features/specific_fixture/presentation/blocs/fixture_bloc/fixture_bloc.d
 import 'features/specific_fixture/presentation/blocs/fixture_events_bloc/fixture_events_bloc.dart';
 import 'features/specific_fixture/presentation/blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart';
 import 'features/specific_fixture/presentation/blocs/fixture_stats_bloc/fixture_stats_bloc.dart';
+import 'package:dio/dio.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -81,7 +83,7 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton<FixturesRepository>(() => FixturesRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
 
   // Data sources
-  serviceLocator.registerLazySingleton<FixturesRemoteDataSource>(() => FixturesRemoteDataSourceImpl(client: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixturesRemoteDataSource>(() => FixturesRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
 
   // Core
   serviceLocator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(serviceLocator()));
@@ -91,5 +93,7 @@ Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   serviceLocator.registerLazySingleton(() => sharedPreferences);
   serviceLocator.registerLazySingleton(() => http.Client());
+  serviceLocator.registerLazySingleton(() => Dio());
+  serviceLocator.registerLazySingleton(() => ApiFootballClient(serviceLocator()));
   serviceLocator.registerLazySingleton(() => Connectivity());
 }

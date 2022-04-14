@@ -34,8 +34,8 @@ void main() {
     const tFixtureId = 850;
     
     final Map<String, dynamic> decoded = json.decode(fixture('fixture.json'));
-    final List<dynamic> map = decoded['response'];
-    final tLiveMatchesModel = FixtureModel.fromJson(map);
+    final List<dynamic> fixturesListJson = decoded['response'];
+    final tFixtureModel = FixtureModel.fromJson(fixturesListJson[0]);
     test(
         'should perform a GET on a URL with league endpoint and with application/json header',
         () async {
@@ -50,13 +50,13 @@ void main() {
           }));
     });
 
-    test('should return LiveMatches when the response is 200', () async {
+    test('should return FixtureModel when the response is 200', () async {
       //arrange
       setUpMockHttpClientSuccess200();
       //act
       final result = await dataSource.getFixture(tFixtureId);
       //assert
-      expect(result, equals(tLiveMatchesModel));
+      expect(result, equals(tFixtureModel));
     });
 
     test('should throw a ServerException when the response code is 404 or other', () async {

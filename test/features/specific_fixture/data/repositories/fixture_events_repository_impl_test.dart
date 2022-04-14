@@ -31,14 +31,14 @@ void main() {
   });
 
   const tFixtureId = 1;
-  const tFixtureEventsModel = EventsModel(events: [
+  var tFixtureEventsModel = EventsModel(events: [
     Event(
-        time: Time(elapsed: 1),
+        time: const Time(elapsed: 1),
         team: Team(id: 1, name: 'Arsenal', logo: 'logo'),
-        player: Player(id: 1, name: 'Lukaku', number: 9, pos: 'A', grid: '1:1'),
-        assist: Assist(id: 2, name: 'Mount'),
+        player: const Player(id: 1, name: 'Lukaku', number: 9, pos: 'A', grid: '1:1'),
+        assist: const Assist(id: 2, name: 'Mount'),
         type: 'Goal',
-        detail: 'Normal Goal', icon: EventIcon(detail: 'detail', icon: Icon(Icons.event)))
+        detail: 'Normal Goal', icon: const EventIcon(detail: 'detail', icon: Icon(Icons.event)))
   ]);
 
   test('check if the device is online', () {
@@ -62,7 +62,7 @@ void main() {
           final result = await repository.getFixtureEvents(tFixtureId);
           //assert
           verify(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(tFixtureId),);
-          expect(result, equals(const Right(tFixtureEventsModel)));
+          expect(result, equals(Right(tFixtureEventsModel)));
         });
 
     test('should return server failure when the call to remote data source is unsuccessful', () async {

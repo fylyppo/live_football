@@ -1,14 +1,11 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/stats.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:live_football/features/specific_fixture/domain/repositories/fixture_stats_repository.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_stats.dart';
 import 'package:mocktail/mocktail.dart';
-
 import '../../../../fixtures/fixture_reader.dart';
 
 class MockFixtureStatsRepository extends Mock implements FixtureStatsRepository{}

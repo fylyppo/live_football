@@ -30,7 +30,7 @@ void main() {
 
   group('GetFixture', () {
     const tFixtureId = 850;
-    const tFixture = Fixture(
+    var tFixture = Fixture(
           league: League(
               id: 1,
               name: 'Premier League',
@@ -41,11 +41,11 @@ void main() {
               home: Team(id: 1, name: 'Arsenal', logo: 'logo'),
               away: Team(id: 2, name: 'Chelsea', logo: 'logo')),
           goals: Goals(home: 1, away: 2),
-          fixtureData: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city')));
+          fixture: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city'), referee: ''));
 
     test('should get data from the concrete usecase.', () async {
       //arrange
-      when(()=> mockGetFixture(any())).thenAnswer((_) async => const Right(tFixture));
+      when(()=> mockGetFixture(any())).thenAnswer((_) async => Right(tFixture));
       //act
       bloc.add(const GetFixtureForId(tFixtureId));
       await untilCalled(() => mockGetFixture(any()));
@@ -55,11 +55,11 @@ void main() {
 
     test('should emit [Loading, Loaded] when data is gotten successfully', () async {
       //arrange
-      when(()=> mockGetFixture(any())).thenAnswer((_) async => const Right(tFixture));
+      when(()=> mockGetFixture(any())).thenAnswer((_) async => Right(tFixture));
       //assert later
       final expected = [
         Loading(),
-        const Loaded(fixture: tFixture)
+        Loaded(fixture: tFixture)
       ];
       expectLater(bloc.stream, emitsInOrder(expected));
       //act

@@ -1,6 +1,68 @@
 {
     "fixture": {
         "id": 1,
-        "referee": "Piputkin"
+        "referee": "Piputkin",
+        "timezone": "UTC",
+        "date": "2020-02-06T14:00:00+00:00",
+        "timestamp": 1580997600,
+        "periods": {
+            "first": 1648139400,
+            "second": null
+        },
+        "venue": {
+            "id": null,
+            "name": "HaMoshava Stadium",
+            "city": "Petach-Tikva"
+        },
+        "status": {
+            "long": "First Half",
+            "short": "1H",
+            "elapsed": 23
+        }
+    },
+    "league": {
+        "id": 850,
+        "name": "UEFA U21 Championship - Qualification",
+        "country": "World",
+        "logo": "https://media.api-sports.io/football/leagues/850.png",
+        "flag": null,
+        "season": 2023,
+        "round": "Ranking of second-placed teams - 17"
+    },
+    "teams": {
+        "home": {
+            "id": 8200,
+            "name": "Israel U21",
+            "logo": "https://media.api-sports.io/football/teams/8200.png",
+            "winner": false
+        },
+        "away": {
+            "id": 8215,
+            "name": "Poland U21",
+            "logo": "https://media.api-sports.io/football/teams/8215.png",
+            "winner": true
+        }
+    },
+    "goals": {
+        "home": 0,
+        "away": 1
+    },
+    "score": {
+        "halftime": {
+            "home": 0,
+            "away": 1
+        },
+        "fulltime": {
+            "home": null,
+            "away": null
+        },
+        "extratime": {
+            "home": null,
+            "away": null
+        },
+        "penalty": {
+            "home": null,
+            "away": null
+        }
     }
 }

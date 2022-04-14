@@ -11,17 +11,11 @@ import 'package:live_football/features/specific_fixture/domain/entities/fixture.
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockRemoteDataSource extends Mock implements FixtureRemoteDataSource {
+class MockRemoteDataSource extends Mock implements FixtureRemoteDataSource {}
 
-}
+class MockLocalDataSource extends Mock implements FixtureLocalDataSource {}
 
-class MockLocalDataSource extends Mock implements FixtureLocalDataSource {
-  
-}
-
-class MockNetworkInfo extends Mock implements NetworkInfo {
-
-}
+class MockNetworkInfo extends Mock implements NetworkInfo {}
 
 void main() {
   late FixtureRepositoryImpl repository;
@@ -42,7 +36,7 @@ void main() {
   
   group('getConcreteFixture', () {
     const tFixtureId = 850;
-    const tFixtureModel = FixtureModel(
+    var tFixtureModel = FixtureModel(
           league: League(
               id: 1,
               name: 'Premier League',
@@ -53,11 +47,12 @@ void main() {
               home: Team(id: 1, name: 'Arsenal', logo: 'logo'),
               away: Team(id: 2, name: 'Chelsea', logo: 'logo')),
           goals: Goals(home: 1, away: 2),
-          fixtureData: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city')));
+          fixture: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city'), referee: ''));
     
     test('check if the device is online', () async {
     //arrange
     when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+    when(() => mockRemoteDataSource.getFixture(any())).thenAnswer((_) async => tFixtureModel);
     //act
     repository.getFixture(tFixtureId);
     //assert
@@ -76,7 +71,7 @@ void main() {
         final result = await repository.getFixture(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixture(tFixtureId));
-        expect(result, equals(const Right(tFixtureModel)));
+        expect(result, equals(Right(tFixtureModel.toDomain())));
       });
 
             test('should cache the data locally when the call to remote data source is successful', () async {
@@ -113,7 +108,7 @@ void main() {
         //assert
         verifyZeroInteractions(mockRemoteDataSource);
         verify(() => mockLocalDataSource.getLastFixture());
-        expect(result, equals(const Right(tFixtureModel)));
+        expect(result, equals(Right(tFixtureModel.toDomain())));
       });
 
       test('should return CacheFailure when there is no cached data present', () async {
