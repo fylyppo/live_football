@@ -26,8 +26,7 @@ class FixtureRemoteDataSourceImpl implements FixtureRemoteDataSource{
       headers: headers);
     if(response.statusCode == 200){
       var body = jsonDecode(response.body);
-      var firstFixture = body['response'];
-      
+      var firstFixture = body['response'][0];
       return FixtureModel.fromJson(firstFixture);
     } else {
       throw ServerException();

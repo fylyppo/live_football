@@ -1,92 +1,46 @@
-import 'package:equatable/equatable.dart';
-
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'team.dart';
 
-class Fixture extends Equatable {
-  final FixtureData fixtureData;
-  final League league;
-  final Teams teams;
-  final Goals goals;
+part 'fixture.freezed.dart';
+part 'fixture.g.dart';
 
-  const Fixture({required this.league, required this.teams, required this.goals, required this.fixtureData});
-
-  @override
-  List<Object?> get props => [league, teams, goals,fixtureData];
+@freezed
+class Fixture with _$Fixture {
+  factory Fixture({required final FixtureData fixture, required final League league, required final Teams teams, required final Goals goals,}) = _Fixture;
 }
 
-class FixtureData extends Equatable {
-  final int id;
-  final String? referee;
-  final String date;
-  final Status status;
-  final Venue venue;
-
-  const FixtureData({
-    required this.id,
-    this.referee,
-    required this.date,
-    required this.status,
-    required this.venue,
-  });
-
-  @override
-  List<Object?> get props => [id, referee];
+@freezed
+class FixtureData with _$FixtureData {
+  factory FixtureData({required final int id, required final String? referee, required final String date, required final Status status, required final Venue venue,}) = _FixtureData;
+  factory FixtureData.fromJson(Map<String, dynamic> json) => _$FixtureDataFromJson(json);
 }
 
-class Venue extends Equatable {
-  final int? id;
-  final String name;
-  final String city;
-  
-  const Venue({
-    required this.id,
-    required this.name,
-    required this.city,
-  });
-
-  @override
-  List<Object?> get props => [id, name, city];
+@freezed
+class Venue with _$Venue {
+  factory Venue({required final int? id, required final String? name, required final String? city}) = _Venue;
+  factory Venue.fromJson(Map<String, dynamic> json) => _$VenueFromJson(json);
 }
 
-class Status extends Equatable {
-  final int elapsed;
-
-  const Status({required this.elapsed});
-
-  @override
-  List<Object?> get props => [elapsed];
+@freezed
+class Status with _$Status {
+  factory Status({required final int? elapsed,}) = _Status;
+  factory Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);
 }
 
-class League extends Equatable {
-  final int id;
-  final String name;
-  final String logo;
-  final String? flag;
-  final String round;
-
-  const League({required this.id, required this.name, required this.logo, required this.flag, required this.round});
-
-  @override
-  List<Object?> get props => [id, name, logo, flag, round];
+@freezed
+class League with _$League {
+  factory League({required final int id, required final String name, required final String logo, required final String? flag, required final String round,}) = _League;
+  factory League.fromJson(Map<String, dynamic> json) => _$LeagueFromJson(json);
 }
 
-class Teams extends Equatable {
-  final Team home;
-  final Team away;
-
-  const Teams({required this.home, required this.away});
-
-  @override
-  List<Object?> get props => [home, away];
-
+@freezed
+class Teams with _$Teams {
+  factory Teams({required final Team home, required final Team away}) = _Teams;
+  factory Teams.fromJson(Map<String, dynamic> json) => _$TeamsFromJson(json);
 }
 
-class Goals extends Equatable {
-  final int home;
-  final int away;
-
-  const Goals({required this.home, required this.away});
-
-  @override
-  List<Object?> get props => [home, away];
+@freezed
+class Goals with _$Goals {
+  factory Goals({required final int? home, required final int? away}) = _Goals;
+  factory Goals.fromJson(Map<String, dynamic> json) => _$GoalsFromJson(json);
 }

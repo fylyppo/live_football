@@ -1,16 +1,10 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Team extends Equatable {
-  final int id;
-  final String name;
-  final String logo;
-  
-  const Team({required this.id, required this.name, required this.logo});
+part 'team.freezed.dart';
+part 'team.g.dart';
 
-  factory Team.fromJson(Map<String, dynamic> json) {
-    return Team(id: json['id'], name: json['name'], logo: json['logo']);
-  }
-
-  @override
-  List<Object?> get props => [id, name, logo];
+@freezed
+class Team with _$Team {
+  factory Team({required final int id, required final String name, required final String logo}) = _Team;
+  factory Team.fromJson(Map<String, dynamic> json) => _$TeamFromJson(json);
 }

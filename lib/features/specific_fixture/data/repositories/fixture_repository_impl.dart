@@ -21,16 +21,16 @@ class FixtureRepositoryImpl implements FixtureRepository {
   Future<Either<Failure, Fixture?>> getFixture(int id) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteLiveMatches = await remoteDataSource.getFixture(id);
-        localDataSource.cacheFixture(remoteLiveMatches);
-        return Right(remoteLiveMatches);
+        final remoteFixtureModel = await remoteDataSource.getFixture(id);
+        localDataSource.cacheFixture(remoteFixtureModel);
+        return Right(remoteFixtureModel!.toDomain());
       } on ServerException {
         return Left(ServerFailure());
       }
     } else {
       try{
-        final localMatch = await localDataSource.getLastFixture();
-      return Right(localMatch);
+        final localFixtureModel = await localDataSource.getLastFixture();
+      return Right(localFixtureModel.toDomain());
       } on CacheException {
         return Left(CacheFailure());
       }
