@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AnimatedGradient extends StatefulWidget {
+  const AnimatedGradient({Key? key}) : super(key: key);
+
   @override
   _AnimatedGradientState createState() => _AnimatedGradientState();
 }
@@ -30,7 +32,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
         body: Stack(
       children: [
         AnimatedContainer(
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           onEnd: () {
             setState(() {
               index = index + 1;
@@ -49,7 +51,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
         ),
         Positioned.fill(
           child: IconButton(
-            icon: Icon(Icons.play_arrow),
+            icon: const Icon(Icons.play_arrow),
             onPressed: () {
               setState(() {
                 bottomColor = Colors.blue;

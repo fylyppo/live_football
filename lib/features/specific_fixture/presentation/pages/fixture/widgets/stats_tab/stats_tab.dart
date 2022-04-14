@@ -4,7 +4,12 @@ import '../../../../blocs/fixture_stats_bloc/fixture_stats_bloc.dart';
 import '../lineups_tab/lineups_tab.dart';
 
 class StatsTab extends StatelessWidget {
-  const StatsTab({Key? key}) : super(key: key);
+  final int id;
+  
+  const StatsTab({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class StatsTab extends StatelessWidget {
                 onPressed: () {
                   context
                       .read<FixtureStatsBloc>()
-                      .add(const GetFixtureStatsForId(850));
+                      .add(GetFixtureStatsForId(id));
                 },
               ),
             ],

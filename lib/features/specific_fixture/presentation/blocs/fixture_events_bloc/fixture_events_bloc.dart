@@ -11,7 +11,7 @@ part 'fixture_events_state.dart';
 class FixtureEventsBloc extends Bloc<FixtureEventsEvent, FixtureEventsState> {
   final GetFixtureEvents getFixtureEvents;
   
-  FixtureEventsBloc({ required this.getFixtureEvents}) : super(EventsEmpty()) {
+  FixtureEventsBloc({required this.getFixtureEvents}) : super(EventsEmpty()) {
     on<FixtureEventsEvent>((event, emit) async {
       if(event is GetFixtureEventsForId) {
         emit(EventsLoading());

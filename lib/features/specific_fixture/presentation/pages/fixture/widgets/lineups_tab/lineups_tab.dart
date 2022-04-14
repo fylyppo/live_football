@@ -4,7 +4,12 @@ import '../../../../blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart';
 import 'widgets/players_tile_widget.dart';
 
 class LineupsTab extends StatelessWidget {
-  const LineupsTab({Key? key}) : super(key: key);
+  final int id;
+  
+  const LineupsTab({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class LineupsTab extends StatelessWidget {
                 onPressed: () {
                   context
                       .read<FixtureLineupsBloc>()
-                      .add(const GetFixtureLineupsForId(850));
+                      .add(GetFixtureLineupsForId(id));
                 },
               ),
             ],

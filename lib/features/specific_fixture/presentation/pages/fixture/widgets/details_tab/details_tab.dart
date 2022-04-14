@@ -5,7 +5,12 @@ import '../../../../blocs/fixture_events_bloc/fixture_events_bloc.dart';
 import '../lineups_tab/lineups_tab.dart';
 
 class DetailsTab extends StatelessWidget {
-  DetailsTab({Key? key}) : super(key: key);
+  final int id;
+  
+  DetailsTab({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   int homeId = 0;
 
@@ -13,7 +18,7 @@ class DetailsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<FixtureBloc, FixtureState>(
       listener: (context, state) {
-        context.read<FixtureEventsBloc>().add(const GetFixtureEventsForId(850));
+        context.read<FixtureEventsBloc>().add(GetFixtureEventsForId(id));
         if (state is Loaded) {
           homeId = state.fixture.teams.home.id;
         }
@@ -169,13 +174,12 @@ class MatchInformationTileWidget extends StatelessWidget {
                         padding: EdgeInsets.only(left: 6, right: 14.0),
                         child: Icon(Icons.event, size: 30,),
                       ),
-                      
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text('Date:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          Text(state.fixture.fixtureData.date, style: const TextStyle(color: Colors.grey),),
+                          Text(state.fixture.fixture.date, style: const TextStyle(color: Colors.grey),),
                         ],
                       ),
                     ],
@@ -199,7 +203,7 @@ class MatchInformationTileWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text('Referee:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          Text(state.fixture.fixtureData.referee!, style: const TextStyle(color: Colors.grey),),
+                          Text(state.fixture.fixture.referee!, style: const TextStyle(color: Colors.grey),),
                         ],
                       ),
                     ],
@@ -209,7 +213,6 @@ class MatchInformationTileWidget extends StatelessWidget {
                       height: 10,
                     ),
                 SizedBox(
-                  //color: Colors.red,
                   height: 50,
                   child: Row(
                     children: [
@@ -222,8 +225,8 @@ class MatchInformationTileWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text('Venue:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          Text(state.fixture.fixtureData.venue.name, style: const TextStyle(color: Colors.grey),),
-                          Text(state.fixture.fixtureData.venue.city, style: const TextStyle(color: Colors.grey),),
+                          Text(state.fixture.fixture.venue.name!, style: const TextStyle(color: Colors.grey),),
+                          Text(state.fixture.fixture.venue.city!, style: const TextStyle(color: Colors.grey),),
                         ],
                       ),
                     ],

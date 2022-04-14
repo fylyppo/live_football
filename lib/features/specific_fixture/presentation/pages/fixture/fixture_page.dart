@@ -1,21 +1,48 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football/features/specific_fixture/presentation/blocs/fixture_bloc/fixture_bloc.dart';
 import 'package:live_football/features/specific_fixture/presentation/pages/fixture/widgets/lineups_tab/lineups_tab.dart';
 import 'package:live_football/features/specific_fixture/presentation/pages/fixture/widgets/stats_tab/stats_tab.dart';
-
+import 'package:live_football/injection_container.dart';
+import '../../blocs/fixture_events_bloc/fixture_events_bloc.dart';
+import '../../blocs/fixture_lineups_bloc/fixture_lineups_bloc.dart' hide Empty, Loading, Loaded;
+import '../../blocs/fixture_stats_bloc/fixture_stats_bloc.dart' hide Empty, Loading, Loaded;
 import '../fixture/widgets/header/match_page_header_delegate.dart';
 import 'widgets/details_tab/details_tab.dart';
 
-class LiveMatchesPage extends StatefulWidget {
-  const LiveMatchesPage({Key? key}) : super(key: key);
+class FixturePage extends StatefulWidget implements AutoRouteWrapper {
+  final int id;
+
+  const FixturePage({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
-  State<LiveMatchesPage> createState() => _LiveMatchesPageState();
+  State<FixturePage> createState() => _FixturePageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => serviceLocator<FixtureBloc>(),
+      ),
+      BlocProvider(
+        create: (context) => serviceLocator<FixtureEventsBloc>(),
+      ),
+      BlocProvider(
+        create: (context) => serviceLocator<FixtureLineupsBloc>(),
+      ),
+      BlocProvider(
+        create: (context) => serviceLocator<FixtureStatsBloc>(),
+      ),
+    ], child: this);
+  }
 }
 
-class _LiveMatchesPageState extends State<LiveMatchesPage>
+class _FixturePageState extends State<FixturePage>
     with SingleTickerProviderStateMixin {
   late TabController controller;
 
@@ -23,7 +50,7 @@ class _LiveMatchesPageState extends State<LiveMatchesPage>
   void initState() {
     super.initState();
     controller = TabController(length: 3, vsync: this);
-    context.read<FixtureBloc>().add(const GetFixtureForId(850));
+    context.read<FixtureBloc>().add(GetFixtureForId(widget.id));
   }
 
   @override
@@ -31,7 +58,7 @@ class _LiveMatchesPageState extends State<LiveMatchesPage>
     return SafeArea(
       child: Scaffold(
         body: NestedScrollView(
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
@@ -96,113 +123,21 @@ class _LiveMatchesPageState extends State<LiveMatchesPage>
                 child: TabBarView(
                   controller: controller,
                   children: [
-                    DetailsTab(),
-                    LineupsTab(),
-                    StatsTab()
+                    DetailsTab(
+                      id: widget.id,
+                    ),
+                    LineupsTab(
+                      id: widget.id,
+                    ),
+                    StatsTab(
+                      id: widget.id,
+                    )
                   ],
                 ),
               ),
             ]);
           }),
         ),
-
-        // CustomScrollView(
-        //   shrinkWrap: true,
-        //   slivers: [
-        //     SliverAppBar(
-        //       leading: IconButton(
-        //         icon: const Icon(Icons.arrow_back),
-        //         onPressed: () => exit(0),
-        //       ),
-        //       actions: [
-        //         IconButton(
-        //           icon: const Icon(Icons.download),
-        //           onPressed: () {
-        //             context.read<FixtureBloc>().add(const GetFixtureForId(850));
-        //           },
-        //         ),
-        //       ],
-        //       title: BlocBuilder<FixtureBloc, FixtureState>(
-        //         builder: (context, state) {
-        //           if (state is Empty) {
-        //             return Container();
-        //           }
-        //           if (state is Loading) {
-        //             return const LinearProgressIndicator(
-        //               color: Colors.white,
-        //             );
-        //           }
-        //           if (state is Loaded) {
-        //             return Row(
-        //               children: [
-        //                 Image.network(
-        //                   state.fixture.league.logo,
-        //                   height: 25,
-        //                 ),
-        //                 const SizedBox(
-        //                   width: 10,
-        //                 ),
-        //                 Text(state.fixture.league.name),
-        //               ],
-        //             );
-        //           }
-        //           return Container();
-        //         },
-        //       ),
-        //     ),
-        //     SliverPersistentHeader(
-        //       delegate: MatchPageHeaderDelegate(),
-        //       pinned: true,
-        //     ),
-        //     SliverAppBar(
-        //       forceElevated: true,
-        //       toolbarHeight: 0,
-        //       pinned: true,
-        //       bottom: TabBar(
-        //         tabs: const [
-        //           Tab(text: 'Details'),
-        //           Tab(text: 'Lineups'),
-        //           Tab(text: 'Stats'),
-        //         ],
-        //         controller: controller,
-        //       ),
-        //     ),
-        //   SliverFillRemaining(
-        //     child: TabBarView(
-        //       controller: controller,
-        //       children: [
-        //            Container(
-        //              color: Colors.green,
-        //              height: 100,
-        //              child: Center(child: Text("Tab 1"))),
-        //            LineupsTab(),
-        //            Container(
-        //              color: Colors.green,
-        //              height: 100,
-        //              child: Center(child: Text("Tab 1"))),
-        //          ],
-        //         ),
-        //   ),
-        //     // SliverList(
-        //     //     delegate: SliverChildBuilderDelegate(
-        //     //         (context, index) => Padding(
-        //     //               padding: const EdgeInsets.all(0.0),
-        //     //               child: Container(
-        //     //                 height: 200,
-        //     //                 color: Colors.black,
-        //     //                 child: IconButton(
-        //     //                   icon: const Icon(Icons.download),
-        //     //                   onPressed: () {
-        //     //                     context
-        //     //                         .read<FixtureBloc>()
-        //     //                         .add(const GetFixtureForId(850));
-        //     //                   },
-        //     //                 ),
-        //     //               ),
-        //     //             ),
-        //     //         childCount: 8))
-        //   ],
-        // ),
       ),
     );
   }

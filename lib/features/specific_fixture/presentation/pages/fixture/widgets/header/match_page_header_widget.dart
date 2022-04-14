@@ -33,7 +33,7 @@ class MatchPageHeaderWidget
             ),
             ScoreHeaderWidget(
               goals: fixture.goals,
-              status: fixture.fixtureData.status,
+              status: fixture.fixture.status,
               shrinkOffset: shrinkOffset,
             ),
             TeamHeaderWidget(
