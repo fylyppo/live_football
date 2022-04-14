@@ -13,15 +13,34 @@ part 'fixtures_state.dart';
 
 class FixturesBloc extends Bloc<FixturesEvent, FixturesState> {
   final GetFixtures getFixtures;
-  
-  FixturesBloc(
-    {required this.getFixtures,}
-  ) : super(const Initial()) {
+
+  FixturesBloc({
+    required this.getFixtures,
+  }) : super(const _Initial()) {
     on<FixturesEvent>((event, emit) async {
       if (event is _GetFixturesForParameters) {
-        emit(const Loading());
-        final failureOrEvents = await getFixtures(FixturesParams(live: event.live, date: event.date, league: event.league, season: event.season, team: event.team, last: event.last, next: event.next, from: event.from, to: event.to, round: event.round, status: event.status,));
-        emit(failureOrEvents.fold((failure) => FixturesError(message: _mapFailureToMessage(failure)), (fixtures) => Loaded(fixtures: fixtures)));
+        emit(const _Loading());
+        final failureOrEvents = await getFixtures(FixturesParams(
+          live: event.live,
+          date: event.date,
+          league: event.league,
+          season: event.season,
+          team: event.team,
+          last: event.last,
+          next: event.next,
+          from: event.from,
+          to: event.to,
+          round: event.round,
+          status: event.status,
+        ));
+        emit(failureOrEvents.fold(
+            (failure) => _FixturesError(message: _mapFailureToMessage(failure)),
+            (fixtures) {
+              if (fixtures.isEmpty) {
+                return const _FixturesEmpty();
+              }
+              return _Loaded(fixtures: fixtures);
+            } ));
       }
     });
   }

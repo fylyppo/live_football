@@ -602,24 +602,28 @@ abstract class _GetFixturesForParameters implements FixturesEvent {
 class _$FixturesStateTearOff {
   const _$FixturesStateTearOff();
 
-  Initial initial() {
-    return const Initial();
+  _Initial initial() {
+    return const _Initial();
   }
 
-  Loading loading() {
-    return const Loading();
+  _Loading loading() {
+    return const _Loading();
   }
 
-  Loaded loaded({required List<Fixture> fixtures}) {
-    return Loaded(
+  _Loaded loaded({required List<Fixture> fixtures}) {
+    return _Loaded(
       fixtures: fixtures,
     );
   }
 
-  FixturesError fixturesError({required String message}) {
-    return FixturesError(
+  _FixturesError fixturesError({required String message}) {
+    return _FixturesError(
       message: message,
     );
+  }
+
+  _FixturesEmpty fixturesEmpty() {
+    return const _FixturesEmpty();
   }
 }
 
@@ -634,6 +638,7 @@ mixin _$FixturesState {
     required TResult Function() loading,
     required TResult Function(List<Fixture> fixtures) loaded,
     required TResult Function(String message) fixturesError,
+    required TResult Function() fixturesEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -642,6 +647,7 @@ mixin _$FixturesState {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -650,31 +656,35 @@ mixin _$FixturesState {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(FixturesError value) fixturesError,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_FixturesError value) fixturesError,
+    required TResult Function(_FixturesEmpty value) fixturesEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -698,25 +708,25 @@ class _$FixturesStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $InitialCopyWith<$Res> {
-  factory $InitialCopyWith(Initial value, $Res Function(Initial) then) =
-      _$InitialCopyWithImpl<$Res>;
+abstract class _$InitialCopyWith<$Res> {
+  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
+      __$InitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$InitialCopyWithImpl<$Res> extends _$FixturesStateCopyWithImpl<$Res>
-    implements $InitialCopyWith<$Res> {
-  _$InitialCopyWithImpl(Initial _value, $Res Function(Initial) _then)
-      : super(_value, (v) => _then(v as Initial));
+class __$InitialCopyWithImpl<$Res> extends _$FixturesStateCopyWithImpl<$Res>
+    implements _$InitialCopyWith<$Res> {
+  __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
+      : super(_value, (v) => _then(v as _Initial));
 
   @override
-  Initial get _value => super._value as Initial;
+  _Initial get _value => super._value as _Initial;
 }
 
 /// @nodoc
 
-class _$Initial implements Initial {
-  const _$Initial();
+class _$_Initial implements _Initial {
+  const _$_Initial();
 
   @override
   String toString() {
@@ -726,7 +736,7 @@ class _$Initial implements Initial {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Initial);
+        (other.runtimeType == runtimeType && other is _Initial);
   }
 
   @override
@@ -739,6 +749,7 @@ class _$Initial implements Initial {
     required TResult Function() loading,
     required TResult Function(List<Fixture> fixtures) loaded,
     required TResult Function(String message) fixturesError,
+    required TResult Function() fixturesEmpty,
   }) {
     return initial();
   }
@@ -750,6 +761,7 @@ class _$Initial implements Initial {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
   }) {
     return initial?.call();
   }
@@ -761,6 +773,7 @@ class _$Initial implements Initial {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -772,10 +785,11 @@ class _$Initial implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(FixturesError value) fixturesError,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_FixturesError value) fixturesError,
+    required TResult Function(_FixturesEmpty value) fixturesEmpty,
   }) {
     return initial(this);
   }
@@ -783,10 +797,11 @@ class _$Initial implements Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
   }) {
     return initial?.call(this);
   }
@@ -794,10 +809,11 @@ class _$Initial implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -807,30 +823,30 @@ class _$Initial implements Initial {
   }
 }
 
-abstract class Initial implements FixturesState {
-  const factory Initial() = _$Initial;
+abstract class _Initial implements FixturesState {
+  const factory _Initial() = _$_Initial;
 }
 
 /// @nodoc
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class _$LoadingCopyWith<$Res> {
+  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) then) =
+      __$LoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LoadingCopyWithImpl<$Res> extends _$FixturesStateCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class __$LoadingCopyWithImpl<$Res> extends _$FixturesStateCopyWithImpl<$Res>
+    implements _$LoadingCopyWith<$Res> {
+  __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
+      : super(_value, (v) => _then(v as _Loading));
 
   @override
-  Loading get _value => super._value as Loading;
+  _Loading get _value => super._value as _Loading;
 }
 
 /// @nodoc
 
-class _$Loading implements Loading {
-  const _$Loading();
+class _$_Loading implements _Loading {
+  const _$_Loading();
 
   @override
   String toString() {
@@ -840,7 +856,7 @@ class _$Loading implements Loading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Loading);
+        (other.runtimeType == runtimeType && other is _Loading);
   }
 
   @override
@@ -853,6 +869,7 @@ class _$Loading implements Loading {
     required TResult Function() loading,
     required TResult Function(List<Fixture> fixtures) loaded,
     required TResult Function(String message) fixturesError,
+    required TResult Function() fixturesEmpty,
   }) {
     return loading();
   }
@@ -864,6 +881,7 @@ class _$Loading implements Loading {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
   }) {
     return loading?.call();
   }
@@ -875,6 +893,7 @@ class _$Loading implements Loading {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -886,10 +905,11 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(FixturesError value) fixturesError,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_FixturesError value) fixturesError,
+    required TResult Function(_FixturesEmpty value) fixturesEmpty,
   }) {
     return loading(this);
   }
@@ -897,10 +917,11 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
   }) {
     return loading?.call(this);
   }
@@ -908,10 +929,11 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -921,31 +943,31 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements FixturesState {
-  const factory Loading() = _$Loading;
+abstract class _Loading implements FixturesState {
+  const factory _Loading() = _$_Loading;
 }
 
 /// @nodoc
-abstract class $LoadedCopyWith<$Res> {
-  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) then) =
-      _$LoadedCopyWithImpl<$Res>;
+abstract class _$LoadedCopyWith<$Res> {
+  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
+      __$LoadedCopyWithImpl<$Res>;
   $Res call({List<Fixture> fixtures});
 }
 
 /// @nodoc
-class _$LoadedCopyWithImpl<$Res> extends _$FixturesStateCopyWithImpl<$Res>
-    implements $LoadedCopyWith<$Res> {
-  _$LoadedCopyWithImpl(Loaded _value, $Res Function(Loaded) _then)
-      : super(_value, (v) => _then(v as Loaded));
+class __$LoadedCopyWithImpl<$Res> extends _$FixturesStateCopyWithImpl<$Res>
+    implements _$LoadedCopyWith<$Res> {
+  __$LoadedCopyWithImpl(_Loaded _value, $Res Function(_Loaded) _then)
+      : super(_value, (v) => _then(v as _Loaded));
 
   @override
-  Loaded get _value => super._value as Loaded;
+  _Loaded get _value => super._value as _Loaded;
 
   @override
   $Res call({
     Object? fixtures = freezed,
   }) {
-    return _then(Loaded(
+    return _then(_Loaded(
       fixtures: fixtures == freezed
           ? _value.fixtures
           : fixtures // ignore: cast_nullable_to_non_nullable
@@ -956,8 +978,8 @@ class _$LoadedCopyWithImpl<$Res> extends _$FixturesStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Loaded implements Loaded {
-  const _$Loaded({required this.fixtures});
+class _$_Loaded implements _Loaded {
+  const _$_Loaded({required this.fixtures});
 
   @override
   final List<Fixture> fixtures;
@@ -971,7 +993,7 @@ class _$Loaded implements Loaded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Loaded &&
+            other is _Loaded &&
             const DeepCollectionEquality().equals(other.fixtures, fixtures));
   }
 
@@ -981,8 +1003,8 @@ class _$Loaded implements Loaded {
 
   @JsonKey(ignore: true)
   @override
-  $LoadedCopyWith<Loaded> get copyWith =>
-      _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+  _$LoadedCopyWith<_Loaded> get copyWith =>
+      __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -991,6 +1013,7 @@ class _$Loaded implements Loaded {
     required TResult Function() loading,
     required TResult Function(List<Fixture> fixtures) loaded,
     required TResult Function(String message) fixturesError,
+    required TResult Function() fixturesEmpty,
   }) {
     return loaded(fixtures);
   }
@@ -1002,6 +1025,7 @@ class _$Loaded implements Loaded {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
   }) {
     return loaded?.call(fixtures);
   }
@@ -1013,6 +1037,7 @@ class _$Loaded implements Loaded {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1024,10 +1049,11 @@ class _$Loaded implements Loaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(FixturesError value) fixturesError,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_FixturesError value) fixturesError,
+    required TResult Function(_FixturesEmpty value) fixturesEmpty,
   }) {
     return loaded(this);
   }
@@ -1035,10 +1061,11 @@ class _$Loaded implements Loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
   }) {
     return loaded?.call(this);
   }
@@ -1046,10 +1073,11 @@ class _$Loaded implements Loaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1059,38 +1087,38 @@ class _$Loaded implements Loaded {
   }
 }
 
-abstract class Loaded implements FixturesState {
-  const factory Loaded({required List<Fixture> fixtures}) = _$Loaded;
+abstract class _Loaded implements FixturesState {
+  const factory _Loaded({required List<Fixture> fixtures}) = _$_Loaded;
 
   List<Fixture> get fixtures;
   @JsonKey(ignore: true)
-  $LoadedCopyWith<Loaded> get copyWith => throw _privateConstructorUsedError;
+  _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FixturesErrorCopyWith<$Res> {
-  factory $FixturesErrorCopyWith(
-          FixturesError value, $Res Function(FixturesError) then) =
-      _$FixturesErrorCopyWithImpl<$Res>;
+abstract class _$FixturesErrorCopyWith<$Res> {
+  factory _$FixturesErrorCopyWith(
+          _FixturesError value, $Res Function(_FixturesError) then) =
+      __$FixturesErrorCopyWithImpl<$Res>;
   $Res call({String message});
 }
 
 /// @nodoc
-class _$FixturesErrorCopyWithImpl<$Res>
+class __$FixturesErrorCopyWithImpl<$Res>
     extends _$FixturesStateCopyWithImpl<$Res>
-    implements $FixturesErrorCopyWith<$Res> {
-  _$FixturesErrorCopyWithImpl(
-      FixturesError _value, $Res Function(FixturesError) _then)
-      : super(_value, (v) => _then(v as FixturesError));
+    implements _$FixturesErrorCopyWith<$Res> {
+  __$FixturesErrorCopyWithImpl(
+      _FixturesError _value, $Res Function(_FixturesError) _then)
+      : super(_value, (v) => _then(v as _FixturesError));
 
   @override
-  FixturesError get _value => super._value as FixturesError;
+  _FixturesError get _value => super._value as _FixturesError;
 
   @override
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(FixturesError(
+    return _then(_FixturesError(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1101,8 +1129,8 @@ class _$FixturesErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FixturesError implements FixturesError {
-  const _$FixturesError({required this.message});
+class _$_FixturesError implements _FixturesError {
+  const _$_FixturesError({required this.message});
 
   @override
   final String message;
@@ -1116,7 +1144,7 @@ class _$FixturesError implements FixturesError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FixturesError &&
+            other is _FixturesError &&
             const DeepCollectionEquality().equals(other.message, message));
   }
 
@@ -1126,8 +1154,8 @@ class _$FixturesError implements FixturesError {
 
   @JsonKey(ignore: true)
   @override
-  $FixturesErrorCopyWith<FixturesError> get copyWith =>
-      _$FixturesErrorCopyWithImpl<FixturesError>(this, _$identity);
+  _$FixturesErrorCopyWith<_FixturesError> get copyWith =>
+      __$FixturesErrorCopyWithImpl<_FixturesError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1136,6 +1164,7 @@ class _$FixturesError implements FixturesError {
     required TResult Function() loading,
     required TResult Function(List<Fixture> fixtures) loaded,
     required TResult Function(String message) fixturesError,
+    required TResult Function() fixturesEmpty,
   }) {
     return fixturesError(message);
   }
@@ -1147,6 +1176,7 @@ class _$FixturesError implements FixturesError {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
   }) {
     return fixturesError?.call(message);
   }
@@ -1158,6 +1188,7 @@ class _$FixturesError implements FixturesError {
     TResult Function()? loading,
     TResult Function(List<Fixture> fixtures)? loaded,
     TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (fixturesError != null) {
@@ -1169,10 +1200,11 @@ class _$FixturesError implements FixturesError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(FixturesError value) fixturesError,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_FixturesError value) fixturesError,
+    required TResult Function(_FixturesEmpty value) fixturesEmpty,
   }) {
     return fixturesError(this);
   }
@@ -1180,10 +1212,11 @@ class _$FixturesError implements FixturesError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
   }) {
     return fixturesError?.call(this);
   }
@@ -1191,10 +1224,11 @@ class _$FixturesError implements FixturesError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(FixturesError value)? fixturesError,
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
     required TResult orElse(),
   }) {
     if (fixturesError != null) {
@@ -1204,11 +1238,134 @@ class _$FixturesError implements FixturesError {
   }
 }
 
-abstract class FixturesError implements FixturesState {
-  const factory FixturesError({required String message}) = _$FixturesError;
+abstract class _FixturesError implements FixturesState {
+  const factory _FixturesError({required String message}) = _$_FixturesError;
 
   String get message;
   @JsonKey(ignore: true)
-  $FixturesErrorCopyWith<FixturesError> get copyWith =>
+  _$FixturesErrorCopyWith<_FixturesError> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$FixturesEmptyCopyWith<$Res> {
+  factory _$FixturesEmptyCopyWith(
+          _FixturesEmpty value, $Res Function(_FixturesEmpty) then) =
+      __$FixturesEmptyCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$FixturesEmptyCopyWithImpl<$Res>
+    extends _$FixturesStateCopyWithImpl<$Res>
+    implements _$FixturesEmptyCopyWith<$Res> {
+  __$FixturesEmptyCopyWithImpl(
+      _FixturesEmpty _value, $Res Function(_FixturesEmpty) _then)
+      : super(_value, (v) => _then(v as _FixturesEmpty));
+
+  @override
+  _FixturesEmpty get _value => super._value as _FixturesEmpty;
+}
+
+/// @nodoc
+
+class _$_FixturesEmpty implements _FixturesEmpty {
+  const _$_FixturesEmpty();
+
+  @override
+  String toString() {
+    return 'FixturesState.fixturesEmpty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _FixturesEmpty);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<Fixture> fixtures) loaded,
+    required TResult Function(String message) fixturesError,
+    required TResult Function() fixturesEmpty,
+  }) {
+    return fixturesEmpty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<Fixture> fixtures)? loaded,
+    TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
+  }) {
+    return fixturesEmpty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<Fixture> fixtures)? loaded,
+    TResult Function(String message)? fixturesError,
+    TResult Function()? fixturesEmpty,
+    required TResult orElse(),
+  }) {
+    if (fixturesEmpty != null) {
+      return fixturesEmpty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_FixturesError value) fixturesError,
+    required TResult Function(_FixturesEmpty value) fixturesEmpty,
+  }) {
+    return fixturesEmpty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
+  }) {
+    return fixturesEmpty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_FixturesError value)? fixturesError,
+    TResult Function(_FixturesEmpty value)? fixturesEmpty,
+    required TResult orElse(),
+  }) {
+    if (fixturesEmpty != null) {
+      return fixturesEmpty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FixturesEmpty implements FixturesState {
+  const factory _FixturesEmpty() = _$_FixturesEmpty;
 }

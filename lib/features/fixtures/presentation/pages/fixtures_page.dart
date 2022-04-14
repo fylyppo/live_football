@@ -34,10 +34,11 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
       body: BlocBuilder<FixturesBloc, FixturesState>(
         builder: (context, state) {
           return state.when(
-            initial: () => const Center(child: Text('initial')),
+            initial: () => Container(),
             loading: () => const Center(
               child: CircularProgressIndicator(),
             ),
+            fixturesEmpty: () => const Center(child: Text('No fixtures today'),),
             loaded: (fixtures) => ListView.builder(
                 shrinkWrap: true,
                 itemCount: fixtures.length,
