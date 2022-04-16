@@ -30,6 +30,7 @@ dependencies:
   retrofit: ^3.0.1+1
   intl: ^0.17.0
   auto_route: ^3.2.4
+  flutter_countdown_timer: ^4.1.0
 
 dev_dependencies:
   flutter_test:

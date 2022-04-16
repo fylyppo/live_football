@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import '../../../../blocs/fixture_bloc/fixture_bloc.dart';
 import '../../../../blocs/fixture_events_bloc/fixture_events_bloc.dart';
 import '../lineups_tab/lineups_tab.dart';
 
 class DetailsTab extends StatelessWidget {
   final int id;
-  
+
   DetailsTab({
     Key? key,
     required this.id,
@@ -41,15 +42,20 @@ class DetailsTab extends StatelessWidget {
                     const SizedBox(
                       height: 50,
                     ),
-                    const TitleTabWidget(
-                      title: 'Events',
-                    ),
-                    EventsListTileWidget(
-                      homeId: homeId,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    if (state.events.events.isNotEmpty)
+                      Column(
+                        children: [
+                          const TitleTabWidget(
+                            title: 'Events',
+                          ),
+                          EventsListTileWidget(
+                            homeId: homeId,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                        ],
+                      ),
                     const TitleTabWidget(
                       title: 'Match information',
                     ),
@@ -164,76 +170,106 @@ class MatchInformationTileWidget extends StatelessWidget {
           builder: (context, state) {
             if (state is Loaded) {
               return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 6, right: 14.0),
-                        child: Icon(Icons.event, size: 30,),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Date:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          Text(state.fixture.fixture.date, style: const TextStyle(color: Colors.grey),),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                      height: 10,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 6, right: 14.0),
+                          child: Icon(
+                            Icons.event,
+                            size: 30,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Date:',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              DateFormat.yMEd().add_jms().format(
+                                  DateTime.parse(state.fixture.fixture.date).toLocal()),
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                SizedBox(
-                  //color: Colors.red,
-                  height: 50,
-                  child: Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 6, right: 14.0),
-                        child: Icon(Icons.sports, size: 30,),
-                      ),
-                      
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Referee:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          Text(state.fixture.fixture.referee!, style: const TextStyle(color: Colors.grey),),
-                        ],
-                      ),
-                    ],
                   ),
-                ),
-                const SizedBox(
-                      height: 10,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    //color: Colors.red,
+                    height: 50,
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 6, right: 14.0),
+                          child: Icon(
+                            Icons.sports,
+                            size: 30,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Referee:',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              state.fixture.fixture.referee!,
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 6, right: 14.0),
-                        child: Icon(Icons.stadium, size: 30,),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('Venue:', style: TextStyle(fontWeight: FontWeight.bold),),
-                          Text(state.fixture.fixture.venue.name!, style: const TextStyle(color: Colors.grey),),
-                          Text(state.fixture.fixture.venue.city!, style: const TextStyle(color: Colors.grey),),
-                        ],
-                      ),
-                    ],
                   ),
-                ),
-              ],
-            );
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 6, right: 14.0),
+                          child: Icon(
+                            Icons.stadium,
+                            size: 30,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Venue:',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              state.fixture.fixture.venue.name!,
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                            Text(
+                              state.fixture.fixture.venue.city!,
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
             }
             return Container();
           },

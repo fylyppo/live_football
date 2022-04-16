@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../domain/entities/fixture.dart';
 import 'score_header_widget.dart';
+import 'start_time_header_widget.dart';
 import 'team_header_widget.dart';
 
 
@@ -31,11 +32,11 @@ class MatchPageHeaderWidget
               team: fixture.teams.home,
               shrinkOffset: shrinkOffset,
             ),
-            ScoreHeaderWidget(
-              goals: fixture.goals,
-              status: fixture.fixture.status,
+            if (fixture.fixture.status.short != 'NS') ScoreHeaderWidget(
+              fixture: fixture,
               shrinkOffset: shrinkOffset,
-            ),
+            ) else 
+            StartTimeHeaderWidget(fixture: fixture, shrinkOffset: shrinkOffset,),
             TeamHeaderWidget(
               team: fixture.teams.away,
               shrinkOffset: shrinkOffset,

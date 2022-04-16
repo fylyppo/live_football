@@ -63,10 +63,6 @@ class _FixturePageState extends State<FixturePage>
             return [
               SliverAppBar(
                 forceElevated: true,
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () => exit(0),
-                ),
                 title: BlocBuilder<FixtureBloc, FixtureState>(
                   builder: (context, state) {
                     if (state is Empty) {

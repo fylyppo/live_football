@@ -43,6 +43,7 @@ class FixturesRemoteDataSourceImpl implements FixturesRemoteDataSource {
     //final dio = Dio();
     //final client = ApiFootballClient(dio);
     final httpResponse = await client.getFixtureModelsList({
+      'timezone': 'Europe/Warsaw',
       if(live != null) 'live': live,
       if(date != null) 'date': date,
       if(league != null) 'league': league,

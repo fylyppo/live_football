@@ -13,6 +13,7 @@ _$_FixtureData _$$_FixtureDataFromJson(Map<String, dynamic> json) =>
       date: json['date'] as String,
       status: Status.fromJson(json['status'] as Map<String, dynamic>),
       venue: Venue.fromJson(json['venue'] as Map<String, dynamic>),
+      timestamp: json['timestamp'] as int,
     );
 
 Map<String, dynamic> _$$_FixtureDataToJson(_$_FixtureData instance) =>
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$_FixtureDataToJson(_$_FixtureData instance) =>
       'date': instance.date,
       'status': instance.status,
       'venue': instance.venue,
+      'timestamp': instance.timestamp,
     };
 
 _$_Venue _$$_VenueFromJson(Map<String, dynamic> json) => _$_Venue(
@@ -38,10 +40,14 @@ Map<String, dynamic> _$$_VenueToJson(_$_Venue instance) => <String, dynamic>{
 
 _$_Status _$$_StatusFromJson(Map<String, dynamic> json) => _$_Status(
       elapsed: json['elapsed'] as int?,
+      long: json['long'] as String,
+      short: json['short'] as String,
     );
 
 Map<String, dynamic> _$$_StatusToJson(_$_Status instance) => <String, dynamic>{
       'elapsed': instance.elapsed,
+      'long': instance.long,
+      'short': instance.short,
     };
 
 _$_League _$$_LeagueFromJson(Map<String, dynamic> json) => _$_League(

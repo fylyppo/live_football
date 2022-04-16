@@ -91,7 +91,7 @@ class FixtureListCard extends StatelessWidget {
                     child: Image.network(fixture.teams.home.logo),
                   ),
                   Text(DateFormat('Hm')
-                      .format(DateTime.parse(fixture.fixture.date))),
+                      .format(DateTime.parse(fixture.fixture.date).toLocal())),
                   SizedBox(
                     height: 40,
                     child: Image.network(fixture.teams.away.logo),

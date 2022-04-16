@@ -258,13 +258,15 @@ class _$FixtureDataTearOff {
       required String? referee,
       required String date,
       required Status status,
-      required Venue venue}) {
+      required Venue venue,
+      required int timestamp}) {
     return _FixtureData(
       id: id,
       referee: referee,
       date: date,
       status: status,
       venue: venue,
+      timestamp: timestamp,
     );
   }
 
@@ -283,6 +285,7 @@ mixin _$FixtureData {
   String get date => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   Venue get venue => throw _privateConstructorUsedError;
+  int get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -295,7 +298,13 @@ abstract class $FixtureDataCopyWith<$Res> {
   factory $FixtureDataCopyWith(
           FixtureData value, $Res Function(FixtureData) then) =
       _$FixtureDataCopyWithImpl<$Res>;
-  $Res call({int id, String? referee, String date, Status status, Venue venue});
+  $Res call(
+      {int id,
+      String? referee,
+      String date,
+      Status status,
+      Venue venue,
+      int timestamp});
 
   $StatusCopyWith<$Res> get status;
   $VenueCopyWith<$Res> get venue;
@@ -316,6 +325,7 @@ class _$FixtureDataCopyWithImpl<$Res> implements $FixtureDataCopyWith<$Res> {
     Object? date = freezed,
     Object? status = freezed,
     Object? venue = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -338,6 +348,10 @@ class _$FixtureDataCopyWithImpl<$Res> implements $FixtureDataCopyWith<$Res> {
           ? _value.venue
           : venue // ignore: cast_nullable_to_non_nullable
               as Venue,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -363,7 +377,13 @@ abstract class _$FixtureDataCopyWith<$Res>
           _FixtureData value, $Res Function(_FixtureData) then) =
       __$FixtureDataCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String? referee, String date, Status status, Venue venue});
+  $Res call(
+      {int id,
+      String? referee,
+      String date,
+      Status status,
+      Venue venue,
+      int timestamp});
 
   @override
   $StatusCopyWith<$Res> get status;
@@ -388,6 +408,7 @@ class __$FixtureDataCopyWithImpl<$Res> extends _$FixtureDataCopyWithImpl<$Res>
     Object? date = freezed,
     Object? status = freezed,
     Object? venue = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_FixtureData(
       id: id == freezed
@@ -410,6 +431,10 @@ class __$FixtureDataCopyWithImpl<$Res> extends _$FixtureDataCopyWithImpl<$Res>
           ? _value.venue
           : venue // ignore: cast_nullable_to_non_nullable
               as Venue,
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -422,7 +447,8 @@ class _$_FixtureData implements _FixtureData {
       required this.referee,
       required this.date,
       required this.status,
-      required this.venue});
+      required this.venue,
+      required this.timestamp});
 
   factory _$_FixtureData.fromJson(Map<String, dynamic> json) =>
       _$$_FixtureDataFromJson(json);
@@ -437,10 +463,12 @@ class _$_FixtureData implements _FixtureData {
   final Status status;
   @override
   final Venue venue;
+  @override
+  final int timestamp;
 
   @override
   String toString() {
-    return 'FixtureData(id: $id, referee: $referee, date: $date, status: $status, venue: $venue)';
+    return 'FixtureData(id: $id, referee: $referee, date: $date, status: $status, venue: $venue, timestamp: $timestamp)';
   }
 
   @override
@@ -452,7 +480,8 @@ class _$_FixtureData implements _FixtureData {
             const DeepCollectionEquality().equals(other.referee, referee) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(other.venue, venue));
+            const DeepCollectionEquality().equals(other.venue, venue) &&
+            const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
   @override
@@ -462,7 +491,8 @@ class _$_FixtureData implements _FixtureData {
       const DeepCollectionEquality().hash(referee),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(venue));
+      const DeepCollectionEquality().hash(venue),
+      const DeepCollectionEquality().hash(timestamp));
 
   @JsonKey(ignore: true)
   @override
@@ -481,7 +511,8 @@ abstract class _FixtureData implements FixtureData {
       required String? referee,
       required String date,
       required Status status,
-      required Venue venue}) = _$_FixtureData;
+      required Venue venue,
+      required int timestamp}) = _$_FixtureData;
 
   factory _FixtureData.fromJson(Map<String, dynamic> json) =
       _$_FixtureData.fromJson;
@@ -496,6 +527,8 @@ abstract class _FixtureData implements FixtureData {
   Status get status;
   @override
   Venue get venue;
+  @override
+  int get timestamp;
   @override
   @JsonKey(ignore: true)
   _$FixtureDataCopyWith<_FixtureData> get copyWith =>
@@ -691,9 +724,12 @@ Status _$StatusFromJson(Map<String, dynamic> json) {
 class _$StatusTearOff {
   const _$StatusTearOff();
 
-  _Status call({required int? elapsed}) {
+  _Status call(
+      {required int? elapsed, required String long, required String short}) {
     return _Status(
       elapsed: elapsed,
+      long: long,
+      short: short,
     );
   }
 
@@ -708,6 +744,8 @@ const $Status = _$StatusTearOff();
 /// @nodoc
 mixin _$Status {
   int? get elapsed => throw _privateConstructorUsedError;
+  String get long => throw _privateConstructorUsedError;
+  String get short => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -718,7 +756,7 @@ mixin _$Status {
 abstract class $StatusCopyWith<$Res> {
   factory $StatusCopyWith(Status value, $Res Function(Status) then) =
       _$StatusCopyWithImpl<$Res>;
-  $Res call({int? elapsed});
+  $Res call({int? elapsed, String long, String short});
 }
 
 /// @nodoc
@@ -732,12 +770,22 @@ class _$StatusCopyWithImpl<$Res> implements $StatusCopyWith<$Res> {
   @override
   $Res call({
     Object? elapsed = freezed,
+    Object? long = freezed,
+    Object? short = freezed,
   }) {
     return _then(_value.copyWith(
       elapsed: elapsed == freezed
           ? _value.elapsed
           : elapsed // ignore: cast_nullable_to_non_nullable
               as int?,
+      long: long == freezed
+          ? _value.long
+          : long // ignore: cast_nullable_to_non_nullable
+              as String,
+      short: short == freezed
+          ? _value.short
+          : short // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -747,7 +795,7 @@ abstract class _$StatusCopyWith<$Res> implements $StatusCopyWith<$Res> {
   factory _$StatusCopyWith(_Status value, $Res Function(_Status) then) =
       __$StatusCopyWithImpl<$Res>;
   @override
-  $Res call({int? elapsed});
+  $Res call({int? elapsed, String long, String short});
 }
 
 /// @nodoc
@@ -762,12 +810,22 @@ class __$StatusCopyWithImpl<$Res> extends _$StatusCopyWithImpl<$Res>
   @override
   $Res call({
     Object? elapsed = freezed,
+    Object? long = freezed,
+    Object? short = freezed,
   }) {
     return _then(_Status(
       elapsed: elapsed == freezed
           ? _value.elapsed
           : elapsed // ignore: cast_nullable_to_non_nullable
               as int?,
+      long: long == freezed
+          ? _value.long
+          : long // ignore: cast_nullable_to_non_nullable
+              as String,
+      short: short == freezed
+          ? _value.short
+          : short // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -775,17 +833,21 @@ class __$StatusCopyWithImpl<$Res> extends _$StatusCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Status implements _Status {
-  _$_Status({required this.elapsed});
+  _$_Status({required this.elapsed, required this.long, required this.short});
 
   factory _$_Status.fromJson(Map<String, dynamic> json) =>
       _$$_StatusFromJson(json);
 
   @override
   final int? elapsed;
+  @override
+  final String long;
+  @override
+  final String short;
 
   @override
   String toString() {
-    return 'Status(elapsed: $elapsed)';
+    return 'Status(elapsed: $elapsed, long: $long, short: $short)';
   }
 
   @override
@@ -793,12 +855,17 @@ class _$_Status implements _Status {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Status &&
-            const DeepCollectionEquality().equals(other.elapsed, elapsed));
+            const DeepCollectionEquality().equals(other.elapsed, elapsed) &&
+            const DeepCollectionEquality().equals(other.long, long) &&
+            const DeepCollectionEquality().equals(other.short, short));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(elapsed));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(elapsed),
+      const DeepCollectionEquality().hash(long),
+      const DeepCollectionEquality().hash(short));
 
   @JsonKey(ignore: true)
   @override
@@ -812,12 +879,19 @@ class _$_Status implements _Status {
 }
 
 abstract class _Status implements Status {
-  factory _Status({required int? elapsed}) = _$_Status;
+  factory _Status(
+      {required int? elapsed,
+      required String long,
+      required String short}) = _$_Status;
 
   factory _Status.fromJson(Map<String, dynamic> json) = _$_Status.fromJson;
 
   @override
   int? get elapsed;
+  @override
+  String get long;
+  @override
+  String get short;
   @override
   @JsonKey(ignore: true)
   _$StatusCopyWith<_Status> get copyWith => throw _privateConstructorUsedError;

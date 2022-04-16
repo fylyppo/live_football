@@ -6,13 +6,11 @@ import 'elapsed_time_header_widget.dart';
 
 
 class ScoreHeaderWidget extends StatelessWidget {
-  final Goals goals;
-  final Status status;
+  final Fixture fixture;
   final double shrinkOffset;
   const ScoreHeaderWidget(
       {Key? key,
-      required this.goals,
-      required this.status,
+      required this.fixture,
       required this.shrinkOffset})
       : super(key: key);
 
@@ -26,10 +24,10 @@ class ScoreHeaderWidget extends StatelessWidget {
           child: Column(
         children: [
           Text(
-            goals.home.toString() + ' : ' + goals.away.toString(),
+            fixture.goals.home.toString() + ' : ' + fixture.goals.away.toString(),
             style: const TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
           ),
-          ElapsedTimeWidget(status: status, shrinkOffset: shrinkOffset),
+          ElapsedTimeWidget(status: fixture.fixture.status, shrinkOffset: shrinkOffset),
         ],
       )),
     );

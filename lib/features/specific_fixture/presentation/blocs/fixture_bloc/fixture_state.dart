@@ -13,8 +13,12 @@ class Loading extends FixtureState {}
 
 class Loaded extends FixtureState {
   final Fixture fixture;
+  final String status;
 
-  const Loaded({required this.fixture});
+  const Loaded({
+    required this.fixture,
+    required this.status,
+  });
 
   @override
   List<Object> get props => super.props..addAll([fixture]);

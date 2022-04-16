@@ -11,7 +11,7 @@ class Fixture with _$Fixture {
 
 @freezed
 class FixtureData with _$FixtureData {
-  factory FixtureData({required final int id, required final String? referee, required final String date, required final Status status, required final Venue venue,}) = _FixtureData;
+  factory FixtureData({required final int id, required final String? referee, required final String date, required final Status status, required final Venue venue, required final int timestamp,}) = _FixtureData;
   factory FixtureData.fromJson(Map<String, dynamic> json) => _$FixtureDataFromJson(json);
 }
 
@@ -23,7 +23,7 @@ class Venue with _$Venue {
 
 @freezed
 class Status with _$Status {
-  factory Status({required final int? elapsed,}) = _Status;
+  factory Status({required final int? elapsed, required final String long, required final String short}) = _Status;
   factory Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);
 }
 

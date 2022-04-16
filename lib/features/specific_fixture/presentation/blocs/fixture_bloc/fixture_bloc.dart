@@ -23,7 +23,10 @@ class FixtureBloc extends Bloc<FixtureEvent, FixtureState> {
         emit(failureOrFixture.fold(
             (failure) => Error(
                 message: _mapFailureToMessage(failure)),
-            (fixture) => Loaded(fixture: fixture!)));
+            (fixture) => Loaded(
+              fixture: fixture!,
+              status: fixture.fixture.status.short,
+              )));
       }
     });
   }
