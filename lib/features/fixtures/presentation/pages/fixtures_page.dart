@@ -38,7 +38,9 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
             loading: () => const Center(
               child: CircularProgressIndicator(),
             ),
-            fixturesEmpty: () => const Center(child: Text('No fixtures today'),),
+            fixturesEmpty: () => const Center(
+              child: Text('No fixtures today'),
+            ),
             loaded: (fixtures) => ListView.builder(
                 shrinkWrap: true,
                 itemCount: fixtures.length,
@@ -63,11 +65,13 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
 class FixtureListCard extends StatelessWidget {
   final Fixture fixture;
 
-  const FixtureListCard({
+  FixtureListCard({
     Key? key,
     required this.fixture,
   }) : super(key: key);
 
+  List<String> liveStatus = ['1H', 'HT', '2H', 'ET', 'P', 'LIVE'];
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -90,8 +94,29 @@ class FixtureListCard extends StatelessWidget {
                     height: 40,
                     child: Image.network(fixture.teams.home.logo),
                   ),
-                  Text(DateFormat('Hm')
-                      .format(DateTime.parse(fixture.fixture.date).toLocal())),
+                  if (fixture.fixture.status.short != 'NS')
+                    Column(
+                      children: [
+                        Text(
+                          fixture.goals.home.toString() +
+                              ' : ' +
+                              fixture.goals.away.toString(),
+                          style: const TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        if (liveStatus.contains(fixture.fixture.status.short)) const Text('LIVE!', style: TextStyle(fontSize: 10, color: Colors.green, fontWeight: FontWeight.bold),),
+                      ],
+                    ) else
+                  if (fixture.fixture.status.short == 'NS')
+                    Column(
+                      children: [
+                        const Text('Starting at:', style: TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold)),
+                        Text(DateFormat('Hm').format(
+                            DateTime.parse(fixture.fixture.date).toLocal()), style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                   SizedBox(
                     height: 40,
                     child: Image.network(fixture.teams.away.logo),
