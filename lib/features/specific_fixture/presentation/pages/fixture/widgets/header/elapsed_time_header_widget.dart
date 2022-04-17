@@ -35,6 +35,7 @@ class _ElapsedTimeWidgetState extends State<ElapsedTimeWidget>
 
   @override
   void initState() {
+    super.initState();
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
@@ -51,6 +52,12 @@ class _ElapsedTimeWidgetState extends State<ElapsedTimeWidget>
         setState(() {});
       });
     _controller.repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override

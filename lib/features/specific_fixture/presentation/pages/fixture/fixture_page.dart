@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,10 +112,7 @@ class _FixturePageState extends State<FixturePage>
               )
             ];
           },
-          body: Builder(builder: (context) {
-            return CustomScrollView(shrinkWrap: true, slivers: [
-              SliverFillRemaining(
-                child: TabBarView(
+          body: TabBarView(
                   controller: controller,
                   children: [
                     DetailsTab(
@@ -130,9 +126,6 @@ class _FixturePageState extends State<FixturePage>
                     )
                   ],
                 ),
-              ),
-            ]);
-          }),
         ),
       ),
     );
