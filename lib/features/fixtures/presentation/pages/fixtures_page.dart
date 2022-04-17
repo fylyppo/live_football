@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:live_football/core/routing/app_router.gr.dart';
-
 import '../../../../injection_container.dart';
 import '../../../specific_fixture/domain/entities/fixture.dart';
 import '../blocs/bloc/fixtures_bloc.dart';
 
 class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
-  const FixturesPage({Key? key}) : super(key: key);
+  final int id;
+
+  const FixturesPage({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -22,26 +26,30 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     //context.read<FixturesBloc>().add(FixturesEvent.getFixturesForParameters(league: 140,season: 2021,date: DateFormat('yyyy-MM-dd').format(DateTime.now()),));
-    context.read<FixturesBloc>().add(const FixturesEvent.getFixturesForParameters(
-          league: 140,
+    context.read<FixturesBloc>().add(FixturesEvent.getFixturesForParameters(
+          league: id,
           season: 2021,
           date: '2022-04-16',
         ));
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('LaLiga'),
-      ),
-      body: BlocBuilder<FixturesBloc, FixturesState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => Container(),
-            loading: () => const Center(
+    return BlocBuilder<FixturesBloc, FixturesState>(
+      builder: (context, state) {
+        return state.when(
+          initial: () => Container(),
+          loading: () => const Scaffold(
+            body: Center(
               child: CircularProgressIndicator(),
             ),
-            fixturesEmpty: () => const Center(
+          ),
+          fixturesEmpty: () => const Scaffold(
+            body: Center(
               child: Text('No fixtures today'),
             ),
-            loaded: (fixtures) => ListView.builder(
+          ),
+          loaded: (fixtures) => Scaffold(
+            appBar: AppBar(
+              title: Text(fixtures[0].league.name),
+            ),
+            body: ListView.builder(
                 shrinkWrap: true,
                 itemCount: fixtures.length,
                 itemBuilder: (context, index) {
@@ -49,15 +57,17 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
                     fixture: fixtures[index],
                   );
                 }),
-            fixturesError: (message) => const Center(
+          ),
+          fixturesError: (message) => const Scaffold(
+            body: Center(
               child: Text(
                 'Error',
                 style: TextStyle(color: Colors.white),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -71,7 +81,7 @@ class FixtureListCard extends StatelessWidget {
   }) : super(key: key);
 
   List<String> liveStatus = ['1H', 'HT', '2H', 'ET', 'P', 'LIVE'];
-  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -104,17 +114,27 @@ class FixtureListCard extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
-                        if (liveStatus.contains(fixture.fixture.status.short)) const Text('LIVE!', style: TextStyle(fontSize: 10, color: Colors.green, fontWeight: FontWeight.bold),),
+                        if (liveStatus.contains(fixture.fixture.status.short))
+                          const Text(
+                            'LIVE!',
+                            style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold),
+                          ),
                       ],
-                    ) else
-                  if (fixture.fixture.status.short == 'NS')
+                    )
+                  else if (fixture.fixture.status.short == 'NS')
                     Column(
                       children: [
-                        const Text('Starting at:', style: TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold)),
-                        Text(DateFormat('Hm').format(
-                            DateTime.parse(fixture.fixture.date).toLocal()), style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold)),
+                        const Text('Starting at:',
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold)),
+                        Text(
+                            DateFormat('Hm').format(
+                                DateTime.parse(fixture.fixture.date).toLocal()),
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   SizedBox(

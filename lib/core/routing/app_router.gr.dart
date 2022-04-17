@@ -10,50 +10,81 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i3;
-import 'package:flutter/material.dart' as _i4;
+import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:flutter/material.dart' as _i5;
 
-import '../../features/fixtures/presentation/pages/fixtures_page.dart' as _i1;
+import '../../features/fixtures/presentation/pages/fixtures_page.dart' as _i2;
+import '../../features/leagues/presentation/pages/leagues_page.dart' as _i1;
 import '../../features/specific_fixture/presentation/pages/fixture/fixture_page.dart'
-    as _i2;
+    as _i3;
 
-class AppRouter extends _i3.RootStackRouter {
-  AppRouter([_i4.GlobalKey<_i4.NavigatorState>? navigatorKey])
+class AppRouter extends _i4.RootStackRouter {
+  AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i3.PageFactory> pagesMap = {
+  final Map<String, _i4.PageFactory> pagesMap = {
+    LeaguesRoute.name: (routeData) {
+      return _i4.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i1.LeaguesPage());
+    },
     FixturesRoute.name: (routeData) {
-      return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.FixturesPage());
+      final args = routeData.argsAs<FixturesRouteArgs>();
+      return _i4.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i2.FixturesPage(key: args.key, id: args.id));
     },
     FixtureRoute.name: (routeData) {
       final args = routeData.argsAs<FixtureRouteArgs>();
-      return _i3.MaterialPageX<dynamic>(
+      return _i4.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i2.FixturePage(key: args.key, id: args.id));
+          child: _i3.FixturePage(key: args.key, id: args.id));
     }
   };
 
   @override
-  List<_i3.RouteConfig> get routes => [
-        _i3.RouteConfig(FixturesRoute.name, path: '/'),
-        _i3.RouteConfig(FixtureRoute.name, path: '/fixture-page')
+  List<_i4.RouteConfig> get routes => [
+        _i4.RouteConfig(LeaguesRoute.name, path: '/'),
+        _i4.RouteConfig(FixturesRoute.name, path: '/fixtures-page'),
+        _i4.RouteConfig(FixtureRoute.name, path: '/fixture-page')
       ];
 }
 
 /// generated route for
-/// [_i1.FixturesPage]
-class FixturesRoute extends _i3.PageRouteInfo<void> {
-  const FixturesRoute() : super(FixturesRoute.name, path: '/');
+/// [_i1.LeaguesPage]
+class LeaguesRoute extends _i4.PageRouteInfo<void> {
+  const LeaguesRoute() : super(LeaguesRoute.name, path: '/');
+
+  static const String name = 'LeaguesRoute';
+}
+
+/// generated route for
+/// [_i2.FixturesPage]
+class FixturesRoute extends _i4.PageRouteInfo<FixturesRouteArgs> {
+  FixturesRoute({_i5.Key? key, required int id})
+      : super(FixturesRoute.name,
+            path: '/fixtures-page', args: FixturesRouteArgs(key: key, id: id));
 
   static const String name = 'FixturesRoute';
 }
 
+class FixturesRouteArgs {
+  const FixturesRouteArgs({this.key, required this.id});
+
+  final _i5.Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'FixturesRouteArgs{key: $key, id: $id}';
+  }
+}
+
 /// generated route for
-/// [_i2.FixturePage]
-class FixtureRoute extends _i3.PageRouteInfo<FixtureRouteArgs> {
-  FixtureRoute({_i4.Key? key, required int id})
+/// [_i3.FixturePage]
+class FixtureRoute extends _i4.PageRouteInfo<FixtureRouteArgs> {
+  FixtureRoute({_i5.Key? key, required int id})
       : super(FixtureRoute.name,
             path: '/fixture-page', args: FixtureRouteArgs(key: key, id: id));
 
@@ -63,7 +94,7 @@ class FixtureRoute extends _i3.PageRouteInfo<FixtureRouteArgs> {
 class FixtureRouteArgs {
   const FixtureRouteArgs({this.key, required this.id});
 
-  final _i4.Key? key;
+  final _i5.Key? key;
 
   final int id;
 
