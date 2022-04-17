@@ -41,7 +41,7 @@ void main() {
               home: Team(id: 1, name: 'Arsenal', logo: 'logo'),
               away: Team(id: 2, name: 'Chelsea', logo: 'logo')),
           goals: Goals(home: 1, away: 2),
-          fixture: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1), venue: Venue(id: 1, name: 'name', city: 'city'), referee: ''));
+          fixture: FixtureData(id: 1, date: 'Date', status: Status(elapsed: 1, long: '', short: ''), venue: Venue(id: 1, name: 'name', city: 'city'), referee: '', timestamp: 1));
 
     test('should get data from the concrete usecase.', () async {
       //arrange
@@ -59,7 +59,7 @@ void main() {
       //assert later
       final expected = [
         Loading(),
-        Loaded(fixture: tFixture)
+        Loaded(fixture: tFixture, status: '')
       ];
       expectLater(bloc.stream, emitsInOrder(expected));
       //act

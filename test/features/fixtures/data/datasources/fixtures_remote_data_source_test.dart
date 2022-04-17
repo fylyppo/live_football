@@ -61,7 +61,7 @@ void main() {
       dataSource.getFixtures(live: 'all');
       //assert
       verify(
-        () => mockApiFootballClient.getFixtureModelsList({'live': 'all'}),
+        () => mockApiFootballClient.getFixtureModelsList({'live': 'all', 'timezone': 'Europe/Warsaw'}),
       );
     });
 
