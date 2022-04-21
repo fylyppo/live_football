@@ -32,7 +32,8 @@ class AppRouter extends _i4.RootStackRouter {
       final args = routeData.argsAs<FixturesRouteArgs>();
       return _i4.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i2.FixturesPage(key: args.key, id: args.id));
+          child: _i2.FixturesPage(
+              key: args.key, id: args.id, leagueName: args.leagueName));
     },
     FixtureRoute.name: (routeData) {
       final args = routeData.argsAs<FixtureRouteArgs>();
@@ -61,23 +62,27 @@ class LeaguesRoute extends _i4.PageRouteInfo<void> {
 /// generated route for
 /// [_i2.FixturesPage]
 class FixturesRoute extends _i4.PageRouteInfo<FixturesRouteArgs> {
-  FixturesRoute({_i5.Key? key, required int id})
+  FixturesRoute({_i5.Key? key, required int id, required String leagueName})
       : super(FixturesRoute.name,
-            path: '/fixtures-page', args: FixturesRouteArgs(key: key, id: id));
+            path: '/fixtures-page',
+            args: FixturesRouteArgs(key: key, id: id, leagueName: leagueName));
 
   static const String name = 'FixturesRoute';
 }
 
 class FixturesRouteArgs {
-  const FixturesRouteArgs({this.key, required this.id});
+  const FixturesRouteArgs(
+      {this.key, required this.id, required this.leagueName});
 
   final _i5.Key? key;
 
   final int id;
 
+  final String leagueName;
+
   @override
   String toString() {
-    return 'FixturesRouteArgs{key: $key, id: $id}';
+    return 'FixturesRouteArgs{key: $key, id: $id, leagueName: $leagueName}';
   }
 }
 

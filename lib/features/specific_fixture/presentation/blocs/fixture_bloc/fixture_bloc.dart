@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:live_football/core/util/input_converter.dart';
+import 'package:live_football/core/utils/input_converter.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/error/messages/messages.dart';
 import '../../../domain/entities/fixture.dart';

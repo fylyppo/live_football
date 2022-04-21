@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:live_football/features/fixtures/presentation/widgets/calendar_widget.dart';
 import 'package:live_football/features/leagues/data/datasources/constants/leagues.dart';
 import 'package:live_football/core/routing/app_router.gr.dart';
 import '../../data/models/league.dart';
@@ -14,13 +15,23 @@ class LeaguesPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('LiveFootball'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: ListView.builder(
-              itemCount: leaguesList.length,
-              itemBuilder: (context, index) {
-                return LeagueTile(league: leaguesList[index]);
-              }),
+        body: Column(
+          children: [
+            Container(
+              height: 400,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: ListView.builder(
+                    itemCount: leaguesList.length,
+                    itemBuilder: (context, index) {
+                      return LeagueTile(league: leaguesList[index]);
+                    }),
+              ),
+            ),
+            Container(
+              height: 116,
+              child: CalendarWidget())
+          ],
         ));
   }
 }
@@ -38,7 +49,7 @@ class LeagueTile extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: InkWell(
         onTap: () {
-          context.router.push(FixturesRoute(id: league.league.id));
+          context.router.push(FixturesRoute(id: league.league.id, leagueName: league.league.name));
         },
         child: Container(
           decoration: BoxDecoration(

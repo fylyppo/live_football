@@ -7,7 +7,7 @@ import 'package:live_football/features/specific_fixture/domain/usecases/get_fixt
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'core/util/input_converter.dart';
+import 'core/utils/input_converter.dart';
 import 'features/fixtures/data/datasources/fixtures/fixtures_remote_data_source.dart';
 import 'features/fixtures/data/repositories/fixtures_repository_impl.dart';
 import 'features/fixtures/domain/repositories/fixtures_repository.dart';
