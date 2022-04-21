@@ -3,7 +3,7 @@ library utils;
 import 'package:intl/intl.dart';
 
 class DateUtils {
-    static const List<String> weekdays = [
+  static const List<String> weekdays = [
     'Mon',
     'Tue',
     'Wed',
@@ -12,7 +12,7 @@ class DateUtils {
     'Sat',
     'Sun'
   ];
-  
+
   static const List months = [
     'January',
     'February',
@@ -27,6 +27,24 @@ class DateUtils {
     'November',
     'December'
   ];
+
+  static List<DateTime> monthsList(DateTime currentDateTime) {
+    DateTime firstMonth;
+    if (currentDateTime.month < 7) {
+      firstMonth = DateTime(currentDateTime.year - 1, 7);
+    } else {
+      firstMonth = DateTime(currentDateTime.year, 7);
+    }
+    List<DateTime> monthsList = List<DateTime>.generate(12, (index) {
+      if (index + firstMonth.month > 12) {
+        return DateTime(
+            firstMonth.year + 1, -(12 - (index + firstMonth.month)));
+      } else {
+        return DateTime(firstMonth.year, firstMonth.month + index);
+      }
+    });
+    return monthsList;
+  }
 
   static List<DateTime> daysInMonth(DateTime month) {
     var first = firstDayOfMonth(month);

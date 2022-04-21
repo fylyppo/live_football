@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:live_football/core/routing/app_router.gr.dart';
-import 'package:live_football/features/fixtures/presentation/widgets/calendar_list_view.dart';
+import 'package:live_football/features/fixtures/presentation/widgets/calendar_widget.dart';
 import '../../../../injection_container.dart';
 import '../../../specific_fixture/domain/entities/fixture.dart';
 import '../blocs/bloc/fixtures_bloc.dart';
@@ -28,14 +28,14 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    context.read<FixturesBloc>().add(FixturesEvent.getFixturesForParameters(league: 140,season: 2021,date: DateFormat('yyyy-MM-dd').format(DateTime.now()),));
+    context.read<FixturesBloc>().add(FixturesEvent.getFixturesForParameters(league: id,season: 2021,date: DateFormat('yyyy-MM-dd').format(DateTime.now()),));
     return Scaffold(
       appBar: AppBar(
         title: Text(leagueName),
       ),
       body: Column(
         children: [
-          CalendarListView(league: id, season: 2021,),
+          CalendarWidget(league: id, season: 2021,),
           BlocBuilder<FixturesBloc, FixturesState>(
             builder: (context, state) {
               return state.when(

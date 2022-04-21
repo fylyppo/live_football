@@ -15,23 +15,14 @@ class LeaguesPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('LiveFootball'),
         ),
-        body: Column(
-          children: [
-            Container(
-              height: 400,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: ListView.builder(
-                    itemCount: leaguesList.length,
-                    itemBuilder: (context, index) {
-                      return LeagueTile(league: leaguesList[index]);
-                    }),
-              ),
-            ),
-            Container(
-              height: 116,
-              child: CalendarWidget())
-          ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: ListView.builder(
+            shrinkWrap: true,
+              itemCount: leaguesList.length,
+              itemBuilder: (context, index) {
+                return LeagueTile(league: leaguesList[index]);
+              }),
         ));
   }
 }
