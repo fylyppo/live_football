@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:live_football/core/error/exceptions.dart';
-import '../../models/lineups_model.dart';
+import '../../models/lineup_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class FixtureLineupsRemoteDataSource {
-  Future<LineupsModel>? getFixtureLineups(int fixtureId);
+  Future<List<LineupModel>> getFixtureLineups(int fixtureId);
 }
 
 class FixtureLineupsRemoteDataSourceImpl implements FixtureLineupsRemoteDataSource{
@@ -19,15 +19,17 @@ class FixtureLineupsRemoteDataSourceImpl implements FixtureLineupsRemoteDataSour
   FixtureLineupsRemoteDataSourceImpl({required this.client});
   
   @override
-  Future<LineupsModel>? getFixtureLineups(int fixtureId) => _getFixtureLineupsFromUrl('https://v3.football.api-sports.io/fixtures/lineups?fixture=$fixtureId');
+  Future<List<LineupModel>> getFixtureLineups(int fixtureId) => _getFixtureLineupsFromUrl('https://v3.football.api-sports.io/fixtures/lineups?fixture=$fixtureId');
 
-  Future<LineupsModel> _getFixtureLineupsFromUrl(String url) async {
+  Future<List<LineupModel>> _getFixtureLineupsFromUrl(String url) async {
     final response = await client.get(Uri.parse(url), 
       headers: headers);
     if(response.statusCode == 200){
       var body = jsonDecode(response.body);
-      var lineups = body['response'];
-      return LineupsModel.fromJson(lineups);
+      List<dynamic> lineups = body['response'];
+      List<LineupModel> lineupModelsList =
+          lineups.map((e) => LineupModel.fromJson(e)).toList();
+      return lineupModelsList;
     } else {
       throw ServerException();
     }

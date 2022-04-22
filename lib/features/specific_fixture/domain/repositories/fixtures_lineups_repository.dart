@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:live_football/core/error/failures.dart';
-import '../entities/lineups.dart';
+import '../entities/lineup.dart';
 
 abstract class FixtureLineupsRepository {
-  Future<Either<Failure, Lineups?>> getFixtureLineups(int id);
+  Future<Either<Failure, List<Lineup>>> getFixtureLineups(int id);
 }

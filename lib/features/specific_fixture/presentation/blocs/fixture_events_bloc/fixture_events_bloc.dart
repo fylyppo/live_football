@@ -4,7 +4,7 @@ import 'package:live_football/features/specific_fixture/domain/usecases/get_fixt
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_events.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/error/messages/messages.dart';
-import '../../../domain/entities/events.dart';
+import '../../../domain/entities/event.dart';
 part 'fixture_events_event.dart';
 part 'fixture_events_state.dart';
 

@@ -51,11 +51,11 @@ class PlayersTileListWidget extends StatelessWidget {
     required this.isStarting,
   }) : super(key: key) {
     homePlayersList = isStarting
-        ? state.lineups.homeLineup.startXI.playersList
-        : state.lineups.homeLineup.substitutes.playersList;
+        ? state.lineups[0].startXI
+        : state.lineups[0].substitutes;
     awayPlayersList = isStarting
-        ? state.lineups.awayLineup.startXI.playersList
-        : state.lineups.awayLineup.substitutes.playersList;
+        ? state.lineups[1].startXI
+        : state.lineups[1].substitutes;
   }
 
   var homePlayersList;

@@ -3,7 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/error/messages/messages.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/events.dart';
+import 'package:live_football/features/specific_fixture/data/models/event_model.dart';
+import 'package:live_football/features/specific_fixture/domain/entities/event.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_events.dart';
 import 'package:live_football/features/specific_fixture/presentation/blocs/fixture_events_bloc/fixture_events_bloc.dart';
@@ -28,14 +29,15 @@ void main() {
   });
 
   group('GetFixtureEvents', () {
-    final Map<String, dynamic> decoded = jsonDecode(fixture('fixture_events.json'));
-    final List<dynamic >map = decoded['response'];
-    final tFixtureEvents = Events.fromJson(map);
+  final decoded = jsonDecode(fixture('fixture_events.json'));
+  final List<dynamic> response = decoded['response'];
+  final List<EventModel> tEventModelsList = response.map((e) => EventModel.fromJson(e),).toList();
+  final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomain(),).toList();
 
     const tFixtureId = 1;
     test('should get data from the concrete usecase', () async {
       //arrange
-      when(() => mockGetFixtureEvents(any())).thenAnswer((_) async => Right(tFixtureEvents));
+      when(() => mockGetFixtureEvents(any())).thenAnswer((_) async => Right(tEventsList));
       //act
       bloc.add(const GetFixtureEventsForId(tFixtureId));
       await untilCalled(() => mockGetFixtureEvents(any()),);
@@ -45,11 +47,11 @@ void main() {
 
     test('should emit [Loading, Loaded] when data is gotten successfully', () {
       //arrange
-      when(() => mockGetFixtureEvents(any())).thenAnswer((_) async => Right(tFixtureEvents));
+      when(() => mockGetFixtureEvents(any())).thenAnswer((_) async => Right(tEventsList));
       //assert later
       final expected = [
         EventsLoading(),
-        EventsLoaded(events: tFixtureEvents)
+        EventsLoaded(events: tEventsList)
       ];
       expectLater(bloc.stream, emitsInOrder(expected));
       //act

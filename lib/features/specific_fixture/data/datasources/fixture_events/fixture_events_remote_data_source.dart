@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../../../../core/error/exceptions.dart';
-import '../../models/events_model.dart';
+import '../../models/event_model.dart';
 
 abstract class FixtureEventsRemoteDataSource {
-  Future<EventsModel?> getFixtureEvents(int fixtureId);
+  Future<List<EventModel>> getFixtureEvents(int fixtureId);
 }
 
 class FixtureEventsRemoteDataSourceImpl implements FixtureEventsRemoteDataSource {
@@ -21,15 +21,17 @@ class FixtureEventsRemoteDataSourceImpl implements FixtureEventsRemoteDataSource
   };
 
   @override
-  Future<EventsModel?> getFixtureEvents(int fixtureId) => _getFixtureEventsFromUrl('https://v3.football.api-sports.io/fixtures/events?fixture=$fixtureId');
+  Future<List<EventModel>> getFixtureEvents(int fixtureId) => _getFixtureEventsFromUrl('https://v3.football.api-sports.io/fixtures/events?fixture=$fixtureId');
 
-  Future<EventsModel?> _getFixtureEventsFromUrl(String url) async {
+  Future<List<EventModel>> _getFixtureEventsFromUrl(String url) async {
     final response = await client.get(Uri.parse(url), 
       headers: headers);
     if(response.statusCode == 200){
       var body = jsonDecode(response.body);
-      var events = body['response'];
-      return EventsModel.fromJson(events);
+      List<dynamic> events = body['response'];
+      List<EventModel> eventModelsList =
+          events.map((e) => EventModel.fromJson(e)).toList();
+      return eventModelsList;
     } else {
       throw ServerException();
     }

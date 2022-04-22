@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
+import 'package:live_football/features/specific_fixture/data/models/lineup_model.dart';
+import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:live_football/features/specific_fixture/domain/repositories/fixtures_lineups_repository.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../../../fixtures/fixture_reader.dart';
 
 class MockFixtureLineupsRepository extends Mock
     implements FixtureLineupsRepository {}
@@ -19,77 +24,26 @@ void main() {
   });
 
   const int tFixtureId = 1;
-  var tFixtureLineups = Lineups(
-      homeLineup: Lineup(
-          team: Team(
-              id: 50,
-              name: 'Manchester City',
-              logo: 'https://media.api-sports.io/football/teams/50.png'),
-          formation: "4-3-3",
-          startXI: const Players(playersList: [
-            Player(id: 617, name: "Ederson", number: 31, pos: "G", grid: "1:1"),
-            Player(
-                id: 627, name: "Kyle Walker", number: 2, pos: "D", grid: "2:4")
-          ]),
-          substitutes: const Players(playersList: [
-            Player(
-                id: 50828,
-                name: "Zack Steffen",
-                number: 13,
-                pos: "G",
-                grid: null),
-            Player(
-                id: 623,
-                name: "Benjamin Mendy",
-                number: 22,
-                pos: "D",
-                grid: null)
-          ]),
-          coach: const Coach(
-              id: 4,
-              name: "Guardiola",
-              photo: "https://media.api-sports.io/football/coachs/4.png")),
-      awayLineup: Lineup(
-          team: Team(
-              id: 45,
-              name: "Everton",
-              logo: "https://media.api-sports.io/football/teams/45.png"),
-          formation: "4-3-1-2",
-          startXI: const Players(playersList: [
-            Player(
-                id: 2932,
-                name: "Jordan Pickford",
-                number: 1,
-                pos: "G",
-                grid: "1:1"),
-            Player(
-                id: 19150,
-                name: "Mason Holgate",
-                number: 4,
-                pos: "D",
-                grid: "2:4")
-          ]),
-          substitutes: const Players(playersList: [
-            Player(
-                id: 18755,
-                name: "João Virgínia",
-                number: 31,
-                pos: "G",
-                grid: null)
-          ]),
-          coach: const Coach(
-              id: 2407,
-              name: "C. Ancelotti",
-              photo: "https://media.api-sports.io/football/coachs/2407.png")));
-
+  final decoded = jsonDecode(fixture('fixture_lineups.json'));
+  final List<dynamic> response = decoded['response'];
+  final List<LineupModel> tLineupModelsList = response
+      .map(
+        (e) => LineupModel.fromJson(e),
+      )
+      .toList();
+  final List<Lineup> tLineupList = tLineupModelsList
+      .map(
+        (e) => e.toDomain(),
+      )
+      .toList();
   test('should get live matches from the repository', () async {
     //arrange
     when(() => mockFixtureLineupsRepository.getFixtureLineups(any()))
-        .thenAnswer((_) async => Right(tFixtureLineups));
+        .thenAnswer((_) async => Right(tLineupList));
     //act
     final result = await usecase(const LineupsParams(fixtureId: tFixtureId));
     //assert
-    expect(result, Right(tFixtureLineups));
+    expect(result, Right(tLineupList));
     verify(() => mockFixtureLineupsRepository.getFixtureLineups(tFixtureId));
     verifyNoMoreInteractions(mockFixtureLineupsRepository);
   });

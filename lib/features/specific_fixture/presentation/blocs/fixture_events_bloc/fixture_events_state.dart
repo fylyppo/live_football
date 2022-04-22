@@ -12,7 +12,7 @@ class EventsEmpty extends FixtureEventsState {}
 class EventsLoading extends FixtureEventsState {}
 
 class EventsLoaded extends FixtureEventsState {
-  final Events events;
+  final List<Event> events;
 
   const EventsLoaded({required this.events});
 

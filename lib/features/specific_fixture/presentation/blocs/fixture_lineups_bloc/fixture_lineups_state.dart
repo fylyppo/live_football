@@ -12,7 +12,7 @@ class Empty extends FixtureLineupsState {}
 class Loading extends FixtureLineupsState {}
 
 class Loaded extends FixtureLineupsState {
-  final Lineups lineups;
+  final List<Lineup> lineups;
   
   const Loaded({
     required this.lineups,

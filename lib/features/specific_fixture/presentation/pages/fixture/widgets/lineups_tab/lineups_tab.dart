@@ -91,12 +91,12 @@ class CoachesTileWidget extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Text(state.lineups.homeLineup.coach.name),
+                child: Text(state.lineups[0].coach.name),
               ),
               Expanded(
                 child: Align(
                     alignment: Alignment.centerRight,
-                    child: Text(state.lineups.awayLineup.coach.name)),
+                    child: Text(state.lineups[1].coach.name)),
               ),
             ],
           ),

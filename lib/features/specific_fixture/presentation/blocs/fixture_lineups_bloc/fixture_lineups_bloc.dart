@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
+import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/error/messages/messages.dart';
@@ -20,7 +20,7 @@ class FixtureLineupsBloc extends Bloc<FixtureLineupsEvent, FixtureLineupsState> 
         emit(failureOrLineups.fold(
             (failure) => Error(
                 message: _mapFailureToMessage(failure)),
-            (lineups) => Loaded(lineups: lineups!)));
+            (lineups) => Loaded(lineups: lineups)));
       }
     });
   }

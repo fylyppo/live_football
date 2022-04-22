@@ -42,7 +42,7 @@ class DetailsTab extends StatelessWidget {
                     const SizedBox(
                       height: 50,
                     ),
-                    if (state.events.events.isNotEmpty)
+                    if (state.events.isNotEmpty)
                       Column(
                         children: [
                           const TitleTabWidget(
@@ -97,34 +97,34 @@ class EventsListTileWidget extends StatelessWidget {
               child: ListView.builder(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
-                  itemCount: state.events.events.length,
+                  itemCount: state.events.length,
                   itemBuilder: (context, index) {
-                    bool isHome = state.events.events[index].team.id == homeId;
+                    bool isHome = state.events[index].team.id == homeId;
                     List<Widget> event = [
                       SizedBox(
                           width: 20,
                           child: Center(
                               child: Text(state
-                                      .events.events[index].time.elapsed
+                                      .events[index].time.elapsed
                                       .toString() +
                                   "'"))),
                       const SizedBox(
                         width: 10,
                       ),
-                      state.events.events[index].icon.icon,
+                      //state.events[index].icon.icon,
                       const SizedBox(
                         width: 10,
                       ),
                       Text(
-                        state.events.events[index].player.name,
+                        state.events[index].player.name,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       Text(
-                        state.events.events[index].assist.name != null
-                            ? "(${state.events.events[index].assist.name})"
+                        state.events[index].assist.name != null
+                            ? "(${state.events[index].assist.name})"
                             : '',
                         style: const TextStyle(color: Colors.grey),
                       ),

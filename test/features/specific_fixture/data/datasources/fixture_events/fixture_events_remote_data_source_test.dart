@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/features/specific_fixture/data/datasources/fixture_events/fixture_events_remote_data_source.dart';
-import 'package:live_football/features/specific_fixture/data/models/events_model.dart';
+import 'package:live_football/features/specific_fixture/data/models/event_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,10 +21,9 @@ void main() {
   });
 
   const tFixtureId = 1;
-  final Map<String, dynamic> decoded = json.decode(fixture('fixture_events.json'));
-    final List<dynamic> map = decoded['response'];
-    final tEventsModel = EventsModel.fromJson(map);
-
+  final decoded = json.decode(fixture('fixture_events.json'));
+    final List<dynamic> response = decoded['response'];
+    final List<EventModel> tEventsModelsList = response.map((e) => EventModel.fromJson(e)).toList();
   test('should perform a GET on a URL with fixtureId endpoint and with apiKey', () async {
     //arrange
     when(() => mockHttpClient.get(any(), headers: any(named: 'headers'))).thenAnswer((_) async => http.Response(fixture('fixture_events.json'), 200));
@@ -43,7 +42,7 @@ void main() {
       //act
       final result = await dataSource.getFixtureEvents(tFixtureId);
       //assert
-      expect(result, equals(tEventsModel));
+      expect(result, equals(tEventsModelsList));
     });
 
     test('should throw a ServerException when the response code is 404 or other', () async {

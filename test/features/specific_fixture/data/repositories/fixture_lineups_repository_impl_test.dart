@@ -1,19 +1,22 @@
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/network/network_info.dart';
 import 'package:live_football/features/specific_fixture/data/datasources/fixture_lineups/fixture_lineups_remote_data_source.dart';
-import 'package:live_football/features/specific_fixture/data/models/lineups_model.dart';
+import 'package:live_football/features/specific_fixture/data/models/lineup_model.dart';
 import 'package:live_football/features/specific_fixture/data/repositories/fixture_lineups_repository_impl.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
+import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
 import 'package:mocktail/mocktail.dart';
+import '../../../../fixtures/fixture_reader.dart';
 
-class MockRemoteDataSource extends Mock implements FixtureLineupsRemoteDataSource {}
+class MockRemoteDataSource extends Mock
+    implements FixtureLineupsRemoteDataSource {}
 
 // class MockLocalDataSource extends Mock implements LiveMatchesLocalDataSource {
-  
+
 // }
 
 class MockNetworkInfo extends Mock implements NetworkInfo {}
@@ -34,77 +37,21 @@ void main() {
       networkInfo: mockNetworkInfo,
     );
   });
-  
+
   group('getConcreteFixtureLineups', () {
     const tFixtureId = 1;
-    var tFixtureLineupsModel = LineupsModel(homeLineup: Lineup(
-          team: Team(
-              id: 50,
-              name: 'Manchester City',
-              logo: 'https://media.api-sports.io/football/teams/50.png'),
-          formation: "4-3-3",
-          startXI: const Players(playersList: [
-            Player(id: 617, name: "Ederson", number: 31, pos: "G", grid: "1:1"),
-            Player(
-                id: 627, name: "Kyle Walker", number: 2, pos: "D", grid: "2:4")
-          ]),
-          substitutes: const Players(playersList: [
-            Player(
-                id: 50828,
-                name: "Zack Steffen",
-                number: 13,
-                pos: "G",
-                grid: null),
-            Player(
-                id: 623,
-                name: "Benjamin Mendy",
-                number: 22,
-                pos: "D",
-                grid: null)
-          ]),
-          coach: const Coach(
-              id: 4,
-              name: "Guardiola",
-              photo: "https://media.api-sports.io/football/coachs/4.png")), awayLineup: Lineup(
-          team: Team(
-              id: 45,
-              name: "Everton",
-              logo: "https://media.api-sports.io/football/teams/45.png"),
-          formation: "4-3-1-2",
-          startXI: const Players(playersList: [
-            Player(
-                id: 2932,
-                name: "Jordan Pickford",
-                number: 1,
-                pos: "G",
-                grid: "1:1"),
-            Player(
-                id: 19150,
-                name: "Mason Holgate",
-                number: 4,
-                pos: "D",
-                grid: "2:4")
-          ]),
-          substitutes: const Players(playersList: [
-            Player(
-                id: 18755,
-                name: "João Virgínia",
-                number: 31,
-                pos: "G",
-                grid: null)
-          ]),
-          coach: const Coach(
-              id: 2407,
-              name: "C. Ancelotti",
-              photo: "https://media.api-sports.io/football/coachs/2407.png")));
-    
+    final decoded = jsonDecode(fixture('fixture_lineups.json'));
+    final List<dynamic> response = decoded['response'];
+    final List<LineupModel> tLineupModelsList = response.map((e) => LineupModel.fromJson(e),).toList();
+    final List<Lineup> tLineupList = tLineupModelsList.map((e) => e.toDomain(),).toList();
     test('check if the device is online', () async {
-    //arrange
-    when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-    //act
-    repository.getFixtureLineups(tFixtureId);
-    //assert
-    verify(() => mockNetworkInfo.isConnected);
+      //arrange
+      when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      when(() => mockRemoteDataSource.getFixtureLineups(any()),).thenAnswer((_) async => tLineupModelsList);
+      //act
+      repository.getFixtureLineups(tFixtureId);
+      //assert
+      verify(() => mockNetworkInfo.isConnected);
     });
 
     group('device is online', () {
@@ -112,14 +59,18 @@ void main() {
         when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
 
-      test('should return remote data when the call to remote data source is successful', () async {
+      test(
+          'should return remote data when the call to remote data source is successful',
+          () async {
         //arrange
-        when(() => mockRemoteDataSource.getFixtureLineups(any())).thenAnswer((_) async => tFixtureLineupsModel);
+        when(() => mockRemoteDataSource.getFixtureLineups(any()))
+            .thenAnswer((_) async => tLineupModelsList);
         //act
         final result = await repository.getFixtureLineups(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixtureLineups(tFixtureId));
-        expect(result, equals(Right(tFixtureLineupsModel)));
+        bool isEqual = listEquals(result.fold((l) => null, (r) => r), tLineupList);
+        expect(isEqual, equals(true));
       });
 
       //       test('should cache the data locally when the call to remote data source is successful', () async {
@@ -132,9 +83,12 @@ void main() {
       //   verify(() => mockLocalDataSource.cacheLiveMatches(tFixtureLineupsModel),);
       // });
 
-            test('should return server failure when the call to remote data source is unsuccessful', () async {
+      test(
+          'should return server failure when the call to remote data source is unsuccessful',
+          () async {
         //arrange
-        when(() => mockRemoteDataSource.getFixtureLineups(any())).thenThrow(ServerException());
+        when(() => mockRemoteDataSource.getFixtureLineups(any()))
+            .thenThrow(ServerException());
         //act
         final result = await repository.getFixtureLineups(tFixtureId);
         //assert

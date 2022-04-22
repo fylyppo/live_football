@@ -1,16 +1,21 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/network/network_info.dart';
 import 'package:live_football/features/specific_fixture/data/datasources/fixture_events/fixture_events_remote_data_source.dart';
-import 'package:live_football/features/specific_fixture/data/models/events_model.dart';
+import 'package:live_football/features/specific_fixture/data/models/event_model.dart';
 import 'package:live_football/features/specific_fixture/data/repositories/fixture_events_repository_impl.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/events.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/lineups.dart';
+import 'package:live_football/features/specific_fixture/domain/entities/event.dart';
+import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../../../fixtures/fixture_reader.dart';
 
 class MockFixtureEventsRemoteDataSource extends Mock
     implements FixtureEventsRemoteDataSource {}
@@ -31,20 +36,15 @@ void main() {
   });
 
   const tFixtureId = 1;
-  var tFixtureEventsModel = EventsModel(events: [
-    Event(
-        time: const Time(elapsed: 1),
-        team: Team(id: 1, name: 'Arsenal', logo: 'logo'),
-        player: const Player(id: 1, name: 'Lukaku', number: 9, pos: 'A', grid: '1:1'),
-        assist: const Assist(id: 2, name: 'Mount'),
-        type: 'Goal',
-        detail: 'Normal Goal', icon: const EventIcon(detail: 'detail', icon: Icon(Icons.event)))
-  ]);
+  final decoded = jsonDecode(fixture('fixture_events.json'));
+  final List<dynamic> response = decoded['response'];
 
+  final List<EventModel> tEventModelsList = response.map((e) => EventModel.fromJson(e),).toList();
+  final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomain(),).toList();
   test('check if the device is online', () {
     //arrange
     when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-    when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tFixtureEventsModel);
+    when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tEventModelsList);
     //act
     repository.getFixtureEvents(tFixtureId);
     //assert
@@ -57,12 +57,13 @@ void main() {
         () async {
           //arrange
           when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-          when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tFixtureEventsModel);
+          when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tEventModelsList);
           //act
           final result = await repository.getFixtureEvents(tFixtureId);
           //assert
           verify(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(tFixtureId),);
-          expect(result, equals(Right(tFixtureEventsModel)));
+          bool isEqual = listEquals(result.fold((l) => null, (r) => r), tEventsList);
+          expect(isEqual, equals(true));
         });
 
     test('should return server failure when the call to remote data source is unsuccessful', () async {

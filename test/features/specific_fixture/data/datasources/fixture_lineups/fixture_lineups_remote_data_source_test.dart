@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/features/specific_fixture/data/datasources/fixture_lineups/fixture_lineups_remote_data_source.dart';
-import 'package:live_football/features/specific_fixture/data/models/lineups_model.dart';
+import 'package:live_football/features/specific_fixture/data/models/lineup_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,9 +33,9 @@ void main() {
   }
   group('getFixtureLineups', () {
     const tFixtureId = 592872;
-    final Map<String, dynamic> decoded = json.decode(fixture('fixture_lineups.json'));
-    final List<dynamic> map = decoded['response'];
-    final tLineupsModel = LineupsModel.fromJson(map);
+    final decoded = jsonDecode(fixture('fixture_lineups.json'));
+    final List<dynamic> response = decoded['response'];
+    final List<LineupModel> tLineupModelsList = response.map((e) => LineupModel.fromJson(e),).toList();
 
     test(
         'should perform a GET on a URL with fixtureId endpoint and with apiKey',
@@ -57,7 +57,7 @@ void main() {
       //act
       final result = await dataSource.getFixtureLineups(tFixtureId);
       //assert
-      expect(result, equals(tLineupsModel));
+      expect(result, equals(tLineupModelsList));
     });
 
     test('should throw a ServerException when the response code is 404 or other', () async {
