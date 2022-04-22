@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:live_football/features/specific_fixture/data/models/stats_model.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/stats.dart';
 import 'package:live_football/features/specific_fixture/domain/repositories/fixture_stats_repository.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
@@ -22,15 +23,16 @@ void main() {
 
   const tFixtureId = 1;
   final decoded = jsonDecode(fixture('fixture_stats.json'));
-  final response = decoded['response'];
-  final tFixtureStats = Stats.fromJson(response);
+  final List<dynamic> response = decoded['response'];
+  final List<StatsModel> tStatsModelsList = response.map((e) => StatsModel.fromJson(e),).toList();
+  final List<Stats> tStatsList = tStatsModelsList.map((e) => e.toDomain(),).toList();
   test('should get fixture stats from repository', () async {
     //arrange
-    when((() => mockFixtureStatsRepository.getFixtureStats(any()))).thenAnswer((_) async => Right(tFixtureStats));
+    when((() => mockFixtureStatsRepository.getFixtureStats(any()))).thenAnswer((_) async => Right(tStatsList));
     //act
     final result = await usecase(const FixtureParams(id: tFixtureId));
     //assert
-    expect(result, Right(tFixtureStats));
+    expect(result, Right(tStatsList));
     verify(() => mockFixtureStatsRepository.getFixtureStats(tFixtureId),);
     verifyNoMoreInteractions(mockFixtureStatsRepository);
   });

@@ -6,13 +6,13 @@ import 'package:live_football/features/specific_fixture/domain/repositories/fixt
 import '../../../../core/usecases/fixture_stats_usecase.dart';
 import 'get_fixture.dart';
 
-class GetFixtureStats implements FixtureStatsUseCase<Stats, FixtureParams>{
+class GetFixtureStats implements FixtureStatsUseCase<List<Stats>, FixtureParams>{
   final FixtureStatsRepository repository;
 
   GetFixtureStats(this.repository);
 
   @override
-  Future<Either<Failure, Stats>> call(FixtureParams params) async {
+  Future<Either<Failure, List<Stats>>> call(FixtureParams params) async {
     return await repository.getFixtureStats(params.id);
   }
 }

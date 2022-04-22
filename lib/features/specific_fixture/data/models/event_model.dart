@@ -1,6 +1,5 @@
 import '../../domain/entities/event.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../domain/entities/lineup.dart';
 import '../../domain/entities/team.dart';
 
 part 'event_model.freezed.dart';

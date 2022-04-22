@@ -1,9 +1,21 @@
 import 'package:live_football/features/specific_fixture/domain/entities/stats.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../domain/entities/team.dart';
 
-class StatsModel extends Stats {
-  const StatsModel({required StatsData homeStats, required StatsData awayStats}) : super(homeStats: homeStats, awayStats: awayStats);
-  
-  factory StatsModel.fromJson(List<dynamic> jsonList) {
-    return StatsModel(homeStats: StatsData.fromJson(jsonList[0]), awayStats: StatsData.fromJson(jsonList[1]));
+part 'stats_model.freezed.dart';
+part 'stats_model.g.dart';
+
+@freezed
+abstract class StatsModel implements _$StatsModel {
+  StatsModel._();
+  factory StatsModel({
+    required final Team team,
+    required final List<Stat> statistics,
+  }) = _StatsModel;
+  factory StatsModel.fromJson(Map<String, dynamic> json) =>
+      _$StatsModelFromJson(json);
+
+  Stats toDomain() {
+    return Stats(team: team, statistics: statistics);
   }
 }

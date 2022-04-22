@@ -12,7 +12,7 @@ class Empty extends FixtureStatsState {}
 class Loading extends FixtureStatsState {}
 
 class Loaded extends FixtureStatsState {
-  final Stats stats;
+  final List<Stats> stats;
   
   const Loaded({
     required this.stats,

@@ -4,5 +4,5 @@ import 'package:live_football/core/error/failures.dart';
 import '../entities/stats.dart';
 
 abstract class FixtureStatsRepository {
-  Future<Either<Failure, Stats>> getFixtureStats(int id);
+  Future<Either<Failure, List<Stats>>> getFixtureStats(int id);
 }

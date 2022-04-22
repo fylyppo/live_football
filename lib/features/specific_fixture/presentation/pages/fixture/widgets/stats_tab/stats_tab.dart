@@ -85,16 +85,16 @@ class StatsTileWidget extends StatelessWidget {
       return ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: state.stats.homeStats.stats.length,
+          itemCount: state.stats[0].statistics.length,
           itemBuilder: (context, index) {
-            bool passesPercentage = state.stats.homeStats.stats[index].type == 'Passes %';
-            String homeVal = state.stats.homeStats.stats[index].value;
-            String awayVal = state.stats.awayStats.stats[index].value;
+            bool passesPercentage = state.stats[0].statistics[index].type == 'Passes %';
+            String homeVal = state.stats[0].statistics[index].value;
+            String awayVal = state.stats[1].statistics[index].value;
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Column(
                 children: [
-                  Text(state.stats.homeStats.stats[index].type),
+                  Text(state.stats[0].statistics[index].type),
                   Row(
                     children: [
                       SizedBox(

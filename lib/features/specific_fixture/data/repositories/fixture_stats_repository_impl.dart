@@ -18,11 +18,11 @@ class FixtureStatsRepositoryImpl implements FixtureStatsRepository {
   });
   
   @override
-  Future<Either<Failure, Stats>> getFixtureStats(int id) async {
+  Future<Either<Failure, List<Stats>>> getFixtureStats(int id) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteFixtureStats = await remoteDataSource.getFixtureStats(id);
-        return Right(remoteFixtureStats);
+        return Right(remoteFixtureStats.map((e) => e.toDomain()).toList());
       } on ServerException {
         return Left(ServerFailure());
       }

@@ -22,8 +22,9 @@ void main() {
 
   const tFixtureId = 1;
   final decoded = jsonDecode(fixture('fixture_stats.json'));
-  final response = decoded['response'];
-  final tFixtureStatsModel = StatsModel.fromJson(response);
+  final List<dynamic> response = decoded['response'];
+  final List<StatsModel> tStatsModelsList = response.map((e) => StatsModel.fromJson(e),).toList();
+  //final List<Stats> tStatsList = tStatsModelsList.map((e) => e.toDomain(),).toList();
     test('should perform a GET on a URL with fixtureId endpoint and with apiKey', () {
       //arrange
       when(() => mockHttpClient.get(any(), headers: any(named: 'headers'))).thenAnswer((_) async => http.Response(fixture('fixture_stats.json'), 200));
@@ -41,7 +42,7 @@ void main() {
     //act
     final result = await remoteDataSource.getFixtureStats(tFixtureId);
     //assert
-    expect(result, equals(tFixtureStatsModel));
+    expect(result, equals(tStatsModelsList));
   });
 
   test('should throw a ServerException when the response code is 404 or other', () async {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
@@ -7,6 +8,7 @@ import 'package:live_football/core/network/network_info.dart';
 import 'package:live_football/features/specific_fixture/data/datasources/fixture_stats/fixture_stats_remote_data_source.dart';
 import 'package:live_football/features/specific_fixture/data/models/stats_model.dart';
 import 'package:live_football/features/specific_fixture/data/repositories/fixture_stats_repository_impl.dart';
+import 'package:live_football/features/specific_fixture/domain/entities/stats.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -28,13 +30,13 @@ void main() {
 
   const tFixtureId = 1;
   var decoded = jsonDecode(fixture('fixture_stats.json'));
-  var map = decoded['response'];
-  final tStatsModel = StatsModel.fromJson(map);
-
+  final List<dynamic> response = decoded['response'];
+  final List<StatsModel> tStatsModelsList = response.map((e) => StatsModel.fromJson(e),).toList();
+  final List<Stats> tStatsList = tStatsModelsList.map((e) => e.toDomain(),).toList();
   test('should check if the device is online', () {
     //arrange
     when(() => mockNetworkInfo.isConnected,).thenAnswer((_) async => true);
-    when(() => mockFixtureStatsRemoteDataSource.getFixtureStats(tFixtureId),).thenAnswer((_) async => tStatsModel);
+    when(() => mockFixtureStatsRemoteDataSource.getFixtureStats(tFixtureId),).thenAnswer((_) async => tStatsModelsList);
     //act
     repository.getFixtureStats(tFixtureId);
     //assert
@@ -45,12 +47,13 @@ void main() {
     test('should return remote data when when the call to remote data is successful', () async {
       //arrange
       when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      when(() => mockFixtureStatsRemoteDataSource.getFixtureStats(any()),).thenAnswer((_) async => tStatsModel);
+      when(() => mockFixtureStatsRemoteDataSource.getFixtureStats(any()),).thenAnswer((_) async => tStatsModelsList);
       //act
       final result = await repository.getFixtureStats(tFixtureId);
       //assert
       verify(() => mockFixtureStatsRemoteDataSource.getFixtureStats(tFixtureId));
-      expect(result, equals(Right(tStatsModel)));
+      bool isEqual = listEquals(result.fold((l) => null, (r) => r), tStatsList);
+      expect(isEqual, equals(true));
     });
 
     test('should return server failure when the call to remote data is unsuccessful', () async {

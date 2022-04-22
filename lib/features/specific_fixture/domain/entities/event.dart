@@ -1,4 +1,3 @@
-import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'team.dart';

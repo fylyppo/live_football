@@ -38,7 +38,6 @@ void main() {
   const tFixtureId = 1;
   final decoded = jsonDecode(fixture('fixture_events.json'));
   final List<dynamic> response = decoded['response'];
-
   final List<EventModel> tEventModelsList = response.map((e) => EventModel.fromJson(e),).toList();
   final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomain(),).toList();
   test('check if the device is online', () {
