@@ -19,7 +19,6 @@ class DetailsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<FixtureBloc, FixtureState>(
       listener: (context, state) {
-        context.read<FixtureEventsBloc>().add(GetFixtureEventsForId(id));
         if (state is Loaded) {
           homeId = state.fixture.teams.home.id;
         }
@@ -27,7 +26,8 @@ class DetailsTab extends StatelessWidget {
       child: BlocBuilder<FixtureEventsBloc, FixtureEventsState>(
         builder: (context, state) {
           if (state is EventsEmpty) {
-            return const Center(child: CircularProgressIndicator());
+            context.read<FixtureEventsBloc>().add(GetFixtureEventsForId(id));
+            return Container();
           } else if (state is EventsError) {
             return Text(state.message);
           } else if (state is EventsLoading) {
@@ -163,7 +163,6 @@ class MatchInformationTileWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         color: Colors.black,
       ),
-      width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: BlocBuilder<FixtureBloc, FixtureState>(
@@ -172,82 +171,76 @@ class MatchInformationTileWidget extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 6, right: 14.0),
-                          child: Icon(
-                            Icons.event,
-                            size: 30,
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 6, right: 14.0),
+                        child: Icon(
+                          Icons.event,
+                          size: 30,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Date:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Date:',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              DateFormat.yMEd().add_jms().format(
-                                  DateTime.parse(state.fixture.fixture.date).toLocal()),
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          Text(
+                            DateFormat.yMEd().add_jms().format(
+                                DateTime.parse(state.fixture.fixture.date).toLocal()),
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    //color: Colors.red,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 6, right: 14.0),
-                          child: Icon(
-                            Icons.sports,
-                            size: 30,
+                  state.fixture.fixture.referee != null ?
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 6, right: 14.0),
+                        child: Icon(
+                          Icons.sports,
+                          size: 30,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Referee:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Referee:',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              state.fixture.fixture.referee!,
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                          Text(
+                            state.fixture.fixture.referee ?? '',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ) : Container(),
                   const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    height: 50,
-                    child: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 6, right: 14.0),
-                          child: Icon(
-                            Icons.stadium,
-                            size: 30,
-                          ),
+                  !(state.fixture.fixture.venue.city == null && state.fixture.fixture.venue.name == null) ?
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 6, right: 14.0),
+                        child: Icon(
+                          Icons.stadium,
+                          size: 30,
                         ),
-                        Column(
+                      ),
+                      Flexible(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -256,18 +249,18 @@ class MatchInformationTileWidget extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              state.fixture.fixture.venue.name!,
+                              state.fixture.fixture.venue.name ?? '',
                               style: const TextStyle(color: Colors.grey),
                             ),
                             Text(
-                              state.fixture.fixture.venue.city!,
+                              state.fixture.fixture.venue.city ?? '',
                               style: const TextStyle(color: Colors.grey),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    ],
+                  ) : Container()
                 ],
               );
             }

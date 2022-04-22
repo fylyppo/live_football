@@ -16,20 +16,8 @@ class StatsTab extends StatelessWidget {
     return BlocBuilder<FixtureStatsBloc, FixtureStatsState>(
       builder: (context, state) {
         if (state is Empty) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("It's nothing here."),
-              IconButton(
-                icon: const Icon(Icons.download),
-                onPressed: () {
-                  context
-                      .read<FixtureStatsBloc>()
-                      .add(GetFixtureStatsForId(id));
-                },
-              ),
-            ],
-          );
+          context.read<FixtureStatsBloc>().add(GetFixtureStatsForId(id));
+          return Container();
         } else if (state is Error) {
           return Text(state.message);
         } else if (state is Loading) {

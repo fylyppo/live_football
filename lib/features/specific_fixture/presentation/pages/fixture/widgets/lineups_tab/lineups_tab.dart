@@ -5,7 +5,7 @@ import 'widgets/players_tile_widget.dart';
 
 class LineupsTab extends StatelessWidget {
   final int id;
-  
+
   const LineupsTab({
     Key? key,
     required this.id,
@@ -16,20 +16,8 @@ class LineupsTab extends StatelessWidget {
     return BlocBuilder<FixtureLineupsBloc, FixtureLineupsState>(
       builder: (context, state) {
         if (state is Empty) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("It's nothing here."),
-              IconButton(
-                icon: const Icon(Icons.download),
-                onPressed: () {
-                  context
-                      .read<FixtureLineupsBloc>()
-                      .add(GetFixtureLineupsForId(id));
-                },
-              ),
-            ],
-          );
+          context.read<FixtureLineupsBloc>().add(GetFixtureLineupsForId(id));
+          return Container();
         } else if (state is Error) {
           return Text(state.message);
         } else if (state is Loading) {
@@ -41,22 +29,35 @@ class LineupsTab extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  const SizedBox(height: 50,),
-                  const TitleTabWidget(title: 'Starting XI',),
-                  PlayersTile(state: state, isStarting: true,),
-                  const TitleTabWidget(title: 'Substitutes',),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const TitleTabWidget(
+                    title: 'Starting XI',
+                  ),
+                  PlayersTile(
+                    state: state,
+                    isStarting: true,
+                  ),
+                  const TitleTabWidget(
+                    title: 'Substitutes',
+                  ),
                   PlayersTile(state: state, isStarting: false),
-                  const TitleTabWidget(title: 'Coaches',),
-                  CoachesTileWidget(state: state,),
+                  const TitleTabWidget(
+                    title: 'Coaches',
+                  ),
+                  CoachesTileWidget(
+                    state: state,
+                  ),
                   const SizedBox(
                     height: 90,
                     width: double.infinity,
                     child: Center(
                         child: Text(
-                          'LIVE FOOTBALL',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        )),
+                      'LIVE FOOTBALL',
+                      style: TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
+                    )),
                   ),
                 ],
               ),
@@ -72,7 +73,8 @@ class LineupsTab extends StatelessWidget {
 class CoachesTileWidget extends StatelessWidget {
   final Loaded state;
   const CoachesTileWidget({
-    Key? key, required this.state,
+    Key? key,
+    required this.state,
   }) : super(key: key);
 
   @override
@@ -94,8 +96,7 @@ class CoachesTileWidget extends StatelessWidget {
               Expanded(
                 child: Align(
                     alignment: Alignment.centerRight,
-                    child:
-                        Text(state.lineups.awayLineup.coach.name)),
+                    child: Text(state.lineups.awayLineup.coach.name)),
               ),
             ],
           ),
@@ -108,7 +109,8 @@ class CoachesTileWidget extends StatelessWidget {
 class TitleTabWidget extends StatelessWidget {
   final String title;
   const TitleTabWidget({
-    Key? key, required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -120,8 +122,7 @@ class TitleTabWidget extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             title,
-            style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           )),
     );
   }

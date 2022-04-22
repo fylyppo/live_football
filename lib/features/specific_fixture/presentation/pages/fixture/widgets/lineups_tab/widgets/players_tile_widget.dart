@@ -20,6 +20,7 @@ class PlayersTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PlayersTileListWidget(
               state: state,
@@ -78,10 +79,13 @@ class PlayersTileListWidget extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Text(
-                isHome
-                    ? homePlayersList[index].name
-                    : awayPlayersList[index].name,
+              Flexible(
+                child: Text(
+                  isHome
+                      ? homePlayersList[index].name
+                      : awayPlayersList[index].name,
+                      textAlign: TextAlign.end,
+                ),
               ),
             ];
             return Padding(
