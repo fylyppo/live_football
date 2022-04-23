@@ -1,37 +1,29 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:live_football/core/error/exceptions.dart';
-
 import 'package:live_football/features/specific_fixture/data/models/stats_model.dart';
+
+import '../../../../../core/datasources/remote/api_football_client.dart';
 
 abstract class FixtureStatsRemoteDataSource {
   Future<List<StatsModel>> getFixtureStats(int id);
 }
 
 class FixtureStatsRemoteDataSourceImpl implements FixtureStatsRemoteDataSource {
-  final http.Client client;
-
-  static const apiKey = "******************";
-  static const headers = {
-    //'x-rapidapi-host': "v3.football.api-sports.io",
-    'x-apisports-key': apiKey
-  };
+  final Dio dio;
+  final ApiFootballClient client;
 
   FixtureStatsRemoteDataSourceImpl({
+    required this.dio,
     required this.client,
   });
   
   @override
-  Future<List<StatsModel>> getFixtureStats(int fixtureId) => _getFixtureStatsFromUrl('https://v3.football.api-sports.io/fixtures/statistics?fixture=$fixtureId');
-
-  Future<List<StatsModel>> _getFixtureStatsFromUrl(String url) async {
-    final response = await client.get(Uri.parse(url), headers: headers);
-    if (response.statusCode == 200) {
-      var body = jsonDecode(response.body);
-      List<dynamic> stats = body['response'];
+  Future<List<StatsModel>> getFixtureStats(int id) async {
+    final httpResponse = await client.getStats(id);
+    if(httpResponse.response.statusCode == 200){
+      List<dynamic> body = httpResponse.response.data['response'];
       List<StatsModel> statsModelsList =
-          stats.map((e) => StatsModel.fromJson(e)).toList();
+          body.map((e) => StatsModel.fromJson(e)).toList();
       return statsModelsList;
     } else {
       throw ServerException();

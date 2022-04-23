@@ -60,15 +60,15 @@ Future<void> init() async {
    serviceLocator.registerLazySingleton<FixtureStatsRepository>(() => FixtureStatsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
 
   // Data sources
-  serviceLocator.registerLazySingleton<FixtureRemoteDataSource>(() => FixtureRemoteDataSourceImpl(client: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureRemoteDataSource>(() => FixtureRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
   serviceLocator.registerLazySingleton<FixtureLocalDataSource>(() => FixtureLocalDataSourceImpl(sharedPrefs: serviceLocator()));
 
-  serviceLocator.registerLazySingleton<FixtureLineupsRemoteDataSource>(() => FixtureLineupsRemoteDataSourceImpl(client: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureLineupsRemoteDataSource>(() => FixtureLineupsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
   //serviceLocator.registerLazySingleton<FixtureLineupsLocalDataSource>(() => FixtureLineupsLocalDataSourceImpl(sharedPrefs: serviceLocator()));
   
-  serviceLocator.registerLazySingleton<FixtureEventsRemoteDataSource>(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureEventsRemoteDataSource>(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
 
-  serviceLocator.registerLazySingleton<FixtureStatsRemoteDataSource>(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureStatsRemoteDataSource>(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
 
   
   // Feature - Fixtures
@@ -91,9 +91,11 @@ Future<void> init() async {
 
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
+  final dio = Dio();
+  dio.options.headers['x-apisports-key'] = '****';
   serviceLocator.registerLazySingleton(() => sharedPreferences);
   serviceLocator.registerLazySingleton(() => http.Client());
-  serviceLocator.registerLazySingleton(() => Dio());
+  serviceLocator.registerLazySingleton(() => dio);
   serviceLocator.registerLazySingleton(() => ApiFootballClient(serviceLocator()));
   serviceLocator.registerLazySingleton(() => Connectivity());
 }

@@ -7,7 +7,6 @@ import 'package:live_football/features/specific_fixture/data/models/fixture_mode
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/dio.dart';
-
 import '../../../../fixtures/fixture_reader.dart';
 
 class MockDio extends Mock implements Dio {}
@@ -24,12 +23,11 @@ void main() {
     mockApiFootballClient = MockApiFootballClient();
     dataSource = FixturesRemoteDataSourceImpl(
         dio: mockDio, client: mockApiFootballClient);
-    //registerFallbackValue({});
   });
 
   void setMockClientSuccess200() {
     when(
-      () => mockApiFootballClient.getFixtureModelsList(any()),
+      () => mockApiFootballClient.getFixtures(any()),
     ).thenAnswer((_) async => HttpResponse(
         jsonDecode(fixture('fixtures.json')),
         Response(
@@ -40,7 +38,7 @@ void main() {
 
   void setMockClientFailure404() {
     when(
-      () => mockApiFootballClient.getFixtureModelsList(any()),
+      () => mockApiFootballClient.getFixtures(any()),
     ).thenAnswer((_) async => HttpResponse(
         jsonDecode(fixture('fixtures.json')),
         Response(
@@ -61,7 +59,7 @@ void main() {
       dataSource.getFixtures(live: 'all');
       //assert
       verify(
-        () => mockApiFootballClient.getFixtureModelsList({'live': 'all', 'timezone': 'Europe/Warsaw'}),
+        () => mockApiFootballClient.getFixtures({'live': 'all', 'timezone': 'Europe/Warsaw'}),
       );
     });
 

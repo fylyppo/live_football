@@ -176,7 +176,9 @@ Stat _$StatFromJson(Map<String, dynamic> json) {
 class _$StatTearOff {
   const _$StatTearOff();
 
-  _Stat call({required String type, required dynamic value}) {
+  _Stat call(
+      {required String type,
+      @JsonKey(defaultValue: 0) required dynamic value}) {
     return _Stat(
       type: type,
       value: value,
@@ -194,6 +196,7 @@ const $Stat = _$StatTearOff();
 /// @nodoc
 mixin _$Stat {
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
   dynamic get value => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -205,7 +208,7 @@ mixin _$Stat {
 abstract class $StatCopyWith<$Res> {
   factory $StatCopyWith(Stat value, $Res Function(Stat) then) =
       _$StatCopyWithImpl<$Res>;
-  $Res call({String type, dynamic value});
+  $Res call({String type, @JsonKey(defaultValue: 0) dynamic value});
 }
 
 /// @nodoc
@@ -239,7 +242,7 @@ abstract class _$StatCopyWith<$Res> implements $StatCopyWith<$Res> {
   factory _$StatCopyWith(_Stat value, $Res Function(_Stat) then) =
       __$StatCopyWithImpl<$Res>;
   @override
-  $Res call({String type, dynamic value});
+  $Res call({String type, @JsonKey(defaultValue: 0) dynamic value});
 }
 
 /// @nodoc
@@ -272,13 +275,14 @@ class __$StatCopyWithImpl<$Res> extends _$StatCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Stat implements _Stat {
-  _$_Stat({required this.type, required this.value});
+  _$_Stat({required this.type, @JsonKey(defaultValue: 0) required this.value});
 
   factory _$_Stat.fromJson(Map<String, dynamic> json) => _$$_StatFromJson(json);
 
   @override
   final String type;
   @override
+  @JsonKey(defaultValue: 0)
   final dynamic value;
 
   @override
@@ -313,13 +317,16 @@ class _$_Stat implements _Stat {
 }
 
 abstract class _Stat implements Stat {
-  factory _Stat({required String type, required dynamic value}) = _$_Stat;
+  factory _Stat(
+      {required String type,
+      @JsonKey(defaultValue: 0) required dynamic value}) = _$_Stat;
 
   factory _Stat.fromJson(Map<String, dynamic> json) = _$_Stat.fromJson;
 
   @override
   String get type;
   @override
+  @JsonKey(defaultValue: 0)
   dynamic get value;
   @override
   @JsonKey(ignore: true)

@@ -1,5 +1,5 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import '../../../../../core/datasources/remote/api_football_client.dart';
 import '../../../../../core/error/exceptions.dart';
 import '../../models/event_model.dart';
 
@@ -8,29 +8,21 @@ abstract class FixtureEventsRemoteDataSource {
 }
 
 class FixtureEventsRemoteDataSourceImpl implements FixtureEventsRemoteDataSource {
-  final http.Client client;
-  
+  final Dio dio;
+  final ApiFootballClient client;
+
   FixtureEventsRemoteDataSourceImpl({
+    required this.dio,
     required this.client,
   });
-  
-  static const apiKey = "******************";
-  static const headers = {
-    //'x-rapidapi-host': "v3.football.api-sports.io",
-    'x-apisports-key': apiKey
-  };
 
   @override
-  Future<List<EventModel>> getFixtureEvents(int fixtureId) => _getFixtureEventsFromUrl('https://v3.football.api-sports.io/fixtures/events?fixture=$fixtureId');
-
-  Future<List<EventModel>> _getFixtureEventsFromUrl(String url) async {
-    final response = await client.get(Uri.parse(url), 
-      headers: headers);
-    if(response.statusCode == 200){
-      var body = jsonDecode(response.body);
-      List<dynamic> events = body['response'];
+  Future<List<EventModel>> getFixtureEvents(int id) async {
+    final httpResponse = await client.getEvents(id);
+    if(httpResponse.response.statusCode == 200){
+      List<dynamic> body = httpResponse.response.data['response'];
       List<EventModel> eventModelsList =
-          events.map((e) => EventModel.fromJson(e)).toList();
+          body.map((e) => EventModel.fromJson(e)).toList();
       return eventModelsList;
     } else {
       throw ServerException();

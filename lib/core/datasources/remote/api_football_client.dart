@@ -8,8 +8,17 @@ abstract class ApiFootballClient {
   factory ApiFootballClient(Dio dio, {String baseUrl}) = _ApiFootballClient;
 
   @GET("/fixtures")
-  @Headers(<String, dynamic>{
-      'x-apisports-key': '**************'
-  })
-  Future<HttpResponse> getFixtureModelsList(@Queries() Map<String, dynamic> queries);
+  Future<HttpResponse> getFixtures(@Queries() Map<String, dynamic> queries);
+
+  @GET("/fixtures")
+  Future<HttpResponse> getFixture(@Query('id') int id);
+
+  @GET("/fixtures/events")
+  Future<HttpResponse> getEvents(@Query('fixture') int id);
+
+  @GET("/fixtures/lineups")
+  Future<HttpResponse> getLineups(@Query('fixture') int id);
+
+  @GET("/fixtures/statistics")
+  Future<HttpResponse> getStats(@Query('fixture') int id);
 }

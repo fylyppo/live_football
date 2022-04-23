@@ -17,7 +17,7 @@ class Stats with _$Stats {
 class Stat with _$Stat {
   factory Stat({
     required final String type,
-    required final dynamic value,
+    @JsonKey(defaultValue: 0) required final dynamic value,
   }) = _Stat;
   factory Stat.fromJson(Map<String, dynamic> json) =>
       _$StatFromJson(json);

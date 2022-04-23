@@ -88,8 +88,8 @@ class StatsTileWidget extends StatelessWidget {
           itemCount: state.stats[0].statistics.length,
           itemBuilder: (context, index) {
             bool passesPercentage = state.stats[0].statistics[index].type == 'Passes %';
-            String homeVal = state.stats[0].statistics[index].value;
-            String awayVal = state.stats[1].statistics[index].value;
+            String homeVal = state.stats[0].statistics[index].value.toString();
+            String awayVal = state.stats[1].statistics[index].value.toString();
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Column(

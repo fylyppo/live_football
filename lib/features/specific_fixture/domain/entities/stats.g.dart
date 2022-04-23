@@ -8,7 +8,7 @@ part of 'stats.dart';
 
 _$_Stat _$$_StatFromJson(Map<String, dynamic> json) => _$_Stat(
       type: json['type'] as String,
-      value: json['value'],
+      value: json['value'] ?? 0,
     );
 
 Map<String, dynamic> _$$_StatToJson(_$_Stat instance) => <String, dynamic>{

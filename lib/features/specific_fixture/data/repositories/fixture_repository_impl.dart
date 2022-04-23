@@ -23,7 +23,7 @@ class FixtureRepositoryImpl implements FixtureRepository {
       try {
         final remoteFixtureModel = await remoteDataSource.getFixture(id);
         localDataSource.cacheFixture(remoteFixtureModel);
-        return Right(remoteFixtureModel!.toDomain());
+        return Right(remoteFixtureModel.toDomain());
       } on ServerException {
         return Left(ServerFailure());
       }
