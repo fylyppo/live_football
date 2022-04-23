@@ -69,9 +69,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   }),
               IconButton(
                   onPressed: () {
-                    _pageViewController.previousPage(
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.bounceIn);
+                    if (_pageViewController.page == 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                            'The beginning of the season',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.black,
+                          duration: Duration(
+                            seconds: 1,
+                          )));
+                    } else {
+                      _pageViewController.previousPage(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.bounceIn);
+                    }
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios,
@@ -81,9 +93,22 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 alignment: Alignment.topRight,
                 child: IconButton(
                     onPressed: () {
-                      _pageViewController.nextPage(
-                          duration: const Duration(milliseconds: 200),
-                          curve: Curves.bounceIn);
+                      if (_pageViewController.page == 11) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                                content: Text(
+                                  'The end of the season',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.black,
+                                duration: Duration(
+                                  seconds: 1,
+                                )));
+                      } else {
+                        _pageViewController.nextPage(
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.bounceIn);
+                      }
                     },
                     icon: const Icon(
                       Icons.arrow_forward_ios,
@@ -165,7 +190,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             children: [
               Text(
                 day.day.toString(),
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
               ),
               Text(
                 date_utils.DateUtils.weekdays[day.weekday - 1],
