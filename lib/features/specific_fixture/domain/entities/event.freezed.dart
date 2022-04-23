@@ -25,7 +25,8 @@ class _$EventTearOff {
       required Assist assist,
       required String type,
       required String detail,
-      required String? comments}) {
+      required String? comments,
+      required Icon? icon}) {
     return _Event(
       time: time,
       team: team,
@@ -34,6 +35,7 @@ class _$EventTearOff {
       type: type,
       detail: detail,
       comments: comments,
+      icon: icon,
     );
   }
 }
@@ -50,6 +52,7 @@ mixin _$Event {
   String get type => throw _privateConstructorUsedError;
   String get detail => throw _privateConstructorUsedError;
   String? get comments => throw _privateConstructorUsedError;
+  Icon? get icon => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventCopyWith<Event> get copyWith => throw _privateConstructorUsedError;
@@ -66,7 +69,8 @@ abstract class $EventCopyWith<$Res> {
       Assist assist,
       String type,
       String detail,
-      String? comments});
+      String? comments,
+      Icon? icon});
 
   $TimeCopyWith<$Res> get time;
   $TeamCopyWith<$Res> get team;
@@ -91,6 +95,7 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
     Object? type = freezed,
     Object? detail = freezed,
     Object? comments = freezed,
+    Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
       time: time == freezed
@@ -121,6 +126,10 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
               as String?,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Icon?,
     ));
   }
 
@@ -165,7 +174,8 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       Assist assist,
       String type,
       String detail,
-      String? comments});
+      String? comments,
+      Icon? icon});
 
   @override
   $TimeCopyWith<$Res> get time;
@@ -195,6 +205,7 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     Object? type = freezed,
     Object? detail = freezed,
     Object? comments = freezed,
+    Object? icon = freezed,
   }) {
     return _then(_Event(
       time: time == freezed
@@ -225,6 +236,10 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
               as String?,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Icon?,
     ));
   }
 }
@@ -239,7 +254,8 @@ class _$_Event implements _Event {
       required this.assist,
       required this.type,
       required this.detail,
-      required this.comments});
+      required this.comments,
+      required this.icon});
 
   @override
   final Time time;
@@ -255,10 +271,12 @@ class _$_Event implements _Event {
   final String detail;
   @override
   final String? comments;
+  @override
+  final Icon? icon;
 
   @override
   String toString() {
-    return 'Event(time: $time, team: $team, player: $player, assist: $assist, type: $type, detail: $detail, comments: $comments)';
+    return 'Event(time: $time, team: $team, player: $player, assist: $assist, type: $type, detail: $detail, comments: $comments, icon: $icon)';
   }
 
   @override
@@ -272,7 +290,8 @@ class _$_Event implements _Event {
             const DeepCollectionEquality().equals(other.assist, assist) &&
             const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.detail, detail) &&
-            const DeepCollectionEquality().equals(other.comments, comments));
+            const DeepCollectionEquality().equals(other.comments, comments) &&
+            const DeepCollectionEquality().equals(other.icon, icon));
   }
 
   @override
@@ -284,7 +303,8 @@ class _$_Event implements _Event {
       const DeepCollectionEquality().hash(assist),
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(detail),
-      const DeepCollectionEquality().hash(comments));
+      const DeepCollectionEquality().hash(comments),
+      const DeepCollectionEquality().hash(icon));
 
   @JsonKey(ignore: true)
   @override
@@ -300,7 +320,8 @@ abstract class _Event implements Event {
       required Assist assist,
       required String type,
       required String detail,
-      required String? comments}) = _$_Event;
+      required String? comments,
+      required Icon? icon}) = _$_Event;
 
   @override
   Time get time;
@@ -316,6 +337,8 @@ abstract class _Event implements Event {
   String get detail;
   @override
   String? get comments;
+  @override
+  Icon? get icon;
   @override
   @JsonKey(ignore: true)
   _$EventCopyWith<_Event> get copyWith => throw _privateConstructorUsedError;

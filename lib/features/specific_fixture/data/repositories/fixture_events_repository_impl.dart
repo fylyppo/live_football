@@ -20,7 +20,7 @@ class FixtureEventsRepositoryImpl implements FixtureEventsRepository {
     if (await networkInfo.isConnected) {
       try {
         final remoteFixtureEvents = await remoteDataSource.getFixtureEvents(id);
-        return Right(remoteFixtureEvents.map((e) => e.toDomain()).toList());
+        return Right(remoteFixtureEvents.map((e) => e.toDomainWithIcon()).toList());
       } on ServerException {
         return Left(ServerFailure());
       }

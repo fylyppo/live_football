@@ -111,7 +111,7 @@ class EventsListTileWidget extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      //state.events[index].icon.icon,
+                      state.events[index].icon!,
                       const SizedBox(
                         width: 10,
                       ),

@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'team.dart';
-
 part 'event.freezed.dart';
 part 'event.g.dart';
 
@@ -15,30 +15,9 @@ class Event with _$Event {
     required final String type,
     required final String detail,
     required final String? comments,
+    required final Icon? icon,
   }) = _Event;
 }
-
-// factory EventIcon.fromJson(String jsonString) {
-//   Map<String, Icon> iconsMap = {
-//     'Normal': const Icon(Icons.sports_soccer),
-//     'Yellow': const Icon(
-//       Icons.crop_portrait,
-//       color: Colors.yellow,
-//     ),
-//     'Red': Icon(
-//       Icons.crop_portrait,
-//       color: Colors.red[700],
-//     ),
-//     'Substitution': const Icon(Icons.wifi_protected_setup)
-//   };
-//   Icon icon = const Icon(Icons.event);
-//   iconsMap.forEach((key, value) {
-//     if (jsonString.contains(key)) {
-//       icon = value;
-//     }
-//   });
-//   return EventIcon(detail: jsonString, icon: icon);
-// }
 
 @freezed
 class EventPlayer with _$EventPlayer {
