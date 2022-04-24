@@ -36,16 +36,7 @@ class StatsTab extends StatelessWidget {
                     title: 'Statistics',
                   ),
                   StatsTile(),
-                  SizedBox(
-                    height: 90,
-                    width: double.infinity,
-                    child: Center(
-                        child: Text(
-                      'LIVE FOOTBALL',
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    )),
-                  ),
+                  
                 ],
               ),
             ),

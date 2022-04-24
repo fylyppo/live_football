@@ -15,7 +15,7 @@ class Event with _$Event {
     required final String type,
     required final String detail,
     required final String? comments,
-    required final Icon? icon,
+    required final Widget? icon,
   }) = _Event;
 }
 

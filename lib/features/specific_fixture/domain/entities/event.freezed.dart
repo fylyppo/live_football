@@ -26,7 +26,7 @@ class _$EventTearOff {
       required String type,
       required String detail,
       required String? comments,
-      required Icon? icon}) {
+      required Widget? icon}) {
     return _Event(
       time: time,
       team: team,
@@ -52,7 +52,7 @@ mixin _$Event {
   String get type => throw _privateConstructorUsedError;
   String get detail => throw _privateConstructorUsedError;
   String? get comments => throw _privateConstructorUsedError;
-  Icon? get icon => throw _privateConstructorUsedError;
+  Widget? get icon => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventCopyWith<Event> get copyWith => throw _privateConstructorUsedError;
@@ -70,7 +70,7 @@ abstract class $EventCopyWith<$Res> {
       String type,
       String detail,
       String? comments,
-      Icon? icon});
+      Widget? icon});
 
   $TimeCopyWith<$Res> get time;
   $TeamCopyWith<$Res> get team;
@@ -129,7 +129,7 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
       icon: icon == freezed
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as Icon?,
+              as Widget?,
     ));
   }
 
@@ -175,7 +175,7 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String type,
       String detail,
       String? comments,
-      Icon? icon});
+      Widget? icon});
 
   @override
   $TimeCopyWith<$Res> get time;
@@ -239,7 +239,7 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
       icon: icon == freezed
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as Icon?,
+              as Widget?,
     ));
   }
 }
@@ -272,7 +272,7 @@ class _$_Event implements _Event {
   @override
   final String? comments;
   @override
-  final Icon? icon;
+  final Widget? icon;
 
   @override
   String toString() {
@@ -321,7 +321,7 @@ abstract class _Event implements Event {
       required String type,
       required String detail,
       required String? comments,
-      required Icon? icon}) = _$_Event;
+      required Widget? icon}) = _$_Event;
 
   @override
   Time get time;
@@ -338,7 +338,7 @@ abstract class _Event implements Event {
   @override
   String? get comments;
   @override
-  Icon? get icon;
+  Widget? get icon;
   @override
   @JsonKey(ignore: true)
   _$EventCopyWith<_Event> get copyWith => throw _privateConstructorUsedError;

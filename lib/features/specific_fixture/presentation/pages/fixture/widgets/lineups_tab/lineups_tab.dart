@@ -50,14 +50,7 @@ class LineupsTab extends StatelessWidget {
                     state: state,
                   ),
                   const SizedBox(
-                    height: 90,
-                    width: double.infinity,
-                    child: Center(
-                        child: Text(
-                      'LIVE FOOTBALL',
-                      style: TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold),
-                    )),
+                    height: 10,
                   ),
                 ],
               ),

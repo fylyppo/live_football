@@ -244,7 +244,7 @@ class __$EventModelCopyWithImpl<$Res> extends _$EventModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_EventModel extends _EventModel {
+class _$_EventModel extends _EventModel with DiagnosticableTreeMixin {
   _$_EventModel(
       {required this.time,
       required this.team,
@@ -274,8 +274,22 @@ class _$_EventModel extends _EventModel {
   final String? comments;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'EventModel(time: $time, team: $team, player: $player, assist: $assist, type: $type, detail: $detail, comments: $comments)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'EventModel'))
+      ..add(DiagnosticsProperty('time', time))
+      ..add(DiagnosticsProperty('team', team))
+      ..add(DiagnosticsProperty('player', player))
+      ..add(DiagnosticsProperty('assist', assist))
+      ..add(DiagnosticsProperty('type', type))
+      ..add(DiagnosticsProperty('detail', detail))
+      ..add(DiagnosticsProperty('comments', comments));
   }
 
   @override

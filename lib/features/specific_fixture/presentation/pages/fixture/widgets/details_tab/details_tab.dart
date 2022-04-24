@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:live_football/features/specific_fixture/presentation/pages/fixture/widgets/details_tab/widgets/event_widget.dart';
 import '../../../../blocs/fixture_bloc/fixture_bloc.dart';
 import '../../../../blocs/fixture_events_bloc/fixture_events_bloc.dart';
 import '../lineups_tab/lineups_tab.dart';
@@ -62,6 +63,9 @@ class DetailsTab extends StatelessWidget {
                     MatchInformationTileWidget(
                       homeId: homeId,
                     ),
+                    const SizedBox(
+                      height: 15,
+                    ),
                   ],
                 ),
               ),
@@ -100,44 +104,7 @@ class EventsListTileWidget extends StatelessWidget {
                   itemCount: state.events.length,
                   itemBuilder: (context, index) {
                     bool isHome = state.events[index].team.id == homeId;
-                    List<Widget> event = [
-                      SizedBox(
-                          width: 20,
-                          child: Center(
-                              child: Text(state
-                                      .events[index].time.elapsed
-                                      .toString() +
-                                  "'"))),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      state.events[index].icon!,
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        state.events[index].player.name,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        state.events[index].assist.name != null
-                            ? "(${state.events[index].assist.name})"
-                            : '',
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Row(
-                        mainAxisAlignment: isHome
-                            ? MainAxisAlignment.start
-                            : MainAxisAlignment.end,
-                        children: isHome ? event : event.reversed.toList(),
-                      ),
-                    );
+                    return EventWidget(event: state.events[index], isHome: isHome);
                   }),
             ),
           );
@@ -190,7 +157,8 @@ class MatchInformationTileWidget extends StatelessWidget {
                           ),
                           Text(
                             DateFormat.yMEd().add_jms().format(
-                                DateTime.parse(state.fixture.fixture.date).toLocal()),
+                                DateTime.parse(state.fixture.fixture.date)
+                                    .toLocal()),
                             style: const TextStyle(color: Colors.grey),
                           ),
                         ],
@@ -200,67 +168,71 @@ class MatchInformationTileWidget extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  state.fixture.fixture.referee != null ?
-                  Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 6, right: 14.0),
-                        child: Icon(
-                          Icons.sports,
-                          size: 30,
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Referee:',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            state.fixture.fixture.referee ?? '',
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ) : Container(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  !(state.fixture.fixture.venue.city == null && state.fixture.fixture.venue.name == null) ?
-                  Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 6, right: 14.0),
-                        child: Icon(
-                          Icons.stadium,
-                          size: 30,
-                        ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                  state.fixture.fixture.referee != null
+                      ? Row(
                           children: [
-                            const Text(
-                              'Venue:',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 6, right: 14.0),
+                              child: Icon(
+                                Icons.sports,
+                                size: 30,
+                              ),
                             ),
-                            Text(
-                              state.fixture.fixture.venue.name ?? '',
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                            Text(
-                              state.fixture.fixture.venue.city ?? '',
-                              style: const TextStyle(color: Colors.grey),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Referee:',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  state.fixture.fixture.referee ?? '',
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                      ),
-                    ],
-                  ) : Container()
+                        )
+                      : Container(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  !(state.fixture.fixture.venue.city == null &&
+                          state.fixture.fixture.venue.name == null)
+                      ? Row(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(left: 6, right: 14.0),
+                              child: Icon(
+                                Icons.stadium,
+                                size: 30,
+                              ),
+                            ),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Venue:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    state.fixture.fixture.venue.name ?? '',
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                  Text(
+                                    state.fixture.fixture.venue.city ?? '',
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container()
                 ],
               );
             }

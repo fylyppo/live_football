@@ -16,12 +16,7 @@ class MatchPageHeaderDelegate implements SliverPersistentHeaderDelegate {
           } else if (state is Error) {
             return Text(state.message);
           } else if (state is Loading) {
-            return Column(
-              children: const [
-                CircularProgressIndicator(),
-                Text("Loading..."),
-              ],
-            );
+            return Container();
           } else if (state is Loaded) {
             return MatchPageHeaderWidget(
               fixture: state.fixture,

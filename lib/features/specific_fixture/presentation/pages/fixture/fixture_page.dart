@@ -68,9 +68,7 @@ class _FixturePageState extends State<FixturePage>
                       return Container();
                     }
                     if (state is Loading) {
-                      return const LinearProgressIndicator(
-                        color: Colors.white,
-                      );
+                      return Container();
                     }
                     if (state is Loaded) {
                       return Row(

@@ -84,7 +84,7 @@ class PlayersTileListWidget extends StatelessWidget {
                   isHome
                       ? homePlayersList[index].name
                       : awayPlayersList[index].name,
-                      textAlign: TextAlign.end,
+                      textAlign: isHome ? TextAlign.start : TextAlign.end,
                 ),
               ),
             ];
