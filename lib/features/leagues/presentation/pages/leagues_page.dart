@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:live_football/features/leagues/data/datasources/constants/leagues.dart';
 import 'package:live_football/core/routing/app_router.gr.dart';
 import '../../data/models/league.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class LeaguesPage extends StatelessWidget {
   const LeaguesPage({Key? key}) : super(key: key);
@@ -58,13 +59,24 @@ class LeagueTile extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Image.network(league.league.logo),
-                  )),
+                      padding: const EdgeInsets.all(3.0),
+                      child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: league.league.logo)
+                      //Image.network(league.league.logo),
+                      )),
               Expanded(child: Center(child: Text(league.league.name))),
               SvgPicture.network(
                 league.country.flag,
                 width: 25,
+                placeholderBuilder: (context) => const SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: CircularProgressIndicator(
+                    color: Colors.green,
+                    strokeWidth: 4,
+                  ),
+                ),
               ),
               const SizedBox(
                 width: 10,

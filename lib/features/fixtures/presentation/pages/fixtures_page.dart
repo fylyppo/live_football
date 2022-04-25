@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:live_football/core/routing/app_router.gr.dart';
 import 'package:live_football/features/fixtures/presentation/widgets/calendar_widget.dart';
+import 'package:transparent_image/transparent_image.dart';
 import '../../../../injection_container.dart';
 import '../../../specific_fixture/domain/entities/fixture.dart';
 import '../blocs/bloc/fixtures_bloc.dart';
@@ -99,7 +100,10 @@ class FixtureListCard extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 40,
-                    child: Image.network(fixture.teams.home.logo),
+                    width: 40,
+                    child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: fixture.teams.home.logo)
                   ),
                   if (fixture.fixture.status.short != 'NS')
                     Column(
@@ -136,6 +140,7 @@ class FixtureListCard extends StatelessWidget {
                     ),
                   SizedBox(
                     height: 40,
+                    width: 40,
                     child: Image.network(fixture.teams.away.logo),
                   ),
                 ],
