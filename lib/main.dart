@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'LiveMatches',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(brightness: Brightness.dark),
           appBarTheme: const AppBarTheme(backgroundColor: Colors.green)),

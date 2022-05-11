@@ -34,7 +34,7 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
       appBar: AppBar(
         title: Text(leagueName),
       ),
-      body: Column(
+      body: ListView(
         children: [
           CalendarWidget(league: id, season: 2021,),
           BlocBuilder<FixturesBloc, FixturesState>(
@@ -78,7 +78,7 @@ class FixtureListCard extends StatelessWidget {
     required this.fixture,
   }) : super(key: key);
 
-  List<String> liveStatus = ['1H', 'HT', '2H', 'ET', 'P', 'LIVE'];
+  final List<String> liveStatus = ['1H', 'HT', '2H', 'ET', 'P', 'LIVE'];
 
   @override
   Widget build(BuildContext context) {
