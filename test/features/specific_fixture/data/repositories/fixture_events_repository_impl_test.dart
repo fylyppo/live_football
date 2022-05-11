@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/network/network_info.dart';
@@ -11,10 +10,7 @@ import 'package:live_football/features/specific_fixture/data/datasources/fixture
 import 'package:live_football/features/specific_fixture/data/models/event_model.dart';
 import 'package:live_football/features/specific_fixture/data/repositories/fixture_events_repository_impl.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/event.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:mocktail/mocktail.dart';
-
 import '../../../../fixtures/fixture_reader.dart';
 
 class MockFixtureEventsRemoteDataSource extends Mock
@@ -39,7 +35,7 @@ void main() {
   final decoded = jsonDecode(fixture('fixture_events.json'));
   final List<dynamic> response = decoded['response'];
   final List<EventModel> tEventModelsList = response.map((e) => EventModel.fromJson(e),).toList();
-  final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomain(),).toList();
+  final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomainWithIcon(),).toList();
   test('check if the device is online', () {
     //arrange
     when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -61,7 +57,8 @@ void main() {
           final result = await repository.getFixtureEvents(tFixtureId);
           //assert
           verify(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(tFixtureId),);
-          bool isEqual = listEquals(result.fold((l) => null, (r) => r), tEventsList);
+          final foldedList = result.fold((l) => null, (r) => r);
+          bool isEqual = foldedList!.length == tEventsList.length;
           expect(isEqual, equals(true));
         });
 

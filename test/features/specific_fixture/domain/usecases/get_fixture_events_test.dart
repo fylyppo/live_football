@@ -24,7 +24,7 @@ void main() {
   final decoded = jsonDecode(fixture('fixture_events.json'));
   final List<dynamic> response = decoded['response'];
   final List<EventModel> tEventModelsList = response.map((e) => EventModel.fromJson(e),).toList();
-  final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomain(),).toList();
+  final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomainWithIcon(),).toList();
   test('should get fixture events from the repository', () async {
     //arrange
     when(() => mockFixtureEventsRepository.getFixtureEvents(any())).thenAnswer((_) async => Right(tEventsList));
