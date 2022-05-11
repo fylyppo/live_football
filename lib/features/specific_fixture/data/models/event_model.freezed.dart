@@ -245,7 +245,7 @@ class __$EventModelCopyWithImpl<$Res> extends _$EventModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_EventModel extends _EventModel with DiagnosticableTreeMixin {
-  _$_EventModel(
+  const _$_EventModel(
       {required this.time,
       required this.team,
       required this.player,
@@ -329,7 +329,7 @@ class _$_EventModel extends _EventModel with DiagnosticableTreeMixin {
 }
 
 abstract class _EventModel extends EventModel {
-  factory _EventModel(
+  const factory _EventModel(
       {required Time time,
       required Team team,
       required EventPlayer player,
@@ -337,7 +337,7 @@ abstract class _EventModel extends EventModel {
       required String type,
       required String detail,
       required String? comments}) = _$_EventModel;
-  _EventModel._() : super._();
+  const _EventModel._() : super._();
 
   factory _EventModel.fromJson(Map<String, dynamic> json) =
       _$_EventModel.fromJson;

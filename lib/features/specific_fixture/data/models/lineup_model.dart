@@ -7,8 +7,8 @@ part 'lineup_model.g.dart';
 
 @freezed
 abstract class LineupModel implements _$LineupModel {
-  LineupModel._();
-  factory LineupModel({
+  const LineupModel._();
+  const factory LineupModel({
     required final Team team,
     required final String formation,
     required final List<Player> startXI,

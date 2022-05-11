@@ -247,7 +247,7 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Event implements _Event {
-  _$_Event(
+  const _$_Event(
       {required this.time,
       required this.team,
       required this.player,
@@ -313,7 +313,7 @@ class _$_Event implements _Event {
 }
 
 abstract class _Event implements Event {
-  factory _Event(
+  const factory _Event(
       {required Time time,
       required Team team,
       required EventPlayer player,
@@ -453,7 +453,7 @@ class __$EventPlayerCopyWithImpl<$Res> extends _$EventPlayerCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_EventPlayer implements _EventPlayer {
-  _$_EventPlayer({required this.id, required this.name});
+  const _$_EventPlayer({required this.id, required this.name});
 
   factory _$_EventPlayer.fromJson(Map<String, dynamic> json) =>
       _$$_EventPlayerFromJson(json);
@@ -495,7 +495,7 @@ class _$_EventPlayer implements _EventPlayer {
 }
 
 abstract class _EventPlayer implements EventPlayer {
-  factory _EventPlayer({required int id, required String name}) =
+  const factory _EventPlayer({required int id, required String name}) =
       _$_EventPlayer;
 
   factory _EventPlayer.fromJson(Map<String, dynamic> json) =
@@ -615,7 +615,7 @@ class __$TimeCopyWithImpl<$Res> extends _$TimeCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Time implements _Time {
-  _$_Time({required this.elapsed, required this.extra});
+  const _$_Time({required this.elapsed, required this.extra});
 
   factory _$_Time.fromJson(Map<String, dynamic> json) => _$$_TimeFromJson(json);
 
@@ -656,7 +656,7 @@ class _$_Time implements _Time {
 }
 
 abstract class _Time implements Time {
-  factory _Time({required int elapsed, required int? extra}) = _$_Time;
+  const factory _Time({required int elapsed, required int? extra}) = _$_Time;
 
   factory _Time.fromJson(Map<String, dynamic> json) = _$_Time.fromJson;
 
@@ -773,7 +773,7 @@ class __$AssistCopyWithImpl<$Res> extends _$AssistCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Assist implements _Assist {
-  _$_Assist({required this.id, required this.name});
+  const _$_Assist({required this.id, required this.name});
 
   factory _$_Assist.fromJson(Map<String, dynamic> json) =>
       _$$_AssistFromJson(json);
@@ -815,7 +815,7 @@ class _$_Assist implements _Assist {
 }
 
 abstract class _Assist implements Assist {
-  factory _Assist({required int? id, required String? name}) = _$_Assist;
+  const factory _Assist({required int? id, required String? name}) = _$_Assist;
 
   factory _Assist.fromJson(Map<String, dynamic> json) = _$_Assist.fromJson;
 

@@ -196,7 +196,7 @@ class __$LineupModelCopyWithImpl<$Res> extends _$LineupModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_LineupModel extends _LineupModel {
-  _$_LineupModel(
+  const _$_LineupModel(
       {required this.team,
       required this.formation,
       required this.startXI,
@@ -257,13 +257,13 @@ class _$_LineupModel extends _LineupModel {
 }
 
 abstract class _LineupModel extends LineupModel {
-  factory _LineupModel(
+  const factory _LineupModel(
       {required Team team,
       required String formation,
       required List<Player> startXI,
       required List<Player> substitutes,
       required Coach coach}) = _$_LineupModel;
-  _LineupModel._() : super._();
+  const _LineupModel._() : super._();
 
   factory _LineupModel.fromJson(Map<String, dynamic> json) =
       _$_LineupModel.fromJson;

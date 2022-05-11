@@ -134,7 +134,8 @@ class __$StatsModelCopyWithImpl<$Res> extends _$StatsModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_StatsModel extends _StatsModel {
-  _$_StatsModel({required this.team, required this.statistics}) : super._();
+  const _$_StatsModel({required this.team, required this.statistics})
+      : super._();
 
   factory _$_StatsModel.fromJson(Map<String, dynamic> json) =>
       _$$_StatsModelFromJson(json);
@@ -177,9 +178,9 @@ class _$_StatsModel extends _StatsModel {
 }
 
 abstract class _StatsModel extends StatsModel {
-  factory _StatsModel({required Team team, required List<Stat> statistics}) =
-      _$_StatsModel;
-  _StatsModel._() : super._();
+  const factory _StatsModel(
+      {required Team team, required List<Stat> statistics}) = _$_StatsModel;
+  const _StatsModel._() : super._();
 
   factory _StatsModel.fromJson(Map<String, dynamic> json) =
       _$_StatsModel.fromJson;

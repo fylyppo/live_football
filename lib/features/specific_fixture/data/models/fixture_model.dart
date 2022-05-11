@@ -6,8 +6,8 @@ part 'fixture_model.g.dart';
 
 @freezed
 abstract class FixtureModel implements _$FixtureModel {
-  FixtureModel._();
-  factory FixtureModel({
+  const FixtureModel._();
+  const factory FixtureModel({
     required final FixtureData fixture,
     required final League league,
     required final Teams teams,

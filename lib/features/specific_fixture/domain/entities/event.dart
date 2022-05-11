@@ -7,7 +7,7 @@ part 'event.g.dart';
 
 @freezed
 class Event with _$Event {
-  factory Event({
+  const factory Event({
     required final Time time,
     required final Team team,
     required final EventPlayer player,
@@ -21,7 +21,7 @@ class Event with _$Event {
 
 @freezed
 class EventPlayer with _$EventPlayer {
-  factory EventPlayer({
+  const factory EventPlayer({
     required final int id,
     required final String name,
   }) = _EventPlayer;
@@ -31,7 +31,7 @@ class EventPlayer with _$EventPlayer {
 
 @freezed
 class Time with _$Time {
-  factory Time({
+  const factory Time({
     required final int elapsed,
     required final int? extra,
   }) = _Time;
@@ -40,7 +40,7 @@ class Time with _$Time {
 
 @freezed
 class Assist with _$Assist {
-  factory Assist({
+  const factory Assist({
     required final int? id,
     required final String? name,
   }) = _Assist;

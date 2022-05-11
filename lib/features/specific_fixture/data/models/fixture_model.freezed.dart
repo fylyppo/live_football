@@ -193,7 +193,7 @@ class __$FixtureModelCopyWithImpl<$Res> extends _$FixtureModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_FixtureModel extends _FixtureModel {
-  _$_FixtureModel(
+  const _$_FixtureModel(
       {required this.fixture,
       required this.league,
       required this.teams,
@@ -248,12 +248,12 @@ class _$_FixtureModel extends _FixtureModel {
 }
 
 abstract class _FixtureModel extends FixtureModel {
-  factory _FixtureModel(
+  const factory _FixtureModel(
       {required FixtureData fixture,
       required League league,
       required Teams teams,
       required Goals goals}) = _$_FixtureModel;
-  _FixtureModel._() : super._();
+  const _FixtureModel._() : super._();
 
   factory _FixtureModel.fromJson(Map<String, dynamic> json) =
       _$_FixtureModel.fromJson;

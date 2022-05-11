@@ -7,8 +7,8 @@ part 'stats_model.g.dart';
 
 @freezed
 abstract class StatsModel implements _$StatsModel {
-  StatsModel._();
-  factory StatsModel({
+  const StatsModel._();
+  const factory StatsModel({
     required final Team team,
     required final List<Stat> statistics,
   }) = _StatsModel;
