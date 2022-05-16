@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:live_football/features/fixtures/domain/repositories/fixtures_repository.dart';
-import '../../../../core/usecases/fixtures_usecase.dart';
+import '../../../../core/usecases/usecase.dart';
 import '../../../specific_fixture/domain/entities/fixture.dart';
 
-class GetFixtures implements GetFixturesUseCase<List<Fixture>, FixturesParams> {
+class GetFixtures implements UseCase<List<Fixture>, FixturesParams> {
   final FixturesRepository repository;
 
   GetFixtures(this.repository);

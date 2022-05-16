@@ -18,7 +18,7 @@ class FixtureRepositoryImpl implements FixtureRepository {
       required this.networkInfo});
 
   @override
-  Future<Either<Failure, Fixture?>> getFixture(int id) async {
+  Future<Either<Failure, Fixture>> getFixture(int id) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteFixtureModel = await remoteDataSource.getFixture(id);

@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:live_football/core/error/failures.dart';
-import '../../../../core/usecases/fixture_lineups_usecase.dart';
+import '../../../../core/usecases/usecase.dart';
 import '../entities/lineup.dart';
 import '../repositories/fixtures_lineups_repository.dart';
 
-class GetFixtureLineups implements FixtureLineupsUseCase<List<Lineup>, LineupsParams>{
+class GetFixtureLineups implements UseCase<List<Lineup>, LineupsParams>{
   final FixtureLineupsRepository repository;
 
   GetFixtureLineups(this.repository);

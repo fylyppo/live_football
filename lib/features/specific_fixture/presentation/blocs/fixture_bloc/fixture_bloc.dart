@@ -24,7 +24,7 @@ class FixtureBloc extends Bloc<FixtureEvent, FixtureState> {
             (failure) => Error(
                 message: _mapFailureToMessage(failure)),
             (fixture) => Loaded(
-              fixture: fixture!,
+              fixture: fixture,
               status: fixture.fixture.status.short,
               )));
       }
