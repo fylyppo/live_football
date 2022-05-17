@@ -5,15 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/network/network_info.dart';
-import 'package:live_football/features/specific_fixture/data/datasources/fixture_lineups/fixture_lineups_remote_data_source.dart';
+import 'package:live_football/features/specific_fixture/data/datasources/fixture_component_remote_data_source.dart';
 import 'package:live_football/features/specific_fixture/data/models/lineup_model.dart';
 import 'package:live_football/features/specific_fixture/data/repositories/fixture_lineups_repository_impl.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockRemoteDataSource extends Mock
-    implements FixtureLineupsRemoteDataSource {}
+class MockRemoteDataSource extends Mock implements FixtureComponentRemoteDataSource<List<LineupModel>> {}
 
 // class MockLocalDataSource extends Mock implements LiveMatchesLocalDataSource {
 
@@ -47,7 +46,7 @@ void main() {
     test('check if the device is online', () async {
       //arrange
       when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      when(() => mockRemoteDataSource.getFixtureLineups(any()),).thenAnswer((_) async => tLineupModelsList);
+      when(() => mockRemoteDataSource.getFixtureComponent(any()),).thenAnswer((_) async => tLineupModelsList);
       //act
       repository.getFixtureComponent(tFixtureId);
       //assert
@@ -63,12 +62,12 @@ void main() {
           'should return remote data when the call to remote data source is successful',
           () async {
         //arrange
-        when(() => mockRemoteDataSource.getFixtureLineups(any()))
+        when(() => mockRemoteDataSource.getFixtureComponent(any()))
             .thenAnswer((_) async => tLineupModelsList);
         //act
         final result = await repository.getFixtureComponent(tFixtureId);
         //assert
-        verify(() => mockRemoteDataSource.getFixtureLineups(tFixtureId));
+        verify(() => mockRemoteDataSource.getFixtureComponent(tFixtureId));
         bool isEqual = listEquals(result.fold((l) => null, (r) => r), tLineupList);
         expect(isEqual, equals(true));
       });
@@ -87,12 +86,12 @@ void main() {
           'should return server failure when the call to remote data source is unsuccessful',
           () async {
         //arrange
-        when(() => mockRemoteDataSource.getFixtureLineups(any()))
+        when(() => mockRemoteDataSource.getFixtureComponent(any()))
             .thenThrow(ServerException());
         //act
         final result = await repository.getFixtureComponent(tFixtureId);
         //assert
-        verify(() => mockRemoteDataSource.getFixtureLineups(tFixtureId));
+        verify(() => mockRemoteDataSource.getFixtureComponent(tFixtureId));
         //verifyZeroInteractions(mockLocalDataSource);
         expect(result, equals(Left(ServerFailure())));
       });

@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
-import 'package:live_football/features/specific_fixture/data/datasources/fixture/fixture_local_data_source.dart';
+import 'package:live_football/features/specific_fixture/data/datasources/impl/fixture/fixture_local_data_source.dart';
 import 'package:live_football/features/specific_fixture/data/models/fixture_model.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/fixture.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../fixtures/fixture_reader.dart';

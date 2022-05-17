@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/datasources/remote/api_football_client.dart';
 import 'package:live_football/core/error/exceptions.dart';
-import 'package:live_football/features/specific_fixture/data/datasources/fixture_stats/fixture_stats_remote_data_source.dart';
+import 'package:live_football/features/specific_fixture/data/datasources/impl/fixture_stats/fixture_stats_remote_data_source.dart';
 import 'package:live_football/features/specific_fixture/data/models/stats_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
@@ -60,7 +60,7 @@ void main() {
       //arrange
       setMockClientSuccess200();
       //act
-      dataSource.getFixtureStats(tFixtureId);
+      dataSource.getFixtureComponent(tFixtureId);
       //assert
       verify(
         () => mockApiFootballClient.getStats(tFixtureId),
@@ -71,7 +71,7 @@ void main() {
       //arrange
       setMockClientSuccess200();
       //act
-      final result = await dataSource.getFixtureStats(tFixtureId);
+      final result = await dataSource.getFixtureComponent(tFixtureId);
       //assert
       expect(result, equals(tStatsModelsList));
     });
@@ -82,7 +82,7 @@ void main() {
       //arrange
       setMockClientFailure404();
       //act
-      final call = dataSource.getFixtureStats(tFixtureId);
+      final call = dataSource.getFixtureComponent(tFixtureId);
       //assert
       expect(() => call, throwsA(isA<ServerException>()));
     });

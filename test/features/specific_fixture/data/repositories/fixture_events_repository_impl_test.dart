@@ -4,15 +4,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/network/network_info.dart';
-import 'package:live_football/features/specific_fixture/data/datasources/fixture_events/fixture_events_remote_data_source.dart';
+import 'package:live_football/features/specific_fixture/data/datasources/fixture_component_remote_data_source.dart';
 import 'package:live_football/features/specific_fixture/data/models/event_model.dart';
 import 'package:live_football/features/specific_fixture/data/repositories/fixture_events_repository_impl.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/event.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockFixtureEventsRemoteDataSource extends Mock
-    implements FixtureEventsRemoteDataSource {}
+class MockFixtureEventsRemoteDataSource extends Mock implements FixtureComponentRemoteDataSource<List<EventModel>> {}
 
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
@@ -37,7 +36,7 @@ void main() {
   test('check if the device is online', () {
     //arrange
     when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-    when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tEventModelsList);
+    when(() => mockFixtureEventsRemoteDataSource.getFixtureComponent(any()),).thenAnswer((_) async => tEventModelsList);
     //act
     repository.getFixtureComponent(tFixtureId);
     //assert
@@ -50,11 +49,11 @@ void main() {
         () async {
           //arrange
           when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-          when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tEventModelsList);
+          when(() => mockFixtureEventsRemoteDataSource.getFixtureComponent(any()),).thenAnswer((_) async => tEventModelsList);
           //act
           final result = await repository.getFixtureComponent(tFixtureId);
           //assert
-          verify(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(tFixtureId),);
+          verify(() => mockFixtureEventsRemoteDataSource.getFixtureComponent(tFixtureId),);
           final foldedList = result.fold((l) => null, (r) => r);
           bool isEqual = foldedList!.length == tEventsList.length;
           expect(isEqual, equals(true));
@@ -63,11 +62,11 @@ void main() {
     test('should return server failure when the call to remote data source is unsuccessful', () async {
       //arrange
           when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-          when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenThrow(ServerException());
+          when(() => mockFixtureEventsRemoteDataSource.getFixtureComponent(any()),).thenThrow(ServerException());
           //act
           final result = await repository.getFixtureComponent(tFixtureId);
           //assert
-          verify(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(tFixtureId),);
+          verify(() => mockFixtureEventsRemoteDataSource.getFixtureComponent(tFixtureId),);
           expect(result, equals(Left(ServerFailure())));
     });
   });

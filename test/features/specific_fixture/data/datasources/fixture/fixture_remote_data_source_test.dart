@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/core/datasources/remote/api_football_client.dart';
 import 'package:live_football/core/error/exceptions.dart';
-import 'package:live_football/features/specific_fixture/data/datasources/fixture/fixture_remote_data_source.dart';
+import 'package:live_football/features/specific_fixture/data/datasources/impl/fixture/fixture_remote_data_source.dart';
 import 'package:live_football/features/specific_fixture/data/models/fixture_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
