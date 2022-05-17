@@ -38,7 +38,7 @@ void main() {
     when(() => mockNetworkInfo.isConnected,).thenAnswer((_) async => true);
     when(() => mockFixtureStatsRemoteDataSource.getFixtureStats(tFixtureId),).thenAnswer((_) async => tStatsModelsList);
     //act
-    repository.getFixtureStats(tFixtureId);
+    repository.getFixtureComponent(tFixtureId);
     //assert
     verify(() => mockNetworkInfo.isConnected);
   });
@@ -49,7 +49,7 @@ void main() {
       when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       when(() => mockFixtureStatsRemoteDataSource.getFixtureStats(any()),).thenAnswer((_) async => tStatsModelsList);
       //act
-      final result = await repository.getFixtureStats(tFixtureId);
+      final result = await repository.getFixtureComponent(tFixtureId);
       //assert
       verify(() => mockFixtureStatsRemoteDataSource.getFixtureStats(tFixtureId));
       bool isEqual = listEquals(result.fold((l) => null, (r) => r), tStatsList);
@@ -61,7 +61,7 @@ void main() {
       when(() => mockNetworkInfo.isConnected,).thenAnswer((_) async => true);
       when(() => mockFixtureStatsRemoteDataSource.getFixtureStats(any()),).thenThrow(ServerException());
       //act
-      final result = await repository.getFixtureStats(tFixtureId);
+      final result = await repository.getFixtureComponent(tFixtureId);
       //assert
       verify(() => mockFixtureStatsRemoteDataSource.getFixtureStats(tFixtureId));
       expect(result, Left(ServerFailure()));

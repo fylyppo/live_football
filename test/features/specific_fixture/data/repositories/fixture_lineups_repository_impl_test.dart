@@ -49,7 +49,7 @@ void main() {
       when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       when(() => mockRemoteDataSource.getFixtureLineups(any()),).thenAnswer((_) async => tLineupModelsList);
       //act
-      repository.getFixtureLineups(tFixtureId);
+      repository.getFixtureComponent(tFixtureId);
       //assert
       verify(() => mockNetworkInfo.isConnected);
     });
@@ -66,7 +66,7 @@ void main() {
         when(() => mockRemoteDataSource.getFixtureLineups(any()))
             .thenAnswer((_) async => tLineupModelsList);
         //act
-        final result = await repository.getFixtureLineups(tFixtureId);
+        final result = await repository.getFixtureComponent(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixtureLineups(tFixtureId));
         bool isEqual = listEquals(result.fold((l) => null, (r) => r), tLineupList);
@@ -90,7 +90,7 @@ void main() {
         when(() => mockRemoteDataSource.getFixtureLineups(any()))
             .thenThrow(ServerException());
         //act
-        final result = await repository.getFixtureLineups(tFixtureId);
+        final result = await repository.getFixtureComponent(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixtureLineups(tFixtureId));
         //verifyZeroInteractions(mockLocalDataSource);

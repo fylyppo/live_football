@@ -54,7 +54,7 @@ void main() {
     when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
     when(() => mockRemoteDataSource.getFixture(any())).thenAnswer((_) async => tFixtureModel);
     //act
-    repository.getFixture(tFixtureId);
+    repository.getFixtureComponent(tFixtureId);
     //assert
     verify(() => mockNetworkInfo.isConnected);
     });
@@ -68,7 +68,7 @@ void main() {
         //arrange
         when(() => mockRemoteDataSource.getFixture(any())).thenAnswer((_) async => tFixtureModel);
         //act
-        final result = await repository.getFixture(tFixtureId);
+        final result = await repository.getFixtureComponent(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixture(tFixtureId));
         expect(result, equals(Right(tFixtureModel.toDomain())));
@@ -78,7 +78,7 @@ void main() {
         //arrange
         when(() => mockRemoteDataSource.getFixture(any())).thenAnswer((_) async => tFixtureModel);
         //act
-        await repository.getFixture(tFixtureId);
+        await repository.getFixtureComponent(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixture(tFixtureId));
         verify(() => mockLocalDataSource.cacheFixture(tFixtureModel),);
@@ -88,7 +88,7 @@ void main() {
         //arrange
         when(() => mockRemoteDataSource.getFixture(any())).thenThrow(ServerException());
         //act
-        final result = await repository.getFixture(tFixtureId);
+        final result = await repository.getFixtureComponent(tFixtureId);
         //assert
         verify(() => mockRemoteDataSource.getFixture(tFixtureId));
         verifyZeroInteractions(mockLocalDataSource);
@@ -104,7 +104,7 @@ void main() {
         //arrange
         when(() => mockLocalDataSource.getLastFixture()).thenAnswer((_) async => tFixtureModel);
         //act
-        final result = await repository.getFixture(tFixtureId);
+        final result = await repository.getFixtureComponent(tFixtureId);
         //assert
         verifyZeroInteractions(mockRemoteDataSource);
         verify(() => mockLocalDataSource.getLastFixture());
@@ -115,7 +115,7 @@ void main() {
         //arrange
         when(() => mockLocalDataSource.getLastFixture()).thenThrow(CacheException());
         //act
-        final result = await repository.getFixture(tFixtureId);
+        final result = await repository.getFixtureComponent(tFixtureId);
         //assert
         verifyZeroInteractions(mockRemoteDataSource);
         verify(() => mockLocalDataSource.getLastFixture());

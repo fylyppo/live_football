@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/core/network/network_info.dart';
@@ -41,7 +39,7 @@ void main() {
     when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
     when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tEventModelsList);
     //act
-    repository.getFixtureEvents(tFixtureId);
+    repository.getFixtureComponent(tFixtureId);
     //assert
     verify(() => mockNetworkInfo.isConnected);
   });
@@ -54,7 +52,7 @@ void main() {
           when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
           when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenAnswer((_) async => tEventModelsList);
           //act
-          final result = await repository.getFixtureEvents(tFixtureId);
+          final result = await repository.getFixtureComponent(tFixtureId);
           //assert
           verify(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(tFixtureId),);
           final foldedList = result.fold((l) => null, (r) => r);
@@ -67,7 +65,7 @@ void main() {
           when(() => mockNetworkInfo.isConnected).thenAnswer((_) async => true);
           when(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(any()),).thenThrow(ServerException());
           //act
-          final result = await repository.getFixtureEvents(tFixtureId);
+          final result = await repository.getFixtureComponent(tFixtureId);
           //assert
           verify(() => mockFixtureEventsRemoteDataSource.getFixtureEvents(tFixtureId),);
           expect(result, equals(Left(ServerFailure())));
