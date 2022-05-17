@@ -21,10 +21,7 @@ import 'features/specific_fixture/data/repositories/fixture_events_repository_im
 import 'features/specific_fixture/data/repositories/fixture_lineups_repository_impl.dart';
 import 'features/specific_fixture/data/repositories/fixture_repository_impl.dart';
 import 'features/specific_fixture/data/repositories/fixture_stats_repository_impl.dart';
-import 'features/specific_fixture/domain/repositories/fixture_events_repository.dart';
 import 'features/specific_fixture/domain/repositories/fixture_repository.dart';
-import 'features/specific_fixture/domain/repositories/fixture_stats_repository.dart';
-import 'features/specific_fixture/domain/repositories/fixtures_lineups_repository.dart';
 import 'features/specific_fixture/domain/usecases/get_fixture.dart';
 import 'features/specific_fixture/domain/usecases/get_fixture_stats.dart';
 import 'features/specific_fixture/presentation/blocs/fixture_bloc/fixture_bloc.dart';
@@ -55,9 +52,9 @@ Future<void> init() async {
 
   // Repositories
   serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureRepositoryImpl(remoteDataSource: serviceLocator(), localDataSource: serviceLocator(), networkInfo: serviceLocator()));
-  serviceLocator.registerLazySingleton<FixtureLineupsRepository>(() => FixtureLineupsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
-  serviceLocator.registerLazySingleton<FixtureEventsRepository>(() => FixtureEventsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
-   serviceLocator.registerLazySingleton<FixtureStatsRepository>(() => FixtureStatsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureLineupsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureEventsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+   serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureStatsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
 
   // Data sources
   serviceLocator.registerLazySingleton<FixtureRemoteDataSource>(() => FixtureRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));

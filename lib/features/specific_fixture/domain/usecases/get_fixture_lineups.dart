@@ -3,16 +3,16 @@ import 'package:equatable/equatable.dart';
 import 'package:live_football/core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../entities/lineup.dart';
-import '../repositories/fixtures_lineups_repository.dart';
+import '../repositories/fixture_repository.dart';
 
 class GetFixtureLineups implements UseCase<List<Lineup>, LineupsParams>{
-  final FixtureLineupsRepository repository;
+  final FixtureRepository<List<Lineup>> repository;
 
   GetFixtureLineups(this.repository);
 
   @override
   Future<Either<Failure, List<Lineup>>> call(LineupsParams params) async {
-    return await repository.getFixtureLineups(params.fixtureId);
+    return await repository.getFixtureComponent(params.fixtureId);
   }
 }
 

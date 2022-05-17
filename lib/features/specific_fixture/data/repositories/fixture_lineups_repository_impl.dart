@@ -3,10 +3,10 @@ import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
 import '../../domain/entities/lineup.dart';
-import '../../domain/repositories/fixtures_lineups_repository.dart';
+import '../../domain/repositories/fixture_repository.dart';
 import '../datasources/fixture_lineups/fixture_lineups_remote_data_source.dart';
 
-class FixtureLineupsRepositoryImpl implements FixtureLineupsRepository {
+class FixtureLineupsRepositoryImpl implements FixtureRepository {
   final FixtureLineupsRemoteDataSource remoteDataSource;
   //final FixtureLineupsLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
@@ -17,7 +17,7 @@ class FixtureLineupsRepositoryImpl implements FixtureLineupsRepository {
       required this.networkInfo});
 
   @override
-  Future<Either<Failure, List<Lineup>>> getFixtureLineups(int id) async {
+  Future<Either<Failure, List<Lineup>>> getFixtureComponent(int id) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteFixtureLineups = await remoteDataSource.getFixtureLineups(id);

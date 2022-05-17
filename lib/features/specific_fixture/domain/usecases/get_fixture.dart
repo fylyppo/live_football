@@ -6,13 +6,13 @@ import '../../../specific_fixture/domain/entities/fixture.dart';
 import '../../../specific_fixture/domain/repositories/fixture_repository.dart';
 
 class GetFixture implements UseCase<Fixture, FixtureParams>{
-  final FixtureRepository repository;
+  final FixtureRepository<Fixture> repository;
 
   GetFixture(this.repository);
 
   @override
   Future<Either<Failure, Fixture>> call(FixtureParams params) async {
-    return await repository.getFixture(params.id);
+    return await repository.getFixtureComponent(params.id);
   }
 }
 

@@ -3,10 +3,10 @@ import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/core/error/failures.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/event.dart';
 import '../../../../core/network/network_info.dart';
-import '../../domain/repositories/fixture_events_repository.dart';
+import '../../domain/repositories/fixture_repository.dart';
 import '../datasources/fixture_events/fixture_events_remote_data_source.dart';
 
-class FixtureEventsRepositoryImpl implements FixtureEventsRepository {
+class FixtureEventsRepositoryImpl implements FixtureRepository {
   final NetworkInfo networkInfo;
   final FixtureEventsRemoteDataSource remoteDataSource;
 
@@ -16,7 +16,7 @@ class FixtureEventsRepositoryImpl implements FixtureEventsRepository {
   });
 
   @override
-  Future<Either<Failure, List<Event>>> getFixtureEvents(int id) async {
+  Future<Either<Failure, List<Event>>> getFixtureComponent(int id) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteFixtureEvents = await remoteDataSource.getFixtureEvents(id);

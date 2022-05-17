@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/features/specific_fixture/data/models/event_model.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/event.dart';
-import 'package:live_football/features/specific_fixture/domain/repositories/fixture_events_repository.dart';
+import 'package:live_football/features/specific_fixture/domain/repositories/fixture_repository.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_events.dart';
 import 'package:mocktail/mocktail.dart';
