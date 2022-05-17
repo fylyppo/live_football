@@ -6,15 +6,15 @@ import 'package:live_football/features/specific_fixture/domain/repositories/fixt
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFixtureRepository extends Mock implements FixtureRepository{}
+class MockFixtureRepository extends Mock implements FixtureRepository<Fixture> {}
 
 void main() {
   late GetFixture usecase;
-  MockFixtureRepository? mockFixtureRepository;
+  late MockFixtureRepository mockFixtureRepository;
 
   setUp(() {
     mockFixtureRepository = MockFixtureRepository();
-    usecase = GetFixture(mockFixtureRepository!);
+    usecase = GetFixture(mockFixtureRepository);
   });
 
   const tFixtureId = 1;
@@ -34,12 +34,12 @@ void main() {
   test('should get live matches from the repository', () async {
     
     //arrange
-    when(() => mockFixtureRepository!.getFixture(any())).thenAnswer((_) async => Right(tFixture));
+    when(() => mockFixtureRepository.getFixtureComponent(any())).thenAnswer((_) async => Right(tFixture));
     //act
     final result = await usecase(const FixtureParams(id: tFixtureId));
     //assert
     expect(result, Right(tFixture));
-    verify(() => mockFixtureRepository!.getFixture(tFixtureId));
+    verify(() => mockFixtureRepository.getFixtureComponent(tFixtureId));
     verifyNoMoreInteractions(mockFixtureRepository);
   });
 }

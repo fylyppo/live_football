@@ -9,12 +9,12 @@ import 'package:live_football/features/specific_fixture/domain/usecases/get_fixt
 import 'package:mocktail/mocktail.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockFixtureEventsRepository extends Mock implements FixtureEventsRepository {}
+class MockFixtureEventsRepository extends Mock implements FixtureRepository<List<Event>> {}
 
 void main() {
-  late FixtureEventsRepository mockFixtureEventsRepository;
   late GetFixtureEvents usecase;
-
+  late MockFixtureEventsRepository mockFixtureEventsRepository;
+  
   setUp(() {
     mockFixtureEventsRepository = MockFixtureEventsRepository();
     usecase = GetFixtureEvents(mockFixtureEventsRepository);
@@ -27,12 +27,12 @@ void main() {
   final List<Event> tEventsList = tEventModelsList.map((e) => e.toDomainWithIcon(),).toList();
   test('should get fixture events from the repository', () async {
     //arrange
-    when(() => mockFixtureEventsRepository.getFixtureEvents(any())).thenAnswer((_) async => Right(tEventsList));
+    when(() => mockFixtureEventsRepository.getFixtureComponent(any())).thenAnswer((_) async => Right(tEventsList));
     //act
     final result = await usecase(const FixtureParams(id: tFixtureId));
     //assert
     expect(result, Right(tEventsList));
-    verify(() => mockFixtureEventsRepository.getFixtureEvents(tFixtureId));
+    verify(() => mockFixtureEventsRepository.getFixtureComponent(tFixtureId));
     verifyNoMoreInteractions(mockFixtureEventsRepository);
   });
 }

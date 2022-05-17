@@ -7,7 +7,7 @@ import '../../domain/repositories/fixture_repository.dart';
 import '../datasources/fixture/fixture_local_data_source.dart';
 import '../datasources/fixture/fixture_remote_data_source.dart';
 
-class FixtureRepositoryImpl implements FixtureRepository {
+class FixtureRepositoryImpl implements FixtureRepository<Fixture> {
   final FixtureRemoteDataSource remoteDataSource;
   final FixtureLocalDataSource localDataSource;
   final NetworkInfo networkInfo;

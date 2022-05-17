@@ -1,18 +1,14 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:live_football/features/specific_fixture/data/models/lineup_model.dart';
 import 'package:live_football/features/specific_fixture/domain/entities/lineup.dart';
-import 'package:live_football/features/specific_fixture/domain/entities/team.dart';
-import 'package:live_football/features/specific_fixture/domain/repositories/fixtures_lineups_repository.dart';
+import 'package:live_football/features/specific_fixture/domain/repositories/fixture_repository.dart';
 import 'package:live_football/features/specific_fixture/domain/usecases/get_fixture_lineups.dart';
 import 'package:mocktail/mocktail.dart';
-
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockFixtureLineupsRepository extends Mock
-    implements FixtureLineupsRepository {}
+class MockFixtureLineupsRepository extends Mock implements FixtureRepository<List<Lineup>> {}
 
 void main() {
   late GetFixtureLineups usecase;
@@ -38,13 +34,13 @@ void main() {
       .toList();
   test('should get live matches from the repository', () async {
     //arrange
-    when(() => mockFixtureLineupsRepository.getFixtureLineups(any()))
+    when(() => mockFixtureLineupsRepository.getFixtureComponent(any()))
         .thenAnswer((_) async => Right(tLineupList));
     //act
     final result = await usecase(const LineupsParams(fixtureId: tFixtureId));
     //assert
     expect(result, Right(tLineupList));
-    verify(() => mockFixtureLineupsRepository.getFixtureLineups(tFixtureId));
+    verify(() => mockFixtureLineupsRepository.getFixtureComponent(tFixtureId));
     verifyNoMoreInteractions(mockFixtureLineupsRepository);
   });
 }
