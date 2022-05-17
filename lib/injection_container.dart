@@ -12,11 +12,12 @@ import 'features/fixtures/data/datasources/fixtures/fixtures_remote_data_source.
 import 'features/fixtures/data/repositories/fixtures_repository_impl.dart';
 import 'features/fixtures/domain/repositories/fixtures_repository.dart';
 import 'features/fixtures/presentation/blocs/bloc/fixtures_bloc.dart';
-import 'features/specific_fixture/data/datasources/fixture/fixture_local_data_source.dart';
-import 'features/specific_fixture/data/datasources/fixture/fixture_remote_data_source.dart';
-import 'features/specific_fixture/data/datasources/fixture_events/fixture_events_remote_data_source.dart';
-import 'features/specific_fixture/data/datasources/fixture_lineups/fixture_lineups_remote_data_source.dart';
-import 'features/specific_fixture/data/datasources/fixture_stats/fixture_stats_remote_data_source.dart';
+import 'features/specific_fixture/data/datasources/fixture_component_remote_data_source.dart';
+import 'features/specific_fixture/data/datasources/impl/fixture/fixture_local_data_source.dart';
+import 'features/specific_fixture/data/datasources/impl/fixture/fixture_remote_data_source.dart';
+import 'features/specific_fixture/data/datasources/impl/fixture_events/fixture_events_remote_data_source.dart';
+import 'features/specific_fixture/data/datasources/impl/fixture_lineups/fixture_lineups_remote_data_source.dart';
+import 'features/specific_fixture/data/datasources/impl/fixture_stats/fixture_stats_remote_data_source.dart';
 import 'features/specific_fixture/data/repositories/fixture_events_repository_impl.dart';
 import 'features/specific_fixture/data/repositories/fixture_lineups_repository_impl.dart';
 import 'features/specific_fixture/data/repositories/fixture_repository_impl.dart';
@@ -60,12 +61,12 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton<FixtureRemoteDataSource>(() => FixtureRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
   serviceLocator.registerLazySingleton<FixtureLocalDataSource>(() => FixtureLocalDataSourceImpl(sharedPrefs: serviceLocator()));
 
-  serviceLocator.registerLazySingleton<FixtureLineupsRemoteDataSource>(() => FixtureLineupsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureComponentRemoteDataSource>(() => FixtureLineupsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
   //serviceLocator.registerLazySingleton<FixtureLineupsLocalDataSource>(() => FixtureLineupsLocalDataSourceImpl(sharedPrefs: serviceLocator()));
   
-  serviceLocator.registerLazySingleton<FixtureEventsRemoteDataSource>(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureComponentRemoteDataSource>(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
 
-  serviceLocator.registerLazySingleton<FixtureStatsRemoteDataSource>(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
+  serviceLocator.registerLazySingleton<FixtureComponentRemoteDataSource>(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
 
   
   // Feature - Fixtures

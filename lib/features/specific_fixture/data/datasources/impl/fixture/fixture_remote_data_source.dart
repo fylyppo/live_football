@@ -1,7 +1,7 @@
 import 'package:live_football/core/error/exceptions.dart';
-import '../../../../../core/datasources/remote/api_football_client.dart';
-import '../../models/fixture_model.dart';
 import 'package:dio/dio.dart';
+import '../../../../../../core/datasources/remote/api_football_client.dart';
+import '../../../models/fixture_model.dart';
 
 abstract class FixtureRemoteDataSource {
   Future<FixtureModel> getFixture(int id);

@@ -1,13 +1,10 @@
 import 'package:dio/dio.dart';
-import '../../../../../core/datasources/remote/api_football_client.dart';
-import '../../../../../core/error/exceptions.dart';
-import '../../models/event_model.dart';
+import '../../../../../../core/datasources/remote/api_football_client.dart';
+import '../../../../../../core/error/exceptions.dart';
+import '../../../models/event_model.dart';
+import '../../fixture_component_remote_data_source.dart';
 
-abstract class FixtureEventsRemoteDataSource {
-  Future<List<EventModel>> getFixtureEvents(int fixtureId);
-}
-
-class FixtureEventsRemoteDataSourceImpl implements FixtureEventsRemoteDataSource {
+class FixtureEventsRemoteDataSourceImpl implements FixtureComponentRemoteDataSource<List<EventModel>> {
   final Dio dio;
   final ApiFootballClient client;
 
@@ -17,7 +14,7 @@ class FixtureEventsRemoteDataSourceImpl implements FixtureEventsRemoteDataSource
   });
 
   @override
-  Future<List<EventModel>> getFixtureEvents(int id) async {
+  Future<List<EventModel>> getFixtureComponent(int id) async {
     final httpResponse = await client.getEvents(id);
     if(httpResponse.response.statusCode == 200){
       List<dynamic> body = httpResponse.response.data['response'];

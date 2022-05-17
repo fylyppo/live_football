@@ -1,14 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:live_football/core/error/exceptions.dart';
 import 'package:live_football/features/specific_fixture/data/models/stats_model.dart';
+import '../../../../../../core/datasources/remote/api_football_client.dart';
+import '../../fixture_component_remote_data_source.dart';
 
-import '../../../../../core/datasources/remote/api_football_client.dart';
-
-abstract class FixtureStatsRemoteDataSource {
-  Future<List<StatsModel>> getFixtureStats(int id);
-}
-
-class FixtureStatsRemoteDataSourceImpl implements FixtureStatsRemoteDataSource {
+class FixtureStatsRemoteDataSourceImpl implements FixtureComponentRemoteDataSource<List<StatsModel>> {
   final Dio dio;
   final ApiFootballClient client;
 
@@ -18,7 +14,7 @@ class FixtureStatsRemoteDataSourceImpl implements FixtureStatsRemoteDataSource {
   });
   
   @override
-  Future<List<StatsModel>> getFixtureStats(int id) async {
+  Future<List<StatsModel>> getFixtureComponent(int id) async {
     final httpResponse = await client.getStats(id);
     if(httpResponse.response.statusCode == 200){
       List<dynamic> body = httpResponse.response.data['response'];
