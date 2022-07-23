@@ -36,7 +36,7 @@ class FixturesPage extends StatelessWidget implements AutoRouteWrapper {
       ),
       body: ListView(
         children: [
-          CalendarWidget(league: id, season: 2021,),
+          CalendarWidget(league: id),
           BlocBuilder<FixturesBloc, FixturesState>(
             builder: (context, state) {
               return state.when(

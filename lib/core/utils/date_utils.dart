@@ -1,7 +1,5 @@
 library utils;
 
-import 'package:intl/intl.dart';
-
 class DateUtils {
   static const List<String> weekdays = [
     'Mon',
@@ -29,29 +27,16 @@ class DateUtils {
   ];
 
   static List<DateTime> monthsList(DateTime currentDateTime) {
-    DateTime firstMonth;
-    if (currentDateTime.month < 7) {
-      firstMonth = DateTime(currentDateTime.year - 1, 7);
-    } else {
-      firstMonth = DateTime(currentDateTime.year, 7);
-    }
-    List<DateTime> monthsList = List<DateTime>.generate(12, (index) {
-      if (index + firstMonth.month > 12) {
-        return DateTime(
-            firstMonth.year + 1, -(12 - (index + firstMonth.month)));
-      } else {
-        return DateTime(firstMonth.year, firstMonth.month + index);
-      }
+    List<DateTime> threeMonths;
+    threeMonths = List<DateTime>.generate(3, (index) {
+      return DateTime(currentDateTime.year, currentDateTime.month - 1 + index);
     });
-    return monthsList;
+    return threeMonths;
   }
 
   static List<DateTime> daysInMonth(DateTime month) {
     var first = firstDayOfMonth(month);
-    var daysBefore = first.weekday;
-    var firstToDisplay = first.subtract(Duration(days: daysBefore));
     var last = lastDayOfMonth(month);
-
     var daysAfter = 7 - last.weekday;
 
     if (daysAfter == 0) {
@@ -75,5 +60,15 @@ class DateUtils {
     var listOfDates = List<DateTime>.generate(
         last.day, (i) => DateTime(first.year, first.month, i + 1));
     return listOfDates;
+  }
+
+  static int seasonYear(DateTime day) {
+    int season;
+    if (day.month > 6) {
+      season = day.year;
+    } else {
+      season = day.year - 1;
+    }
+    return season;
   }
 }

@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:live_football/core/utils/date_utils.dart' as date_utils;
-
 import '../blocs/bloc/fixtures_bloc.dart';
 
 class CalendarWidget extends StatefulWidget {
   final int league;
-  final int season;
 
   const CalendarWidget({
     Key? key,
     required this.league,
-    required this.season,
   }) : super(key: key);
 
   @override
@@ -25,30 +21,18 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   late ScrollController _listViewController;
 
   DateTime currentDateTime = DateTime.now();
-  late int currentDay = currentDateTime.day;
-  late int currentMonth = currentDateTime.month;
-  late int currentYear = currentDateTime.year;
-  late int initialPage = currentMonth;
-
-  late DateTime showingDateTime = currentDateTime;
+  late DateTime showingMonth = currentDateTime;
+  late DateTime chosenDay = currentDateTime;
+  late List<DateTime> monthsList;
 
   @override
   void initState() {
-    int initialPage;
-    if (currentMonth >= 7) {
-      initialPage = currentMonth - 7;
-    } else {
-      initialPage = 5 + currentMonth;
-    }
-
-    _pageViewController = PageController(initialPage: initialPage);
+    _pageViewController = PageController(initialPage: 1);
     monthsList = date_utils.DateUtils.monthsList(currentDateTime);
-    _listViewController =
-        ScrollController(initialScrollOffset: currentDay * 68.8);
+    _listViewController = ScrollController(
+        initialScrollOffset: currentDateTime.day * _dayOffset - _dayOffset);
     super.initState();
   }
-
-  late List<DateTime> monthsList;
 
   @override
   Widget build(BuildContext context) {
@@ -62,28 +46,25 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             children: [
               PageView.builder(
                   controller: _pageViewController,
-                  itemCount: 12,
+                  itemCount: 3,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     DateTime month = monthsList[index];
                     return _page(month);
                   }),
               IconButton(
-                  onPressed: () {
-                    if (_pageViewController.page == 0) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                            'The beginning of the season',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          backgroundColor: Colors.black,
-                          duration: Duration(
-                            seconds: 1,
-                          )));
-                    } else {
-                      _pageViewController.previousPage(
-                          duration: const Duration(milliseconds: 200),
-                          curve: Curves.bounceIn);
-                    }
+                  onPressed: () async {
+                    await _pageViewController.previousPage(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.bounceIn);
+                    setState(() {
+                      showingMonth =
+                          DateTime(showingMonth.year, showingMonth.month - 1);
+                      monthsList =
+                          date_utils.DateUtils.monthsList(showingMonth);
+                    });
+                    _pageViewController
+                        .jumpToPage(_pageViewController.page!.toInt() + 1);
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios,
@@ -92,23 +73,18 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               Align(
                 alignment: Alignment.topRight,
                 child: IconButton(
-                    onPressed: () {
-                      if (_pageViewController.page == 11) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                                content: Text(
-                                  'The end of the season',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                backgroundColor: Colors.black,
-                                duration: Duration(
-                                  seconds: 1,
-                                )));
-                      } else {
-                        _pageViewController.nextPage(
-                            duration: const Duration(milliseconds: 200),
-                            curve: Curves.bounceIn);
-                      }
+                    onPressed: () async {
+                      await _pageViewController.nextPage(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.bounceIn);
+                      setState(() {
+                        showingMonth =
+                            DateTime(showingMonth.year, showingMonth.month + 1);
+                        monthsList =
+                            date_utils.DateUtils.monthsList(showingMonth);
+                      });
+                      _pageViewController
+                          .jumpToPage(_pageViewController.page!.toInt() - 1);
                     },
                     icon: const Icon(
                       Icons.arrow_forward_ios,
@@ -122,9 +98,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   Widget _page(DateTime month) {
     List<DateTime> daysOfMonth = date_utils.DateUtils.daysInMonth(month);
-    daysOfMonth.sort((a, b) => a.day.compareTo(b.day));
-    daysOfMonth = daysOfMonth.toSet().toList();
-
     return Column(
       children: [
         const SizedBox(
@@ -155,33 +128,37 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     );
   }
 
+  final double _dayWidth = 60;
+  final double _dayPadding = 8;
+  late final double _dayOffset = _dayWidth + 2 * _dayPadding;
+
   Widget _day(DateTime day) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(_dayPadding),
       child: InkWell(
         onTap: () {
-          if (!(day.day == showingDateTime.day &&
-              day.month == showingDateTime.month &&
-              day.year == showingDateTime.year)) {
+          if (!(day.day == showingMonth.day &&
+              day.month == showingMonth.month &&
+              day.year == showingMonth.year)) {
             setState(() {
-              showingDateTime = day;
+              chosenDay = day;
               context
                   .read<FixturesBloc>()
                   .add(FixturesEvent.getFixturesForParameters(
                     league: widget.league,
-                    season: widget.season,
-                    date: DateFormat('yyyy-MM-dd').format(showingDateTime),
+                    season: date_utils.DateUtils.seasonYear(chosenDay),
+                    date: DateFormat('yyyy-MM-dd').format(chosenDay),
                   ));
             });
           }
         },
         child: Container(
           height: 40,
-          width: 60,
+          width: _dayWidth,
           decoration: BoxDecoration(
-              color: day.day == showingDateTime.day &&
-                      day.month == showingDateTime.month &&
-                      day.year == showingDateTime.year
+              color: day.day == chosenDay.day &&
+                      day.month == chosenDay.month &&
+                      day.year == chosenDay.year
                   ? Colors.green
                   : Colors.grey,
               borderRadius: BorderRadius.circular(12)),
