@@ -52,21 +52,23 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton(() => GetFixtureStats(serviceLocator()));
 
   // Repositories
-  serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureRepositoryImpl(remoteDataSource: serviceLocator(), localDataSource: serviceLocator(), networkInfo: serviceLocator()));
-  serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureLineupsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
-  serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureEventsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
-   serviceLocator.registerLazySingleton<FixtureRepository>(() => FixtureStatsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => FixtureRepositoryImpl(remoteDataSource: serviceLocator(), localDataSource: serviceLocator(), networkInfo: serviceLocator()));
+
+
+  serviceLocator.registerLazySingleton(() => FixtureLineupsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => FixtureEventsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => FixtureStatsRepositoryImpl(remoteDataSource: serviceLocator(), networkInfo: serviceLocator()));
 
   // Data sources
   serviceLocator.registerLazySingleton<FixtureRemoteDataSource>(() => FixtureRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
   serviceLocator.registerLazySingleton<FixtureLocalDataSource>(() => FixtureLocalDataSourceImpl(sharedPrefs: serviceLocator()));
 
-  serviceLocator.registerLazySingleton<FixtureComponentRemoteDataSource>(() => FixtureLineupsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => FixtureLineupsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
   //serviceLocator.registerLazySingleton<FixtureLineupsLocalDataSource>(() => FixtureLineupsLocalDataSourceImpl(sharedPrefs: serviceLocator()));
   
-  serviceLocator.registerLazySingleton<FixtureComponentRemoteDataSource>(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => FixtureEventsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
 
-  serviceLocator.registerLazySingleton<FixtureComponentRemoteDataSource>(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => FixtureStatsRemoteDataSourceImpl(client: serviceLocator(), dio: serviceLocator()));
 
   
   // Feature - Fixtures
