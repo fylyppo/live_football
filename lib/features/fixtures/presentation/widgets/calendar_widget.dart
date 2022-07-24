@@ -22,6 +22,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   DateTime currentDateTime = DateTime.now();
   late DateTime showingMonth = currentDateTime;
+  late DateTime nextMonth =
+      DateTime(currentDateTime.year, currentDateTime.month + 1);
+  late DateTime previousMonth =
+      DateTime(currentDateTime.year, currentDateTime.month - 1);
   late DateTime chosenDay = currentDateTime;
   late List<DateTime> monthsList;
 
@@ -46,7 +50,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             children: [
               PageView.builder(
                   controller: _pageViewController,
-                  itemCount: 3,
+                  itemCount: monthsList.length,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     DateTime month = monthsList[index];
@@ -54,17 +58,18 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   }),
               IconButton(
                   onPressed: () async {
+                    if (_pageViewController.page!.toInt() == 0) {
+                      setState(() {
+                        previousMonth = DateTime(
+                            previousMonth.year, previousMonth.month - 1);
+                        monthsList.insert(0, previousMonth);
+                        _pageViewController
+                            .jumpToPage(_pageViewController.page!.toInt() + 1);
+                      });
+                    }
                     await _pageViewController.previousPage(
                         duration: const Duration(milliseconds: 200),
                         curve: Curves.bounceIn);
-                    setState(() {
-                      showingMonth =
-                          DateTime(showingMonth.year, showingMonth.month - 1);
-                      monthsList =
-                          date_utils.DateUtils.monthsList(showingMonth);
-                    });
-                    _pageViewController
-                        .jumpToPage(_pageViewController.page!.toInt() + 1);
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios,
@@ -77,14 +82,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       await _pageViewController.nextPage(
                           duration: const Duration(milliseconds: 200),
                           curve: Curves.bounceIn);
-                      setState(() {
-                        showingMonth =
-                            DateTime(showingMonth.year, showingMonth.month + 1);
-                        monthsList =
-                            date_utils.DateUtils.monthsList(showingMonth);
-                      });
-                      _pageViewController
-                          .jumpToPage(_pageViewController.page!.toInt() - 1);
+                      if (_pageViewController.page!.toInt() ==
+                          monthsList.length - 1) {
+                        setState(() {
+                          nextMonth =
+                              DateTime(nextMonth.year, nextMonth.month + 1);
+                          monthsList.add(nextMonth);
+                        });
+                      }
                     },
                     icon: const Icon(
                       Icons.arrow_forward_ios,
